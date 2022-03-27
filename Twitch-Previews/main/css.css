@@ -1521,7 +1521,7 @@
 }
 
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-bottom {
-    bottom: -90%;
+    top: 5rem;
 }
 .tp-tooltip-container .tp-tooltip.tp-tooltip-pos-bottom::after {
     bottom: 100%;
@@ -1558,4 +1558,44 @@
 
 .tp-drag-and-drop-target-overlay-sidebar-expanded {
     width: calc(100% - 24rem - 2px);
+}
+
+#tp_updateToast_discord_btn {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px 0;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.3);
+}
+#tp_updateToast_discord_btn:hover {
+    background: rgba(255,255,255,0.5);
+}
+#tp_updateToast_discord_btn:active {
+    background: rgba(255,255,255,0.3);
+}
+
+#tp_settings_menu_btn {
+    display: inline-flex;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#tp_settings_menu_btn:hover {
+    background-color: #ffffff33;
+}
+#tp_settings_menu_btn:active {
+    background-color: rgb(38, 38, 38);
 }
