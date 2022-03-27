@@ -2116,15 +2116,18 @@
 
     function extractTotalsFromString(str) {
         let num = '';
-
+				let fractional = false;
         let m = 1;
 
         for(let j = 0; j < str.length; j++) {
             if (!isNaN(str[j])) {
                 num += str[j];
+                if(fractional){
+                    m /= 10;
+                }
             }
             else if(str[j] == '.') {
-                m /= 10;
+                fractional = true;
             }
             else if(str[j] == 'K') {
                 m *= 1000;
@@ -2133,7 +2136,7 @@
                 m *= 1000000;
             }
         }
-        
+
         return parseInt(num) * m;
 
     }
