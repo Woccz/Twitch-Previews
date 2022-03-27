@@ -2116,23 +2116,29 @@
 
     function extractNumberValueFromString(str) {
         let num = '';
-				let fractional = false;
+        let fractional = false;
         let m = 1;
 
         for(let j = 0; j < str.length; j++) {
-            if (!isNaN(str[j])) {
+
+            let c = str[j];
+
+            if (c == ' ');
+                // ' ' is identified as a number, so skip
+
+            else if (!isNaN(c)) {
                 num += str[j];
                 if(fractional){
                     m /= 10;
                 }
             }
-            else if(str[j] == '.') {
+            else if(c == '.') {
                 fractional = true;
             }
-            else if(str[j] == 'K') {
+            else if(c == 'K') {
                 m *= 1000;
             }
-            else if(str[j] == 'M') {
+            else if(c == 'M') {
                 m *= 1000000;
             }
         }
@@ -2354,12 +2360,12 @@
                                                     let stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
 
                                                     // Left Side
-                                                    let left_vote_count = extractNumberValueFromString(stat_fields[2].children[1].innerText);
                                                     let left_vote_total = extractNumberValueFromString(stat_fields[0].children[1].innerText);
+                                                    let left_vote_count = extractNumberValueFromString(stat_fields[2].children[1].innerText);
 
                                                     // Right Side
-                                                    let right_vote_count = extractNumberValueFromString(stat_fields[6].children[1].innerText);
                                                     let right_vote_total = extractNumberValueFromString(stat_fields[4].children[1].innerText);
+                                                    let right_vote_count = extractNumberValueFromString(stat_fields[6].children[1].innerText);
 
                                                     let lvc_rvt = left_vote_count * right_vote_total;
 
