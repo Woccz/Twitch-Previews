@@ -2114,28 +2114,6 @@
 
     }
 
-    function extractVotersNumberFromString(str) {
-        let numOfStrChars = 0;
-        let num = '';
-        let isContainingStringChar = false;
-        for(let i = 0; i < str.length; i++) {
-            if (isNaN(str[i])) {
-                numOfStrChars++;
-                isContainingStringChar = true;
-            }
-        }
-        if (isContainingStringChar) {
-            for(let j = 0; j < str.length; j++) {
-                if (!isNaN(str[j])) {
-                    num += str[j];
-                }
-            }
-            return numOfStrChars > 1 ? num * 100 : num * 1000;
-        } else {
-            return parseInt(str);
-        }
-    }
-
     function extractTotalsFromString(str) {
         let num = '';
 
@@ -2373,11 +2351,11 @@
                                                     let stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
 
                                                     // Left Side
-                                                    let left_vote_count = extractVotersNumberFromString(stat_fields[2].children[1].innerText);
+                                                    let left_vote_count = extractTotalsFromString(stat_fields[2].children[1].innerText);
                                                     let left_vote_total = extractTotalsFromString(stat_fields[0].children[1].innerText);
 
                                                     // Right Side
-                                                    let right_vote_count = extractVotersNumberFromString(stat_fields[6].children[1].innerText);
+                                                    let right_vote_count = extractTotalsFromString(stat_fields[6].children[1].innerText);
                                                     let right_vote_total = extractTotalsFromString(stat_fields[4].children[1].innerText);
 
                                                     let lvc_rvt = left_vote_count * right_vote_total;
