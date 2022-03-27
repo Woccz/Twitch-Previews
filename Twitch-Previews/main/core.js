@@ -2132,7 +2132,7 @@
                     m /= 10;
                 }
             }
-            else if(c == '.') {
+            else if(!fractional && c == '.') {
                 fractional = true;
             }
             else if(c == 'K') {
@@ -2140,6 +2140,9 @@
             }
             else if(c == 'M') {
                 m *= 1000000;
+            }
+            else if(c == 'B') {
+                m *= 1000000000;
             }
         }
 
@@ -2355,25 +2358,46 @@
                                                     }
                                                     predict_with_custom_points_btn.click();
 
+                                                    // --------------------- Choose Prediction Option ---------------------
+
                                                     // get votes
                                                     // twitch has a bug with switched classnames in the options elements, get numbers by render order.
                                                     let stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
 
                                                     // Left Side
-                                                    let left_vote_total = extractNumberValueFromString(stat_fields[0].children[1].innerText);
-                                                    let left_vote_count = extractNumberValueFromString(stat_fields[2].children[1].innerText);
+                                                    let leftTotal = extractNumberValueFromString(stat_fields[0].children[1].innerText);
+                                                    let leftVotes = extractNumberValueFromString(stat_fields[2].children[1].innerText);
 
                                                     // Right Side
-                                                    let right_vote_total = extractNumberValueFromString(stat_fields[4].children[1].innerText);
-                                                    let right_vote_count = extractNumberValueFromString(stat_fields[6].children[1].innerText);
+                                                    let rightTotal = extractNumberValueFromString(stat_fields[4].children[1].innerText);
+                                                    let rightVotes = extractNumberValueFromString(stat_fields[6].children[1].innerText);
 
-                                                    let lvc_rvt = left_vote_count * right_vote_total;
+                                                    let lTrV = leftTotal * rightVotes;
+                                                    let rTlV = rightTotal * leftVotes;
+
+                                                    let balance = (lTrV/(lTrV + rTlV));
 
                                                     //let selectedOption = left_vote_count > right_vote_count ? 0 : 1;
-                                                    let selectedOption = (lvc_rvt/(lvc_rvt + right_vote_count * left_vote_total)) <= 0.5 ? 0 : 1;
+                                                    let selectedOption = lTrV < rTlV ? 1 : 0;
+
+                                                    // --------------------- END Choose Prediction Option ---------------------
+                                                    // --------------------- Choose Prediction Ammount ---------------------
 
                                                     // input number to predict with % of total points
-                                                    let prediction_bet_amount = Math.floor((curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
+                                                    let prediction_bet_amount = Math.floor((Math.abs(balance - 0.5) * 2 * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
+
+                                                    console.log("INFO: Left:") 
+                                                    console.log(leftTotal) 
+                                                    console.log(leftVotes)
+                                                    console.log("INFO: Right:") 
+                                                    console.log(rightTotal) 
+                                                    console.log(rightVotes)
+
+                                                    console.log("INFO: Balance: " + balance)
+                                                    console.log("INFO: Chose: " + selectedOption)
+                                                    console.log("INFO: Bet Amount: " + prediction_bet_amount)
+
+                                                    // --------------------- END Choose Prediction Ammount ---------------------
 
                                                     if (prediction_bet_amount === 0) {
                                                         prediction_bet_amount = 1;
@@ -2384,8 +2408,8 @@
 
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
-                                                        "\nleft: " + left_vote_count +
-                                                        "\nright: " + right_vote_count +
+                                                        "\nleft: " + leftVotes +
+                                                        "\nright: " + rightVotes +
                                                         "\nselected_option: " + (selectedOption ? "right" : "left") +
                                                         "\nbet_amount: " + prediction_bet_amount + " points" +
                                                         "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText +
