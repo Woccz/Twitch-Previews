@@ -2114,10 +2114,6 @@
 
     }
 
-    function getVotePercentageMargin(a, b) {
-        return (b / (a + b) * 100) - (a / (a + b) * 100);
-    }
-
     function extractVotersNumberFromString(str) {
         let numOfStrChars = 0;
         let num = '';
@@ -2138,6 +2134,30 @@
         } else {
             return parseInt(str);
         }
+    }
+
+    function extractTotalsFromString(str) {
+        let num = '';
+
+        let m = 1;
+
+        for(let j = 0; j < str.length; j++) {
+            if (!isNaN(str[j])) {
+                num += str[j];
+            }
+            else if(str[j] == '.') {
+                m /= 10;
+            }
+            else if(str[j] == 'K') {
+                m *= 1000;
+            }
+            else if(str[j] == 'M') {
+                m *= 1000000;
+            }
+        }
+        
+        return parseInt(num) * m;
+
     }
 
     function sendPredictionCompletionEvent() {
@@ -2351,23 +2371,19 @@
                                                     // get votes
                                                     // twitch has a bug with switched classnames in the options elements, get numbers by render order.
                                                     let stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
+
+                                                    // Left Side
                                                     let left_vote_count = extractVotersNumberFromString(stat_fields[2].children[1].innerText);
+                                                    let left_vote_total = extractTotalsFromString(stat_fields[0].children[1].innerText);
+
+                                                    // Right Side
                                                     let right_vote_count = extractVotersNumberFromString(stat_fields[6].children[1].innerText);
+                                                    let right_vote_total = extractTotalsFromString(stat_fields[4].children[1].innerText);
 
-                                                    // vote margin
-                                                    let vote_margin_percent = getVotePercentageMargin(left_vote_count, right_vote_count);
-                                                    if (vote_margin_percent < 0) {
-                                                        vote_margin_percent *= -1;
-                                                    }
-                                                    if (vote_margin_percent < curr_stream_aps_settings.aps_min_vote_margin_percent) {
-                                                        console.log(new Date().toLocaleString() + "\nAPS:\nvote_margin_percent too low: " + vote_margin_percent + "%\nmin_vote_margin_percent: " + curr_stream_aps_settings.aps_min_vote_margin_percent + "%");
-                                                        APS_didnt_vote_reason_margin_percent = vote_margin_percent.toFixed(2) + "%";
-                                                        closePopoutMenu();
-                                                        clearPredictionStatus();
-                                                        return;
-                                                    }
+                                                    let lvc_rvt = left_vote_count * right_vote_total;
 
-                                                    let selectedOption = left_vote_count > right_vote_count ? 0 : 1;
+                                                    //let selectedOption = left_vote_count > right_vote_count ? 0 : 1;
+                                                    let selectedOption = (lvc_rvt/(lvc_rvt + right_vote_count * left_vote_total)) <= 0.5 ? 0 : 1;
 
                                                     // input number to predict with % of total points
                                                     let prediction_bet_amount = Math.floor((curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
