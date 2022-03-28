@@ -5,7 +5,7 @@
         "aps_max_points": 250000,
         "aps_min_vote_margin_percent": 0,
         "aps_percent": 100,
-        "aps_secondsBefore": 2,
+        "aps_secondsBefore": 1,
         "isAdvancedVideoEmbedsEnabled": false,
         "isCastEnabled": false,
         "isChannelPointsClickerEnabled": false,
