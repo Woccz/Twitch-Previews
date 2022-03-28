@@ -91,7 +91,8 @@ def build(browser):
     elif browser == 'edge':
         replace_strings_for_edge()
 
-    output_filename = 'TwitchPreviewsV' + get_version() + '-' + browser
+    #output_filename = 'TwitchPreviewsV' + get_version() + '-' + browser
+    output_filename = 'TwitchPreviewsCurrent-' + browser
     shutil.make_archive(output_filename, 'zip', 'temp')
     shutil.rmtree('temp')
 
