@@ -2386,17 +2386,6 @@
                                                     // input number to predict with % of total points
                                                     let prediction_bet_amount = Math.floor((Math.abs(balance - 0.5) * 2 * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
 
-                                                    console.log("INFO: Left:") 
-                                                    console.log(leftTotal) 
-                                                    console.log(leftVotes)
-                                                    console.log("INFO: Right:") 
-                                                    console.log(rightTotal) 
-                                                    console.log(rightVotes)
-
-                                                    console.log("INFO: Balance: " + balance)
-                                                    console.log("INFO: Chose: " + selectedOption)
-                                                    console.log("INFO: Bet Amount: " + prediction_bet_amount)
-
                                                     // --------------------- END Choose Prediction Ammount ---------------------
 
                                                     if (prediction_bet_amount === 0) {
@@ -2406,15 +2395,18 @@
                                                         prediction_bet_amount = curr_stream_aps_settings.aps_max_points;
                                                     }
 
+                                                    // --------------------- Console Log Prediction --------------------
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
-                                                        "\nleft: " + leftVotes +
-                                                        "\nright: " + rightVotes +
+                                                        "\nleft:\n" + leftTotal +'\n'+ leftVotes
+                                                        "\nright:\n" + rightTotal +'\n'+ rightVotes +
+                                                        "\nbalance: " + balance +
                                                         "\nselected_option: " + (selectedOption ? "right" : "left") +
                                                         "\nbet_amount: " + prediction_bet_amount + " points" +
-                                                        "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText +
-                                                        "\nvote_margin_percent: " + vote_margin_percent + "%"
+                                                        "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
                                                     );
+                                                    
+                                                    // --------------------- END Console Log Prediction --------------------
 
                                                     if (isFirefox) {
                                                         window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
