@@ -2398,7 +2398,7 @@
                                                     // --------------------- Console Log Prediction --------------------
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
-                                                        "\nleft:\n" + leftTotal +'\n'+ leftVotes
+                                                        "\nleft:\n" + leftTotal +'\n'+ leftVotes +
                                                         "\nright:\n" + rightTotal +'\n'+ rightVotes +
                                                         "\nbalance: " + balance +
                                                         "\nselected_option: " + (selectedOption ? "right" : "left") +
