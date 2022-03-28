@@ -2372,6 +2372,13 @@
                                                     let rightTotal = extractNumberValueFromString(stat_fields[4].children[1].innerText);
                                                     let rightVotes = extractNumberValueFromString(stat_fields[6].children[1].innerText);
 
+                                                    if(leftVotes == 0 || rightVotes == 0) {
+                                                        console.log(new Date().toLocaleString() + "\nAPS: no votes for " (leftVotes < rightVotes) ? "Left" : "Right");
+                                                        closePopoutMenu();
+                                                        clearPredictionStatus();
+                                                        return;
+                                                    }
+
                                                     let lTrV = leftTotal * rightVotes;
                                                     let rTlV = rightTotal * leftVotes;
 
