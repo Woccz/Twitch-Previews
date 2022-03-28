@@ -2358,12 +2358,12 @@
                                                     }
                                                     predict_with_custom_points_btn.click();
 
-                                                    // --------------------- Choose Prediction Option ---------------------
-
                                                     // get votes
                                                     // twitch has a bug with switched classnames in the options elements, get numbers by render order.
                                                     let stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
-
+                                                    
+                                                    // --------------------- Choose Prediction Option ---------------------
+                                                    
                                                     // Left Side
                                                     let leftTotal = extractNumberValueFromString(stat_fields[0].children[1].innerText);
                                                     let leftVotes = extractNumberValueFromString(stat_fields[2].children[1].innerText);
