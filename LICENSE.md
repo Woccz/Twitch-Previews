@@ -1,7 +1,6 @@
 @ Woccz: Personal Use
 
-License:
-
+License:</br>
   © Twitch Previews
 
   We don't really need to write anything here but:
