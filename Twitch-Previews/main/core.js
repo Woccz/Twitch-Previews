@@ -2336,7 +2336,7 @@
                                                 predictions_list_item_body.click();
 
                                                 setTimeout(function () {
-                                                    
+
                                                     // check if already entered
                                                     try {
                                                         if (document.getElementsByClassName('prediction-checkout-details-header')[0].parentElement.children[2].firstChild.getElementsByClassName('channel-points-icon')[0].parentElement.innerText.length > 5) {
@@ -2346,10 +2346,9 @@
                                                             return;
                                                         }
                                                     } catch (e) {
-                                                    
+
                                                     }
 
-                                                    
                                                     // click the "predict with custom points" button.
                                                     let predict_with_custom_points_btn = document.querySelector('button[data-test-selector="prediction-checkout-active-footer__input-type-toggle"]');
                                                     if (!predict_with_custom_points_btn) {
@@ -2358,7 +2357,7 @@
                                                         return;
                                                     }
                                                     predict_with_custom_points_btn.click();
-                                                    
+
                                                     // get votes
                                                     // twitch has a bug with switched classnames in the options elements, get numbers by render order.
                                                     let stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
@@ -2390,31 +2389,32 @@
 
                                                     // --------------------- END Choose Prediction Option ---------------------
                                                     // --------------------- Choose Prediction Ammount ---------------------
-                                                    
+
                                                     // input number to predict with % of total points
                                                     let prediction_bet_amount = Math.floor((Math.abs(balance - 0.5) * 2 * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
-                                                    
+
                                                     // --------------------- END Choose Prediction Ammount ---------------------
-                                                    
+
                                                     if (prediction_bet_amount === 0) {
                                                         prediction_bet_amount = 1;
                                                     }
                                                     if (prediction_bet_amount > curr_stream_aps_settings.aps_max_points) {
                                                         prediction_bet_amount = curr_stream_aps_settings.aps_max_points;
                                                     }
-                                                    
+
                                                     // --------------------- Console Log Prediction --------------------
                                                     console.log(new Date().toLocaleString() +
-                                                    "\nAPS: " +
-                                                    "\nleft:\n" + leftTotal +'\n'+ leftVotes +
-                                                    "\nright:\n" + rightTotal +'\n'+ rightVotes +
-                                                    "\nbalance: " + balance +
-                                                    "\nselected_option: " + (selectedOption ? "right" : "left") +
-                                                    "\nbet_amount: " + prediction_bet_amount + " points" +
-                                                    "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
+                                                        "\nAPS: " +
+                                                        "\nleft:\n" + leftTotal +'\n'+ leftVotes +
+                                                        "\nright:\n" + rightTotal +'\n'+ rightVotes +
+                                                        "\nbalance: " + balance +
+                                                        "\nselected_option: " + (selectedOption ? "right" : "left") +
+                                                        "\nbet_amount: " + prediction_bet_amount + " points" +
+                                                        "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
                                                     );
-                                                    // --------------------- END Console Log Prediction --------------------
                                                     
+                                                    // --------------------- END Console Log Prediction --------------------
+
                                                     if (isFirefox) {
                                                         window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
                                                     } else {
