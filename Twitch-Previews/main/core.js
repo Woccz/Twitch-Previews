@@ -2391,7 +2391,7 @@
                                                     // --------------------- Choose Prediction Ammount ---------------------
 
                                                     // input number to predict with % of total points
-                                                    let prediction_bet_amount = Math.floor((Math.abs(balance - 0.5) * 2 * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
+                                                    let prediction_bet_amount = Math.floor((Math.abs(2 * balance - 1) * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
 
