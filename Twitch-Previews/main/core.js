@@ -2398,12 +2398,20 @@
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
 
-                                                    if (prediction_bet_amount === 0) {
-                                                        prediction_bet_amount = 1;
+
+                                                    let maxProportion = Math.floor(totalChannelPointNum * curr_stream_aps_settings.aps_max_points / 100);
+                                                    if (prediction_bet_amount > maxProportion) {
+                                                        prediction_bet_amount = maxProportion;
                                                     }
+                                                    if (prediction_bet_amount > 250000) {
+                                                        prediction_bet_amount = 250000;
+                                                    }
+                                                    /*
                                                     if (prediction_bet_amount > curr_stream_aps_settings.aps_max_points) {
                                                         prediction_bet_amount = curr_stream_aps_settings.aps_max_points;
                                                     }
+                                                    */
+                                                    
 
                                                     // --------------------- Console Log Prediction --------------------
                                                     console.log(new Date().toLocaleString() +
@@ -2418,6 +2426,14 @@
                                                     );
                                                     
                                                     // --------------------- END Console Log Prediction --------------------
+                                                    // --------------------- Not Large enough bet check ---------------------
+                                                    if (prediction_bet_amount === 0) {
+                                                        console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
+                                                        closePopoutMenu();
+                                                        clearPredictionStatus();
+                                                        return;
+                                                    }
+                                                    // --------------------- END Not Large enough bet check ---------------------
 
                                                     if (isFirefox) {
                                                         window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
