@@ -2394,7 +2394,7 @@
                                                     let ev = selectedOption ? 2*(1-balance) + leftTotal/rightTotal/2 - 1.5 : 2*balance + rightTotal/leftTotal/2 - 1.5;   // Selected ? Right : Left
 
                                                     // input number to predict with % of total points
-                                                    let prediction_bet_amount = Math.floor((Math.abs(2 * ev - 1) * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
+                                                    let prediction_bet_amount = Math.floor((ev * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
 
