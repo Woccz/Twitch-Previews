@@ -2144,6 +2144,7 @@
             else if(c == 'B') {
                 m *= 1000000000;
             }
+
         }
 
         return parseInt(num) * m;
@@ -2367,31 +2368,33 @@
                                                     // Left Side
                                                     let leftTotal = extractNumberValueFromString(stat_fields[0].children[1].innerText);
                                                     let leftVotes = extractNumberValueFromString(stat_fields[2].children[1].innerText);
-
+                                                    
                                                     // Right Side
                                                     let rightTotal = extractNumberValueFromString(stat_fields[4].children[1].innerText);
                                                     let rightVotes = extractNumberValueFromString(stat_fields[6].children[1].innerText);
-
+                                                    
                                                     if(leftVotes == 0 || rightVotes == 0) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: no votes for " + ((leftVotes < rightVotes) ? "Left" : "Right"));
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
                                                     }
-
+                                                    
                                                     let lTrV = leftTotal * rightVotes;
                                                     let rTlV = rightTotal * leftVotes;
-
+                                                    
                                                     let balance = (lTrV/(lTrV + rTlV));
-
+                                                    
                                                     //let selectedOption = left_vote_count > right_vote_count ? 0 : 1;
                                                     let selectedOption = lTrV < rTlV ? 1 : 0;
-
+                                                    
                                                     // --------------------- END Choose Prediction Option ---------------------
                                                     // --------------------- Choose Prediction Ammount ---------------------
 
+                                                    let returnRat = selectedOption ? leftTotal/rightTotal : rightTotal/leftTotal;
+
                                                     // input number to predict with % of total points
-                                                    let prediction_bet_amount = Math.floor((Math.abs(2 * balance - 1) * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
+                                                    let prediction_bet_amount = Math.floor((Math.abs(2 * balance * returnRat - 1) * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
 
