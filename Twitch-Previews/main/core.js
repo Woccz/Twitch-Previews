@@ -2382,10 +2382,18 @@
                                                     
                                                     let lTrV = leftTotal * rightVotes;
                                                     let rTlV = rightTotal * leftVotes;
-                                                    
-                                                    let selectedOption = lTrV < rTlV ? 1 : 0;
+                                                    let rTrV = rightTotal * rightVotes;
+                                                    let lTlV = leftTotal * leftVotes;
 
-                                                    let balance = selectedOption ? (rTlV/(rTlV + lTrV)) : (lTrV/(lTrV + rTlV));
+                                                    let P = Math.abs(2*(leftTotal/(LeftTotal+rightTotal))-1);
+
+                                                    let e_left  = (lTrV*P-rTlV-rTrV*P+rTrV)/(lTrV+rTlV);
+                                                    let e_right = (rTlV*P-lTrV-lTlV*P+lTlV)/(rTlV+lTrV);
+                                                    
+                                                    let selectedOption = e_left < e_right ? 1 : 0;
+                                                    let res = (selectedOption ? e_right : e_left);
+
+                                                    //let balance = selectedOption ? (rTlV/(rTlV + lTrV)) : (lTrV/(lTrV + rTlV));
                                                     
                                                     //let selectedOption = left_vote_count > right_vote_count ? 0 : 1;
                                                     
@@ -2396,14 +2404,15 @@
 
                                                     // input number to predict with % of total points
                                                     // let prediction_bet_amount = Math.floor((ev * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
-                                                    let prediction_bet_amount = Math.floor(balance * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
+                                                    // let prediction_bet_amount = Math.floor(balance * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
+                                                    let prediction_bet_amount = Math.floor(res * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
 
-
-                                                    let maxProportion = Math.floor(totalChannelPointNum * curr_stream_aps_settings.aps_max_points / 100);
-                                                    if (prediction_bet_amount > maxProportion) {
-                                                        prediction_bet_amount = maxProportion;
+                                                    // Maximum bet size
+                                                    let maxBetSize = Math.floor(totalChannelPointNum * curr_stream_aps_settings.aps_max_points / 100);
+                                                    if (prediction_bet_amount > maxBetSize) {
+                                                        prediction_bet_amount = maxBetSize;
                                                     }
                                                     if (prediction_bet_amount > 250000) {
                                                         prediction_bet_amount = 250000;
@@ -2421,7 +2430,7 @@
                                                         "\nleft:\n" + leftTotal +'\n'+ leftVotes +
                                                         "\nright:\n" + rightTotal +'\n'+ rightVotes +
                                                         "\nbalance: " + balance +
-                                                        //"\nev: " + ev +
+                                                        "\nres: " + res +
                                                         "\nselected_option: " + (selectedOption ? "right" : "left") +
                                                         "\nbet_amount: " + prediction_bet_amount + " points" +
                                                         "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
