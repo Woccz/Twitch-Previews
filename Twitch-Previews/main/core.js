@@ -2383,18 +2383,20 @@
                                                     let lTrV = leftTotal * rightVotes;
                                                     let rTlV = rightTotal * leftVotes;
                                                     
-                                                    let balance = (lTrV/(lTrV + rTlV));
+                                                    let selectedOption = lTrV < rTlV ? 1 : 0;
+
+                                                    let balance = selectedOption ? (rTlV/(rTlV + lTrV)) : (lTrV/(lTrV + rTlV));
                                                     
                                                     //let selectedOption = left_vote_count > right_vote_count ? 0 : 1;
-                                                    let selectedOption = lTrV < rTlV ? 1 : 0;
                                                     
                                                     // --------------------- END Choose Prediction Option ---------------------
                                                     // --------------------- Choose Prediction Ammount ---------------------
 
-                                                    let ev = selectedOption ? 2*(1-balance) + leftTotal/rightTotal/2 - 1.5 : 2*balance + rightTotal/leftTotal/2 - 1.5;   // Selected ? Right : Left
+                                                    //let ev = selectedOption ? 2*(1-balance) + leftTotal/rightTotal/2 - 1.5 : 2*balance + rightTotal/leftTotal/2 - 1.5;   // Selected ? Right : Left
 
                                                     // input number to predict with % of total points
-                                                    let prediction_bet_amount = Math.floor((ev * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
+                                                    // let prediction_bet_amount = Math.floor((ev * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
+                                                    let prediction_bet_amount = Math.floor(balance * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
 
@@ -2419,7 +2421,7 @@
                                                         "\nleft:\n" + leftTotal +'\n'+ leftVotes +
                                                         "\nright:\n" + rightTotal +'\n'+ rightVotes +
                                                         "\nbalance: " + balance +
-                                                        "\nev: " + ev +
+                                                        //"\nev: " + ev +
                                                         "\nselected_option: " + (selectedOption ? "right" : "left") +
                                                         "\nbet_amount: " + prediction_bet_amount + " points" +
                                                         "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
