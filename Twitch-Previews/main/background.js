@@ -7,7 +7,8 @@ ga('set', 'checkProtocolTask', null);
 ga('send', 'pageview', 'main');
 
 function send_ga_event(category, action, value) {
-    ga('send', 'event', category, action, value);
+    //ga('send', 'event', category, action, value);
+    return;
 }
 
 let tpga_browser = 'chrome';
