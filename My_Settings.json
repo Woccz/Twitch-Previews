@@ -4,7 +4,7 @@
         "PREVIEWDIV_WIDTH": 440,
         "aps_max_points": 95,
         "aps_percent": 100,
-        "aps_secondsBefore": 1,
+        "aps_secondsBefore": 2,
         "isDirpEnabled": true,
         "isErrRefreshEnabled": true,
         "isFastForwardEnabled": true,
