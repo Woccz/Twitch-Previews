@@ -2429,7 +2429,7 @@
                                                         "\nAPS: " +
                                                         "\nleft:\n" + leftTotal +'\n'+ leftVotes +
                                                         "\nright:\n" + rightTotal +'\n'+ rightVotes +
-                                                        "\nbalance: " + balance +
+                                                        //"\nbalance: " + balance +
                                                         "\nres: " + res +
                                                         "\nselected_option: " + (selectedOption ? "right" : "left") +
                                                         "\nbet_amount: " + prediction_bet_amount + " points" +
