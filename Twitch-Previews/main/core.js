@@ -2427,7 +2427,7 @@
                                                     
                                                     // --------------------- END Console Log Prediction --------------------
                                                     // --------------------- Not Large enough bet check ---------------------
-                                                    if (prediction_bet_amount === 0) {
+                                                    if (prediction_bet_amount < 1) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
