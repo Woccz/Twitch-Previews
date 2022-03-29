@@ -2419,7 +2419,7 @@
                                                         "\nleft:\n" + leftTotal +'\n'+ leftVotes +
                                                         "\nright:\n" + rightTotal +'\n'+ rightVotes +
                                                         "\nbalance: " + balance +
-                                                        "\nev" + ev +
+                                                        "\nev: " + ev +
                                                         "\nselected_option: " + (selectedOption ? "right" : "left") +
                                                         "\nbet_amount: " + prediction_bet_amount + " points" +
                                                         "\nwinnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
