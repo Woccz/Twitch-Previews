@@ -1968,6 +1968,10 @@
                             if (options.isPredictionsNotificationsEnabled) {
                                 if (!should_bet_now) {
                                     showNotification("Prediction: " + prediction_text, "Predictions Sniper: Active", curr_streamer_img_url);
+
+                                    if (prediction_text.toLowerCase().includes("coin")){
+                                        showNotification("Warning: Coinflip detected!", "If this is not a coinflip, please cancel the upcoming vote.", curr_streamer_img_url, true);
+                                    }
                                 }
                             }
                         },function (res){
@@ -1978,6 +1982,9 @@
                                     initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res) {
                                         if (!should_bet_now) {
                                             showNotification("Prediction: " + prediction_text, "Predictions Sniper: Inactive", curr_streamer_img_url);
+                                            if (prediction_text.toLowerCase().includes("coin")){
+                                                showNotification("Warning: Coinflip detected!", "If this is not a coinflip, please cancel the upcoming vote.", curr_streamer_img_url, true);
+                                            }
                                         }
                                     }, function (res){
                                         if (res === 'prediction_closed_or_ended') {
