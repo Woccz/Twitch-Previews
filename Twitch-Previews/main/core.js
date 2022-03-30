@@ -2422,8 +2422,36 @@
                                                         prediction_bet_amount = curr_stream_aps_settings.aps_max_points;
                                                     }
                                                     */
-                                                    
+                                                   
 
+                                                    // --------------------- Prediction Name checks --------------------- 
+                                                    let prediction_question = '';
+                                                    try {
+                                                        prediction_question = document.querySelector('.prediction-checkout-details-header').firstChild.innerText
+                                                    } 
+                                                    catch (e) {}
+
+                                                    prediction_question = prediction_question.toLowerCase();
+                                                    
+                                                    // --------------------- Charity Check ---------------------
+                                                    if (prediction_question.includes("charity")){
+                                                        console.log(new Date().toLocaleString() + "\nAPS: Charity prediction. Aborting.");
+                                                        closePopoutMenu();
+                                                        clearPredictionStatus();
+                                                        return;
+                                                    }
+                                                    // --------------------- END Charity Check ---------------------
+                                                    // --------------------- Coinflip Check  ---------------------
+                                                    if (prediction_question.includes("coin")){
+                                                        console.log(new Date().toLocaleString() + "\nAPS: Coinflip. Adapting Strategy.");
+                                                        // Coinflip
+                                                        selectedOption = leftTotal < rightTotal ? 0 : 1;  // 0 if leftTotal<rightTotal else 1
+                                                        prediction_bet_amount = Math.floor(Math.abs(2*leftTotal/(leftTotal+rightTotal)-1) * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
+                                                        // END Coinflip
+                                                    }
+                                                    // --------------------- ENDCoinflip Check  ---------------------
+                                                    // --------------------- END Prediction Name checks --------------------- 
+                                                   
                                                     // --------------------- Console Log Prediction --------------------
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
@@ -2446,17 +2474,7 @@
                                                         return;
                                                     }
                                                     // --------------------- END Not Large enough bet check ---------------------
-                                                    // --------------------- Charity Check ---------------------
-                                                    let prediction_question = '';
-                                                    try {prediction_question = document.querySelector('.prediction-checkout-details-header').firstChild.innerText} catch (e) {}
 
-                                                    if (prediction_question.toLowerCase().includes("charity")){
-                                                        console.log(new Date().toLocaleString() + "\nAPS: Charity prediction. Aborting.");
-                                                        closePopoutMenu();
-                                                        clearPredictionStatus();
-                                                        return;
-                                                    }
-                                                    // --------------------- END Charity Check ---------------------
 
                                                     if (isFirefox) {
                                                         window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
