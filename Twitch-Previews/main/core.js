@@ -2429,7 +2429,7 @@
                                                         "\nAPS: " +
                                                         "\nleft:\n" + leftTotal +'\n'+ leftVotes +
                                                         "\nright:\n" + rightTotal +'\n'+ rightVotes +
-                                                        //"\nbalance: " + balance +
+                                                        "\nVote Balance: " + (lTrV/(lTrV + rTlV)) +
                                                         "\nP: " + P +
                                                         "\nres: " + res +
                                                         "\nselected_option: " + (selectedOption ? "right" : "left") +
