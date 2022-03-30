@@ -2375,7 +2375,7 @@
                                                     
                                                     if(leftVotes == 0 || rightVotes == 0) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: no votes for " + ((leftVotes < rightVotes) ? "Left" : "Right") + ". Aborting.");
-                                                        showNotification("No votes for " + ((leftVotes < rightVotes) ? "Left" : "Right") + ". Aborting.", curr_streamer_img_url, true);
+                                                        showNotification("Prediction Abort", "No votes for " + ((leftVotes < rightVotes) ? "Left" : "Right"), curr_streamer_img_url, true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
@@ -2437,7 +2437,7 @@
                                                     // --------------------- Charity Check ---------------------
                                                     if (prediction_question.includes("charity")){
                                                         console.log(new Date().toLocaleString() + "\nAPS: Charity prediction. Aborting.");
-                                                        showNotification("Charity prediction. Aborting.", curr_streamer_img_url, true);
+                                                        showNotification("Prediction Abort", "Charity prediction.", curr_streamer_img_url, true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
@@ -2446,7 +2446,7 @@
                                                     // --------------------- Coinflip Check  ---------------------
                                                     if (prediction_question.includes("coin")){
                                                         console.log(new Date().toLocaleString() + "\nAPS: Coinflip. Adapting Strategy...");
-                                                        showNotification("Coinflip. Adapting Strategy...", curr_streamer_img_url, true);
+                                                        showNotification("Adapting Strategy", "Coinflip.", curr_streamer_img_url, true);
                                                         // Coinflip
                                                         selectedOption = leftTotal < rightTotal ? 0 : 1;  // 0 if leftTotal<rightTotal else 1
                                                         prediction_bet_amount = Math.floor(Math.abs(2*leftTotal/(leftTotal+rightTotal)-1) * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
@@ -2472,7 +2472,7 @@
                                                     // --------------------- Not Large enough bet check ---------------------
                                                     if (prediction_bet_amount < 1) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
-                                                        showNotification("Not large enough bet. Aborting.", curr_streamer_img_url, true);
+                                                        showNotification("Prediction Abort", "Not large enough bet size.", curr_streamer_img_url, true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
@@ -2506,7 +2506,7 @@
 
                                                             }
 
-                                                            showNotification(_i18n('aps_sniper_voted_body_notif_text', [prediction_question, prediction_options_str, sniper_selection_str, prediction_bet_amount]), curr_streamer_img_url, true);
+                                                            showNotification(curr_streamer + ": Sniper Voted!", _i18n('aps_sniper_voted_body_notif_text', [prediction_question, prediction_options_str, sniper_selection_str, prediction_bet_amount]), curr_streamer_img_url, true);
                                                             //showNotification(curr_streamer + ": " + _i18n('aps_sniper_voted_title_notif_text') + "\n", _i18n('aps_sniper_voted_body_notif_text', [prediction_question, prediction_options_str, sniper_selection_str, prediction_bet_amount]), curr_streamer_img_url, true);
                                                             //showNotification(curr_streamer + ": " + "Sniper voted!\n", prediction_question + " " + prediction_options_str + '\nSniper voted "' + sniper_selection_str + '" with ' + prediction_bet_amount + " points!", curr_streamer_img_url, true);
                                                         }
