@@ -2443,7 +2443,7 @@
                                                     // --------------------- END Charity Check ---------------------
                                                     // --------------------- Coinflip Check  ---------------------
                                                     if (prediction_question.includes("coin")){
-                                                        console.log(new Date().toLocaleString() + "\nAPS: Coinflip. Adapting Strategy.");
+                                                        console.log(new Date().toLocaleString() + "\nAPS: Coinflip. Adapting Strategy...");
                                                         // Coinflip
                                                         selectedOption = leftTotal < rightTotal ? 0 : 1;  // 0 if leftTotal<rightTotal else 1
                                                         prediction_bet_amount = Math.floor(Math.abs(2*leftTotal/(leftTotal+rightTotal)-1) * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
