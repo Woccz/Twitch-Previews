@@ -2446,6 +2446,16 @@
                                                         return;
                                                     }
                                                     // --------------------- END Not Large enough bet check ---------------------
+                                                    // --------------------- Charity ---------------------
+                                                    let prediction_question = '';
+                                                    try {prediction_question = document.querySelector('.prediction-checkout-details-header').firstChild.innerText} catch (e) {}
+                                                    if (prediction_question.toLowerCase().includes("charity")){
+                                                        console.log(new Date().toLocaleString() + "\nAPS: Charity prediction. Aborting.");
+                                                        closePopoutMenu();
+                                                        clearPredictionStatus();
+                                                        return;
+                                                    }
+                                                    // --------------------- END Charity ---------------------
 
                                                     if (isFirefox) {
                                                         window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
