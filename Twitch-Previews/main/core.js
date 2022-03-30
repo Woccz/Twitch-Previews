@@ -1967,7 +1967,7 @@
                         initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res){
                             if (options.isPredictionsNotificationsEnabled) {
                                 if (!should_bet_now) {
-                                    showNotification("Prediction: ", "Predictions Sniper: Active", curr_streamer_img_url);
+                                    showNotification("Prediction: " + prediction_text, "Predictions Sniper: Active", curr_streamer_img_url);
                                 }
                             }
                         },function (res){
@@ -1977,7 +1977,7 @@
                                 } else {
                                     initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res) {
                                         if (!should_bet_now) {
-                                            showNotification("Prediction: ", "Predictions Sniper: Inactive", curr_streamer_img_url);
+                                            showNotification("Prediction: " + prediction_text, "Predictions Sniper: Inactive", curr_streamer_img_url);
                                         }
                                     }, function (res){
                                         if (res === 'prediction_closed_or_ended') {
