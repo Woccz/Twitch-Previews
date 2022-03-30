@@ -2375,7 +2375,7 @@
                                                     
                                                     if(leftVotes == 0 || rightVotes == 0) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: no votes for " + ((leftVotes < rightVotes) ? "Left" : "Right") + ". Aborting.");
-                                                        showNotification("Prediction Abort", "No votes for " + ((leftVotes < rightVotes) ? "Left" : "Right"), curr_streamer_img_url, true);
+                                                        showNotification("Vote Aborted", "No votes for " + ((leftVotes < rightVotes) ? "Left" : "Right"), curr_streamer_img_url, true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
@@ -2437,7 +2437,7 @@
                                                     // --------------------- Charity Check ---------------------
                                                     if (prediction_question.includes("charity")){
                                                         console.log(new Date().toLocaleString() + "\nAPS: Charity prediction. Aborting.");
-                                                        showNotification("Prediction Abort", "Charity prediction.", curr_streamer_img_url, true);
+                                                        showNotification("Vote Aborted", "Charity prediction.", curr_streamer_img_url, true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
@@ -2472,7 +2472,7 @@
                                                     // --------------------- Not Large enough bet check ---------------------
                                                     if (prediction_bet_amount < 1) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
-                                                        showNotification("Prediction Abort", "Not large enough bet size.", curr_streamer_img_url, true);
+                                                        showNotification("Vote Aborted", "Not large enough bet size.", curr_streamer_img_url, true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
