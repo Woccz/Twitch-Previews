@@ -1967,7 +1967,7 @@
                         initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res){
                             if (options.isPredictionsNotificationsEnabled) {
                                 if (!should_bet_now) {
-                                    showNotification(_i18n('aps_prediction_started_notif_text') + ": " + prediction_text, "Predictions Sniper: Active", curr_streamer_img_url);
+                                    showNotification(_i18n('aps_prediction_started_notif_text') + ": " + res.prediction_question, "Predictions Sniper: Active", curr_streamer_img_url);
 
                                     if (prediction_text.toLowerCase().includes("coin")){
                                         showNotification("Warning: Coinflip detected!", "If this is not a coinflip, please cancel the upcoming vote.", curr_streamer_img_url, true);
@@ -1975,20 +1975,21 @@
                                 }
                             }
                         },function (res){
+                            
                             if (options.isPredictionsNotificationsEnabled) {
                                 if (res === 'prediction_closed_or_ended') {
-                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", prediction_text + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", res.prediction_question + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
                                 } else {
                                     initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res) {
                                         if (!should_bet_now) {
-                                            showNotification(_i18n('aps_prediction_started_notif_text') + ": " + prediction_text, "Predictions Sniper: Inactive", curr_streamer_img_url);
+                                            showNotification(_i18n('aps_prediction_started_notif_text') + ": " + res.prediction_question, "Predictions Sniper: Inactive", curr_streamer_img_url);
                                             if (prediction_text.toLowerCase().includes("coin")){
                                                 showNotification("Warning: Coinflip detected!", "If this is not a coinflip, please cancel the upcoming vote.", curr_streamer_img_url, true);
                                             }
                                         }
                                     }, function (res){
                                         if (res === 'prediction_closed_or_ended') {
-                                            showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", prediction_text + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
+                                            showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", res.prediction_question + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
                                         } else {
                                             showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", "Predictions sniper failed to monitor / join prediction, try refreshing the page if prediction still active", curr_streamer_img_url);
                                         }
@@ -2382,7 +2383,7 @@
                                                     
                                                     if(leftVotes == 0 || rightVotes == 0) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: no votes for " + ((leftVotes < rightVotes) ? "Left" : "Right") + ". Aborting.");
-                                                        showNotification("Vote Aborted", "No votes for " + ((leftVotes < rightVotes) ? "Left" : "Right"), curr_streamer_img_url, true);
+                                                        showNotification("Aborting Vote.", "No votes for " + ((leftVotes < rightVotes) ? "Left" : "Right"), curr_streamer_img_url, true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
@@ -2444,7 +2445,7 @@
                                                     // --------------------- Charity Check ---------------------
                                                     if (prediction_question.includes("charity")){
                                                         console.log(new Date().toLocaleString() + "\nAPS: Charity prediction. Aborting.");
-                                                        showNotification("Vote Aborted", "Charity prediction.", curr_streamer_img_url, true);
+                                                        showNotification("Aborting Vote.", "Charity prediction.", curr_streamer_img_url, true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
@@ -2479,7 +2480,7 @@
                                                     // --------------------- Not Large enough bet check ---------------------
                                                     if (prediction_bet_amount < 1) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
-                                                        showNotification("Vote Aborted", "Not large enough bet size.", curr_streamer_img_url, true);
+                                                        showNotification("Aborting Vote.", "Not large enough bet size.", curr_streamer_img_url, true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
