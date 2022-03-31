@@ -2394,7 +2394,9 @@
                                                     let rTrV = rightTotal * rightVotes;
                                                     let lTlV = leftTotal * leftVotes;
 
-                                                    let P = Math.abs(2*(leftTotal/(leftTotal+rightTotal))-1);
+                                                    // let P = Math.abs(2*(leftTotal/(leftTotal+rightTotal))-1);
+                                                    let x = Math.SQRT2*(leftTotal/(leftTotal+rightTotal)-0.5);
+                                                    let P = 4*x*x - 4*x*x*x*x;
 
                                                     let e_left  = (lTrV*P-rTlV-rTrV*P+rTrV)/(lTrV+rTlV);
                                                     let e_right = (rTlV*P-lTrV-lTlV*P+lTlV)/(rTlV+lTrV);
