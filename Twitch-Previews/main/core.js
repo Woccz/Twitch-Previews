@@ -2934,7 +2934,7 @@
 
         document.body.setAttribute("tp_seek_listener", 'true');
         document.body.addEventListener('keydown', function(event) {
-            if (event.target.tagName.toUpperCase() === 'INPUT' || event.target.tagName.toUpperCase() === 'TEXTAREA') {
+            if (event.target.tagName.toUpperCase() === 'INPUT' || event.target.tagName.toUpperCase() === 'TEXTAREA'|| event.target.classList.contains('chat-wysiwyg-input__editor')) {
                 return;
             }
 
@@ -3442,15 +3442,16 @@
                     btn_container.onclick = function (){
                         let video_el = document.querySelector('video');
                         if (video_el && video_el.src.indexOf('.mp4?') > -1) {
-                            let element = document.createElement('a');
+                           /* let element = document.createElement('a');
                             element.setAttribute('href', 'data:video/mp4;mp4,' + encodeURIComponent(video_el.src));
                             element.setAttribute('download', document.title);
                             element.style.display = 'none';
                             document.body.appendChild(element);
                             element.click();
                             document.body.removeChild(element);
-
-                            sendMessageToBG({action: "bg_clip_download_btn_click", detail: true});
+*/
+                            //sendMessageToBG({action: "bg_clip_download_btn_click", detail: true});
+                            sendMessageToBG({action: "bg_clip_download_btn_click", detail: video_el.src});
                         } else {
                             document.getElementById('tp_clip_download_btn').remove();
                             alert(_i18n('clip_download_no_clip_found_alert_text'));
@@ -4652,14 +4653,14 @@
                 btn_container.title = "Start Multi Stream";
 
                 let more_btn_size = more_btn.getBoundingClientRect();
-                btn_container.style.width = (more_btn_size.width || "30") + "px";
-                btn_container.style.height = (more_btn_size.height || "30") + "px";
+                btn_container.style.width = "3rem";
+                btn_container.style.height = "3rem";
                 btn_container.style.zIndex = "1";
 
                 let img = document.createElement('img');
                 img.src = getRuntimeUrl('../images/multistream.png');
-                img.width = (more_btn_size.width || "30") * 0.6;
-                img.height = (more_btn_size.height || "30") * 0.6;
+                img.style.width = '60%';
+                img.style.height = '60%';
                 img.style.margin = "auto";
                 img.classList.add('tp-theme-support');
 

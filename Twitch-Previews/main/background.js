@@ -215,10 +215,11 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 }
             });
 
-
-            _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
-            //_browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
-            _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
+            if (details.previousVersion !== "3.5.4") {
+                _browser.storage.local.set({'shouldShowUpdatePopup': true}, function() {});
+                //_browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
+                _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
+            }
 
 
 
@@ -458,6 +459,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('favorite_btn_click', 'favorite_btn_click', msg.detail ? 'favorite_add' : 'favorite_remove');
             break;
         case "bg_clip_download_btn_click":
+            _browser.tabs.create({url:msg.detail});
             send_ga_event('clip_download_btn_click', 'clip_download_btn_click', 'clip_download_btn_click');
             break;
         case "bg_update_isMultiStreamEnabled":
