@@ -2471,7 +2471,7 @@
                                                         "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" +
                                                         "\n Vote Confidence: " + Math.floor((lTrV/(lTrV + rTlV))*10000) + " : " + Math.floor((rTlV/(rTlV + lTrV))*10000) +
-                                                        "\n Vote Polarisation: " + Math.floor(P*1000)/10 + '%' + 
+                                                        "\n Percieved Vote Polarisation: " + Math.floor(P*1000)/10 + '%' + 
                                                         "\n E left:" + e_left +
                                                         "\n E right:" + e_right +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
