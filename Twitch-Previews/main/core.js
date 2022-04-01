@@ -2468,14 +2468,14 @@
                                                     // --------------------- Console Log Prediction --------------------
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
-                                                        "\n left:\n  " + leftTotal +'\n  '+ leftVotes +
-                                                        "\n right:\n  " + rightTotal +'\n  '+ rightVotes +
-                                                        "\n Vote Balance: " + (lTrV/(lTrV + rTlV)) +
-                                                        "\n P: " + P +
-                                                        "\n res: " + res +
-                                                        "\n selected_option: " + (selectedOption ? "right" : "left") +
-                                                        "\n bet_amount: " + prediction_bet_amount + " points" +
-                                                        "\n winnings_ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
+                                                        "\n Left:\n  " + leftTotal +'\n  '+ leftVotes +
+                                                        "\n Right:\n  " + rightTotal +'\n  '+ rightVotes +
+                                                        "\n Vote Confidence: " + Math.floor((lTrV/(lTrV + rTlV))*1000)/10 + " : " + Math.floor((rTlV/(rTlV + lTrV))*1000)/10 +
+                                                        "\n Vote Polarisation: " + P +
+                                                        "\n Selected_option: " + (selectedOption ? "right" : "left") +
+                                                        "\n Result (bet %): " + res +
+                                                        "\n Bet Amount: " + prediction_bet_amount + " points" +
+                                                        "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
                                                     );
                                                     
                                                     // --------------------- END Console Log Prediction --------------------
