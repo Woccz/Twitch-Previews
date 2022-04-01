@@ -2518,7 +2518,7 @@
 
                                                             }
 
-                                                            showNotification(curr_streamer + ": Sniper Voted!", _i18n('aps_sniper_voted_body_notif_text', [prediction_question, prediction_options_str, sniper_selection_str, prediction_bet_amount]), curr_streamer_img_url, true);
+                                                            showNotification(curr_streamer + ': ' + _i18n('aps_sniper_voted_header_notif_text', [sniper_selection_str, prediction_bet_amount]), _i18n('aps_sniper_voted_body_notif_text', [prediction_question, prediction_options_str]), curr_streamer_img_url, true);
                                                             //showNotification(curr_streamer + ": " + _i18n('aps_sniper_voted_title_notif_text') + "\n", _i18n('aps_sniper_voted_body_notif_text', [prediction_question, prediction_options_str, sniper_selection_str, prediction_bet_amount]), curr_streamer_img_url, true);
                                                             //showNotification(curr_streamer + ": " + "Sniper voted!\n", prediction_question + " " + prediction_options_str + '\nSniper voted "' + sniper_selection_str + '" with ' + prediction_bet_amount + " points!", curr_streamer_img_url, true);
                                                         }

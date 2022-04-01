@@ -2310,14 +2310,23 @@ export const i18n = {
         'ko': '도박왕이 투표했어요!',
         'ru':'Проголосовал снайпер!'
     },
+    aps_sniper_voted_header_notif_text: {
+        'en': 'Sniper voted "%s" with %s points!',
+        'es': '¡Francotirador votó "%s" con %s puntos!',
+        'de': 'Scharfschütze wählte "%s" mit %s Punkten!',
+        'fr': 'Le tireur d\'élite a voté "%s" avec %s points !',
+        'pt_BR': 'O Sniper votou na "%s" com %s pontos!',
+        'ko': '도박왕이 %s 에 %s 점을 투표했어요!',
+        'ru':'Снайпер проголосовал за %s со %s ballov!'
+    },
     aps_sniper_voted_body_notif_text: {
-        'en': '%s %s\nSniper voted "%s" with %s points!',
-        'es': '%s %s\n¡Francotirador votó "%s" con %s puntos!',
-        'de': '%s %s\nScharfschütze wählte "%s" mit %s Punkten!',
-        'fr': '%s %s\nLe tireur d\'élite a voté "%s" avec %s points !',
-        'pt_BR': '%s %s\nO Sniper votou na "%s" com %s pontos!',
-        'ko': '%s %s\n도박왕이 %s 에 %s 점을 투표했어요!',
-        'ru':'%s %s\nСнайпер проголосовал за %s со %s ballov!'
+        'en': '%s [%s]',
+        'es': '%s [%s]',
+        'de': '%s [%s]',
+        'fr': '%s [%s]',
+        'pt_BR': '[%s %s]',
+        'ko': '[%s %s]',
+        'ru': '[%s %s]'
     },
     aps_vote_now_btn: {
         'en': 'Vote Now',
