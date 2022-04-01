@@ -2469,11 +2469,12 @@
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
                                                         "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
-                                                        "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" +
-                                                        "\n Vote Confidence: " + Math.floor((lTrV/(lTrV + rTlV))*10000) + " : " + Math.floor((rTlV/(rTlV + lTrV))*10000) +
-                                                        "\n Percieved Vote Polarisation: " + Math.floor(P*1000)/10 + '%' + 
-                                                        "\n E left: " + Math.floor(e_left*10000)/100 + '%' +
-                                                        "\n E right: " + Math.floor(e_right*10000)/100 + '%' +
+                                                        "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
+                                                        "\n Prediction question: " + prediction_question +                                                       
+                                                        "\n Vote Confidence: " + Math.round((lTrV/(lTrV + rTlV))*10000) + " : " + Math.round((rTlV/(rTlV + lTrV))*10000) +
+                                                        "\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
+                                                        "\n E left: " + (e_left*100).toFixed(2) + '%' +
+                                                        "\n E right: " + (e_right*100).toFixed(2) + '%' +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" +
                                                         "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
