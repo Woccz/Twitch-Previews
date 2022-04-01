@@ -2470,10 +2470,10 @@
                                                         "\nAPS: " +
                                                         "\n Left:\n  " + leftTotal +'\n  '+ leftVotes +
                                                         "\n Right:\n  " + rightTotal +'\n  '+ rightVotes +
-                                                        "\n Vote Confidence: " + Math.floor((lTrV/(lTrV + rTlV))*1000)/10 + " : " + Math.floor((rTlV/(rTlV + lTrV))*1000)/10 +
+                                                        "\n Vote Confidence: " + Math.floor((lTrV/(lTrV + rTlV))*1000)/10 + ":" + Math.floor((rTlV/(rTlV + lTrV))*1000)/10 +
                                                         "\n Vote Polarisation: " + P +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
-                                                        "\n Result (bet %): " + res +
+                                                        "\n Result (bet %): " + Math.floor(res*1000)/10 + "%" +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" +
                                                         "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
                                                     );
