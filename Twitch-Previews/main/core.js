@@ -2468,8 +2468,8 @@
                                                     // --------------------- Console Log Prediction --------------------
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
-                                                        "\n Left:\n  " + leftTotal +'\n  '+ leftVotes +
-                                                        "\n Right:\n  " + rightTotal +'\n  '+ rightVotes +
+                                                        "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
+                                                        "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" +
                                                         "\n Vote Confidence: " + Math.floor((lTrV/(lTrV + rTlV))*1000)/10 + ":" + Math.floor((rTlV/(rTlV + lTrV))*1000)/10 +
                                                         "\n Vote Polarisation: " + P +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
