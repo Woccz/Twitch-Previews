@@ -2419,7 +2419,7 @@ export const i18n = {
         'ru':'Ставка:'
     },
     aps_settings_bet_percent_pt2: {
-        'en': '% of points (Max',
+        'en': '% of selected bet size (Max',
         'es': '% de puntos (Máximo',
         'de': '% der Punkte (maximal',
         'fr': '% de points (Maximum',
@@ -2428,7 +2428,7 @@ export const i18n = {
         'ru':'% баллов (максимум'
     },
     aps_settings_bet_percent_pt3: {
-        'en': 'points)',
+        'en': '% of total points)',
         'es': 'puntos)',
         'de': 'Punkte)',
         'fr': 'points)',
@@ -2437,7 +2437,7 @@ export const i18n = {
         'ru':'баллов)'
     },
     aps_settings_min_vote_margin: {
-        'en': 'Min vote margin:',
+        'en': 'Nothing:',
         'es': 'Margen mínimo de voto:',
         'de': 'Mindeststimmenmarge:',
         'fr': 'Marge de vote minimale :',
