@@ -2027,7 +2027,7 @@
 
                             switch(res.prediction_status) {
                                 case "ended":
-                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_ended_notif_text'), (res.prediction_question_answer_str ? res.prediction_question_answer_str : prediction_text) + "\n" + res.text1, curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + (res.prediction_question_answer_str ? res.prediction_question_answer_str : prediction_text), res.text1, curr_streamer_img_url);
                                    // showNotification(curr_streamer + ": " + "Prediction Ended", prediction_text + "\n" + res.text1, curr_streamer_img_url);
                                     break;
                                 case "closed":
