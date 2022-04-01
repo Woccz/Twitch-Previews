@@ -2472,8 +2472,9 @@
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" +
                                                         "\n Vote Confidence: " + Math.floor((lTrV/(lTrV + rTlV))*1000)/10 + ":" + Math.floor((rTlV/(rTlV + lTrV))*1000)/10 +
                                                         "\n Vote Polarisation: " + P +
+                                                        "\n EV left:" + e_left +
+                                                        "\n EV right:" + e_right +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
-                                                        "\n Result (bet %): " + Math.floor(res*1000)/10 + "%" +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" +
                                                         "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
                                                     );
