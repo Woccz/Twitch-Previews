@@ -1969,9 +1969,9 @@
                                 if (!should_bet_now) {
                                     showNotification(_i18n('aps_prediction_started_notif_text') + ": " + prediction_text, "Predictions Sniper: Active", curr_streamer_img_url);
 
-                                    if (prediction_text.toLowerCase().includes("coin")){
-                                        showNotification("Warning: Coinflip detected!", "If this is not a coinflip, please cancel the upcoming vote.", curr_streamer_img_url, true);
-                                    }
+                                    // if (prediction_text.toLowerCase().includes("coin")){
+                                    //     showNotification("Warning: Coinflip detected!", "If this is not a coinflip, please cancel the upcoming vote.", curr_streamer_img_url, true);
+                                    // }
                                 }
                             }
                         },function (res){
@@ -1983,9 +1983,9 @@
                                     initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res) {
                                         if (!should_bet_now) {
                                             showNotification(_i18n('aps_prediction_started_notif_text') + ": " + prediction_text, "Predictions Sniper: Inactive", curr_streamer_img_url);
-                                            if (prediction_text.toLowerCase().includes("coin")){
-                                                showNotification("Warning: Coinflip detected!", "If this is not a coinflip, please cancel the upcoming vote.", curr_streamer_img_url, true);
-                                            }
+                                            // if (prediction_text.toLowerCase().includes("coin")){
+                                            //     showNotification("Warning: Coinflip detected!", "If this is not a coinflip, please cancel the upcoming vote.", curr_streamer_img_url, true);
+                                            // }
                                         }
                                     }, function (res){
                                         if (res === 'prediction_closed_or_ended') {
@@ -2454,14 +2454,14 @@
                                                     }
                                                     // --------------------- END Charity Check ---------------------
                                                     // --------------------- Coinflip Check  ---------------------
-                                                    if (prediction_question.includes("coin")){
-                                                        console.log(new Date().toLocaleString() + "\nAPS: Coinflip. Adapting Strategy...");
-                                                        showNotification("Adapting Strategy", "Coinflip.", curr_streamer_img_url, true);
-                                                        // Coinflip
-                                                        selectedOption = leftTotal < rightTotal ? 0 : 1;  // 0 if leftTotal<rightTotal else 1
-                                                        prediction_bet_amount = Math.floor(Math.abs(2*leftTotal/(leftTotal+rightTotal)-1) * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
-                                                        // END Coinflip
-                                                    }
+                                                    // if (prediction_question.includes("coin")){
+                                                    //     console.log(new Date().toLocaleString() + "\nAPS: Coinflip. Adapting Strategy...");
+                                                    //     showNotification("Adapting Strategy", "Coinflip.", curr_streamer_img_url, true);
+                                                    //     // Coinflip
+                                                    //     selectedOption = leftTotal < rightTotal ? 0 : 1;  // 0 if leftTotal<rightTotal else 1
+                                                    //     prediction_bet_amount = Math.floor(Math.abs(2*leftTotal/(leftTotal+rightTotal)-1) * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
+                                                    //     // END Coinflip
+                                                    // }
                                                     // --------------------- ENDCoinflip Check  ---------------------
                                                     // --------------------- END Prediction Name checks --------------------- 
                                                    
@@ -2470,7 +2470,7 @@
                                                         "\nAPS: " +
                                                         "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" +
-                                                        "\n Vote Confidence: " + Math.floor((lTrV/(lTrV + rTlV))*1000)/10 + ":" + Math.floor((rTlV/(rTlV + lTrV))*1000)/10 +
+                                                        "\n Vote Confidence: " + Math.floor((lTrV/(lTrV + rTlV))*10000) + ":" + Math.floor((rTlV/(rTlV + lTrV))*10000) +
                                                         "\n Vote Polarisation: " + P +
                                                         "\n E left:" + e_left +
                                                         "\n E right:" + e_right +
