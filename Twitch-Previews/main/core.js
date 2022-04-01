@@ -1967,7 +1967,7 @@
                         initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res){
                             if (options.isPredictionsNotificationsEnabled) {
                                 if (!should_bet_now) {
-                                    showNotification(_i18n('aps_prediction_started_notif_text') + ": " + res.prediction_question, "Predictions Sniper: Active", curr_streamer_img_url);
+                                    showNotification(_i18n('aps_prediction_started_notif_text') + ": " + prediction_text, "Predictions Sniper: Active", curr_streamer_img_url);
 
                                     if (prediction_text.toLowerCase().includes("coin")){
                                         showNotification("Warning: Coinflip detected!", "If this is not a coinflip, please cancel the upcoming vote.", curr_streamer_img_url, true);
@@ -1978,18 +1978,18 @@
                             
                             if (options.isPredictionsNotificationsEnabled) {
                                 if (res === 'prediction_closed_or_ended') {
-                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", res.prediction_question + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
+                                    showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", prediction_text + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
                                 } else {
                                     initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res) {
                                         if (!should_bet_now) {
-                                            showNotification(_i18n('aps_prediction_started_notif_text') + ": " + res.prediction_question, "Predictions Sniper: Inactive", curr_streamer_img_url);
+                                            showNotification(_i18n('aps_prediction_started_notif_text') + ": " + prediction_text, "Predictions Sniper: Inactive", curr_streamer_img_url);
                                             if (prediction_text.toLowerCase().includes("coin")){
                                                 showNotification("Warning: Coinflip detected!", "If this is not a coinflip, please cancel the upcoming vote.", curr_streamer_img_url, true);
                                             }
                                         }
                                     }, function (res){
                                         if (res === 'prediction_closed_or_ended') {
-                                            showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", res.prediction_question + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
+                                            showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", prediction_text + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
                                         } else {
                                             showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", "Predictions sniper failed to monitor / join prediction, try refreshing the page if prediction still active", curr_streamer_img_url);
                                         }
@@ -2472,8 +2472,8 @@
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" +
                                                         "\n Vote Confidence: " + Math.floor((lTrV/(lTrV + rTlV))*1000)/10 + ":" + Math.floor((rTlV/(rTlV + lTrV))*1000)/10 +
                                                         "\n Vote Polarisation: " + P +
-                                                        "\n EV left:" + e_left +
-                                                        "\n EV right:" + e_right +
+                                                        "\n E left:" + e_left +
+                                                        "\n E right:" + e_right +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" +
                                                         "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
