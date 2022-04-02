@@ -2436,9 +2436,9 @@
                                                     // if (prediction_bet_amount > maxBetSize) {
                                                     //     prediction_bet_amount = maxBetSize;
                                                     // }
-                                                    // if (prediction_bet_amount > 250000) {
-                                                    //     prediction_bet_amount = 250000;
-                                                    // }
+                                                    if (prediction_bet_amount > 250000) {
+                                                        prediction_bet_amount = 250000;
+                                                    }
                                                     /*
                                                     if (prediction_bet_amount > curr_stream_aps_settings.aps_max_points) {
                                                         prediction_bet_amount = curr_stream_aps_settings.aps_max_points;
