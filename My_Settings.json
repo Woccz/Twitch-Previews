@@ -2,10 +2,10 @@
     "tp_options": {
         "PREVIEWDIV_HEIGHT": 248,
         "PREVIEWDIV_WIDTH": 440,
-        "aps_max_points": 95,
+        "aps_max_points": 0,
         "aps_min_vote_margin_percent": 0,
-        "aps_percent": 100,
-        "aps_secondsBefore": 3,
+        "aps_percent": 0,
+        "aps_secondsBefore": 10,
         "isAdvancedVideoEmbedsEnabled": false,
         "isCastEnabled": false,
         "isChannelPointsClickerEnabled": false,
