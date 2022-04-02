@@ -2404,7 +2404,7 @@
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let res = (selectedOption ? e_right : e_left);
 
-                                                    if (0 >= (3 - 2*Math.SQRT2) * res) {
+                                                    if (res <= 0) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: EV is too low. Aborting.");
                                                         showNotification("Aborting Vote.", "EV is too low.", curr_streamer_img_url, true);
                                                         closePopoutMenu();
@@ -2424,7 +2424,10 @@
                                                     // input number to predict with % of total points
                                                     // let prediction_bet_amount = Math.floor((ev * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
                                                     // let prediction_bet_amount = Math.floor(balance * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
-                                                    let prediction_bet_amount = Math.floor((Math.SQRT2-1) * totalChannelPointNum);
+
+                                                    let p_size = (Math.SQRT2 * (res + 1))/Math.sqrt((res + 1)*(res + 2)) - 1;
+
+                                                    let prediction_bet_amount = Math.floor(p_size * totalChannelPointNum);
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
 
