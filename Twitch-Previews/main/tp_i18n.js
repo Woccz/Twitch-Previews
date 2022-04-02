@@ -2410,7 +2410,7 @@ export const i18n = {
         'ru':'* Если вы измените потоки после нажатия «Отменить предстоящее голосование», а затем вернетесь обратно, вам нужно будет щелкнуть его еще раз, чтобы отменить предстоящее голосование.'
     },
     aps_settings_bet_percent_pt1: {
-        'en': 'Bet:',
+        'en': 'None:',
         'es': 'Apuesta:',
         'de': 'Wette:',
         'fr': 'Pariez:',
@@ -2422,7 +2422,7 @@ export const i18n = {
         'en': 'None',
     },
     aps_settings_bet_percent_pt3: {
-        'en': '% of total points)',
+        'en': 'None)',
     },
     aps_settings_min_vote_margin: {
         'en': 'Download log:',
