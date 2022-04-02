@@ -2404,7 +2404,7 @@
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let res = (selectedOption ? e_right : e_left);
 
-                                                    if (1 > (3 - 2*Math.SQRT2) * res) {
+                                                    if (0 >= (3 - 2*Math.SQRT2) * res) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: EV is too low. Aborting.");
                                                         showNotification("Aborting Vote.", "EV is too low.", curr_streamer_img_url, true);
                                                         closePopoutMenu();
