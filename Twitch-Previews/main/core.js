@@ -2313,10 +2313,11 @@
 
                                     APS_awaiting_to_place_bet_streamName = null;
                                     APS_didnt_vote_reason_margin_percent = null;
-                                    if (curr_stream_aps_settings.aps_percent === 0) {
-                                        clearPredictionStatus();
-                                        return;
-                                    }
+                                    
+                                    // if (curr_stream_aps_settings.aps_percent === 0) {
+                                    //     clearPredictionStatus();
+                                    //     return;
+                                    // }
 
                                     // get number of channel points
                                     getChannelPointsNum().then(function (totalChannelPointNum) {
