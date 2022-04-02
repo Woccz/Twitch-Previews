@@ -38,5 +38,9 @@
         "selected_lang": "en",
         "selfPreviewStreamName": "",
         "sidebarFavorites_hide_originals": false
-    }
+    },
+    "favorites_arr": false,
+    "fb_streamers": false,
+    "aps_streams_settings_obj": false,
+    "multiStream_layout_presets": false
 }
