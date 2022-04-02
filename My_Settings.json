@@ -9,7 +9,7 @@
         "isPredictionsNotificationsEnabled": true,
         
         "isPredictionsSniperEnabled": true,
-        "aps_secondsBefore": 10,
+        "aps_secondsBefore": 3,
         
         "aps_percent": 0,
         "aps_max_points": 0,
