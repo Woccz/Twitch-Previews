@@ -2323,6 +2323,8 @@
 
                                         if(!totalChannelPointNum) {
                                             clearPredictionStatus();
+                                            console.log(new Date().toLocaleString() + "\nAPS: No points.");
+                                            showNotification("Aborting Vote.", "No points.", curr_streamer_img_url, true);
                                             return;
                                         }
 
@@ -2487,6 +2489,7 @@
                                                         "\n Ev left: " + (e_left*100).toFixed(2) + '%' +
                                                         "\n Ev right: " + (e_right*100).toFixed(2) + '%' +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
+                                                        "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" +
                                                         "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
                                                     );
