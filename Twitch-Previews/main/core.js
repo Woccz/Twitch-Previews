@@ -2430,7 +2430,11 @@
 
                                                     let p_size = (Math.SQRT2 * (res + 1))/Math.sqrt((res + 1)*(res + 2)) - 1;
 
-                                                    let prediction_bet_amount = Math.round(p_size * totalChannelPointNum);
+                                                    if (totalChannelPointNum < Math.SQRT2 * 250000) {
+                                                        let prediction_bet_amount = Math.round(p_size * totalChannelPointNum);
+                                                    } else {
+                                                        let prediction_bet_amount = Math.round(p_size * (Math.SQRT2-1) * 250000);
+                                                    }
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
 
