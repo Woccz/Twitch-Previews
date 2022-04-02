@@ -2428,12 +2428,16 @@
                                                     // let prediction_bet_amount = Math.floor((ev * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
                                                     // let prediction_bet_amount = Math.floor(balance * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
 
-                                                    let p_size = (Math.SQRT2 * (res + 1))/Math.sqrt((res + 1)*(res + 2)) - 1;
+                                                    
 
                                                     if (totalChannelPointNum < 250000/(Math.SQRT2-1)) {
+                                                        // Exponetial bet model
+                                                        let p_size = (Math.SQRT2 * (res + 1))/Math.sqrt((res + 1)*(res + 2)) - 1;
                                                         let prediction_bet_amount = Math.round(p_size * totalChannelPointNum);
                                                     } else {
-                                                        let prediction_bet_amount = Math.round((Math.SQRT2-1) * totalChannelPointNum);
+                                                        // Linear bet model
+                                                        let p_size = Math.SQRT2-1
+                                                        let prediction_bet_amount = 250000; // In this case predictions size should always be >=250,000, so set it to 250,000
                                                     }
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
