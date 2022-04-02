@@ -2419,31 +2419,13 @@ export const i18n = {
         'ru':'Ставка:'
     },
     aps_settings_bet_percent_pt2: {
-        'en': '% of selected bet size (Max',
-        'es': '% de puntos (Máximo',
-        'de': '% der Punkte (maximal',
-        'fr': '% de points (Maximum',
-        'pt_BR': '% de pontos (máximo',
-        'ko': '% 포인트 (최대',
-        'ru':'% баллов (максимум'
+        'en': 'None',
     },
     aps_settings_bet_percent_pt3: {
         'en': '% of total points)',
-        'es': 'puntos)',
-        'de': 'Punkte)',
-        'fr': 'points)',
-        'pt_BR': 'pontos)',
-        'ko': '포인트)',
-        'ru':'баллов)'
     },
     aps_settings_min_vote_margin: {
-        'en': 'Nothing:',
-        'es': 'Margen mínimo de voto:',
-        'de': 'Mindeststimmenmarge:',
-        'fr': 'Marge de vote minimale :',
-        'pt_BR': 'Margem mínima de voto:',
-        'ko': '최소 투표 차이:',
-        'ru':'Минимальный запас голосов:'
+        'en': 'Download log:',
     },
     aps_settings_seconds_before_closing: {
         'en': 'seconds or less before voting closes',

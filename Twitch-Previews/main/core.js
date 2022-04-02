@@ -2404,6 +2404,14 @@
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let res = (selectedOption ? e_right : e_left);
 
+                                                    if (1 > (3 - 2*Math.SQRT2) * res) {
+                                                        console.log(new Date().toLocaleString() + "\nAPS: EV is too low. Aborting.");
+                                                        showNotification("Aborting Vote.", "EV is too low.", curr_streamer_img_url, true);
+                                                        closePopoutMenu();
+                                                        clearPredictionStatus();
+                                                        return;
+                                                    }
+
                                                     //let balance = selectedOption ? (rTlV/(rTlV + lTrV)) : (lTrV/(lTrV + rTlV));
                                                     
                                                     //let selectedOption = left_vote_count > right_vote_count ? 0 : 1;
@@ -2416,7 +2424,7 @@
                                                     // input number to predict with % of total points
                                                     // let prediction_bet_amount = Math.floor((ev * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
                                                     // let prediction_bet_amount = Math.floor(balance * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
-                                                    let prediction_bet_amount = Math.floor(res * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
+                                                    let prediction_bet_amount = Math.floor((Math.SQRT2-1) * totalChannelPointNum);
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
 
@@ -2473,8 +2481,8 @@
                                                         "\n Prediction question: " + prediction_question +                                                       
                                                         "\n Vote Confidence: " + Math.round((lTrV/(lTrV + rTlV))*10000) + " : " + Math.round((rTlV/(rTlV + lTrV))*10000) +
                                                         "\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
-                                                        "\n E left: " + (e_left*100).toFixed(2) + '%' +
-                                                        "\n E right: " + (e_right*100).toFixed(2) + '%' +
+                                                        "\n Ev left: " + (e_left*100).toFixed(2) + '%' +
+                                                        "\n Ev right: " + (e_right*100).toFixed(2) + '%' +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" +
                                                         "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
