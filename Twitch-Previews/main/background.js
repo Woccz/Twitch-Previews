@@ -2,13 +2,12 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-134155755-2', 'auto');
+ga('create', 'UA-224158100-1', 'auto');
 ga('set', 'checkProtocolTask', null);
 ga('send', 'pageview', 'main');
 
 function send_ga_event(category, action, value) {
-    //ga('send', 'event', category, action, value);
-    return;
+    ga('send', 'event', category, action, value);
 }
 
 let tpga_browser = 'chrome';
@@ -544,7 +543,7 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('predictionsNotifications_show', 'PN_show', 'PN_show');
             break;
         case "bg_APS_exec":
-            send_ga_event('APS_exec', 'APS_exec', 'APS_exec');
+            send_ga_event('APS_exec123', 'APS_exec234', 'APS_exec345');
             break;
         case "bg_APS_res":
             send_ga_event('APS_res', 'APS_res', "APS_res-" + msg.detail);
