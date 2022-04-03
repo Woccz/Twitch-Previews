@@ -2508,10 +2508,11 @@
                                                     // --------------------- Console Log Prediction --------------------
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
+                                                        "\n Total Channel Points: " + totalChannelPointNum +
+                                                        "\n Prediction question: " + prediction_question +                                                  
                                                         "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
-                                                        "\n Prediction question: " + prediction_question +                                                       
-                                                        "\n Vote Confidence: " + Math.round((lTrV/(lTrV + rTlV))*10000) + " : " + Math.round((rTlV/(rTlV + lTrV))*10000) +
+                                                        "\n Vote Confidence Ratio: " + Math.round((lTrV/(lTrV + rTlV))*10000) + " : " + Math.round((rTlV/(rTlV + lTrV))*10000) +
                                                         //"\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
                                                         "\n Ev left: " + (e_left*100).toFixed(2) + '%' +
                                                         "\n Ev right: " + (e_right*100).toFixed(2) + '%' +
