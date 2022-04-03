@@ -2226,7 +2226,7 @@
 
                             }
 
-                            closePopoutMenu();
+                            //closePopoutMenu();
                             resolve(return_obj);
                         }, 120);
                     }, 200);
@@ -2386,7 +2386,7 @@
                                                     
                                                     if(leftVotes == 0 || rightVotes == 0) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: no votes for " + ((leftVotes < rightVotes) ? "Left" : "Right") + ". Aborting.");
-                                                        showNotification("Aborting Vote.", "No votes for " + ((leftVotes < rightVotes) ? "Left" : "Right"), curr_streamer_img_url, true);
+                                                        showNotification("Aborting Vote.", "No votes for " + ((leftVotes < rightVotes) ? "Left" : "Right"), "", true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
@@ -2406,14 +2406,14 @@
                                                     // let e_right = (rTlV*P-lTrV-lTlV*P+lTlV)/(rTlV+lTrV);
                                                     // -- END OLD EV METHODS --
 
-                                                    // -- NEW EV METHODS --
                                                     let l_balance = (lTrV/(lTrV + rTlV));
-
+                                                    
                                                     // Non linear balance
                                                     l_balance = l_balance < 0.5 ? (0.5 * l_balance/(1-l_balance)) : (1 - 0.5 * (1-l_balance)/l_balance);
-
+                                                    
                                                     let r_balance = 1-l_balance
-
+                                                    
+                                                    // -- NEW EV METHODS --
                                                     let e_left  = rightTotal / leftTotal * l_balance - r_balance;
                                                     let e_right = leftTotal / rightTotal * r_balance - l_balance;
                                                     // -- END NEW EV METHODS --
@@ -2424,13 +2424,13 @@
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let res = (selectedOption ? e_right : e_left);
 
-                                                    if (res <= 0) {
-                                                        console.log(new Date().toLocaleString() + "\nAPS: EV is too low. Aborting.");
-                                                        showNotification("Aborting Vote.", "EV is too low.", curr_streamer_img_url, true);
-                                                        closePopoutMenu();
-                                                        clearPredictionStatus();
-                                                        return;
-                                                    }
+                                                    // if (res <= 0) {
+                                                    //     console.log(new Date().toLocaleString() + "\nAPS: EV is too low. Aborting.");
+                                                    //     showNotification("Aborting Vote.", "EV is too low.", "", true);
+                                                    //     closePopoutMenu();
+                                                    //     clearPredictionStatus();
+                                                    //     return;
+                                                    // }
 
                                                     //let balance = selectedOption ? (rTlV/(rTlV + lTrV)) : (lTrV/(lTrV + rTlV));
                                                     
@@ -2446,6 +2446,9 @@
                                                     // let prediction_bet_amount = Math.floor(balance * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
 
                                                     
+                                                    // TODO: Run mutliple passes over this with rightTotal / (leftTotal + leftBetSize) or leftTotal / (rightTotal + rightBetSize)
+                                                    // ,dependant on selectedOption, as new res
+
                                                     let prediction_bet_amount = 0;
                                                     let p_size = 0;
                                                     if (totalChannelPointNum < 250000/(Math.SQRT2-1)) {
@@ -2487,7 +2490,7 @@
                                                     // --------------------- Charity Check ---------------------
                                                     if (prediction_question.includes("charity")){
                                                         console.log(new Date().toLocaleString() + "\nAPS: Charity prediction. Aborting.");
-                                                        showNotification("Aborting Vote.", "Charity prediction.", curr_streamer_img_url, true);
+                                                        showNotification("Aborting Vote.", "Charity prediction.", "", true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
@@ -2512,7 +2515,7 @@
                                                         "\n Prediction question: " + prediction_question +                                                  
                                                         "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
-                                                        "\n Vote Confidence Ratio: " + Math.round((lTrV/(lTrV + rTlV))*10000) + " : " + Math.round((rTlV/(rTlV + lTrV))*10000) +
+                                                        "\n Vote Confidence Ratio: " + Math.round(leftTotal/leftVotes) + " : " + Math.round(rightTotal/rightVotes) +
                                                         //"\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
                                                         "\n Ev left: " + (e_left*100).toFixed(2) + '%' +
                                                         "\n Ev right: " + (e_right*100).toFixed(2) + '%' +
@@ -2526,7 +2529,7 @@
                                                     // --------------------- Not Large enough bet check ---------------------
                                                     if (prediction_bet_amount < 1) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
-                                                        showNotification("Aborting Vote.", "Not large enough bet size.", curr_streamer_img_url, true);
+                                                        showNotification("Aborting Vote.", "Not large enough bet size.", "", true);
                                                         closePopoutMenu();
                                                         clearPredictionStatus();
                                                         return;
@@ -2565,7 +2568,7 @@
                                                             //showNotification(curr_streamer + ": " + "Sniper voted!\n", prediction_question + " " + prediction_options_str + '\nSniper voted "' + sniper_selection_str + '" with ' + prediction_bet_amount + " points!", curr_streamer_img_url, true);
                                                         }
 
-                                                        closePopoutMenu();
+                                                        //closePopoutMenu();
 
                                                         sendMessageToBG({action: "bg_APS_exec", detail: "bg_APS_exec"});
                                                         clearPredictionStatus();
