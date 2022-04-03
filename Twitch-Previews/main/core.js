@@ -2392,17 +2392,31 @@
                                                         return;
                                                     }
                                                     
+                                                    // -- OLD EV METHODS --
                                                     let lTrV = leftTotal * rightVotes;
                                                     let rTlV = rightTotal * leftVotes;
-                                                    let rTrV = rightTotal * rightVotes;
-                                                    let lTlV = leftTotal * leftVotes;
+                                                    // let rTrV = rightTotal * rightVotes;
+                                                    // let lTlV = leftTotal * leftVotes;
 
-                                                    // let P = Math.abs(2*(leftTotal/(leftTotal+rightTotal))-1);
-                                                    let x = Math.SQRT2*(leftTotal/(leftTotal+rightTotal)-0.5);
-                                                    let P = 4*x*x - 4*x*x*x*x;
+                                                    // // let P = Math.abs(2*(leftTotal/(leftTotal+rightTotal))-1);
+                                                    // let x = Math.SQRT2*(leftTotal/(leftTotal+rightTotal)-0.5);
+                                                    // let P = 4*x*x - 4*x*x*x*x;
+                                                    
+                                                    // let e_left  = (lTrV*P-rTlV-rTrV*P+rTrV)/(lTrV+rTlV);
+                                                    // let e_right = (rTlV*P-lTrV-lTlV*P+lTlV)/(rTlV+lTrV);
+                                                    // -- END OLD EV METHODS --
 
-                                                    let e_left  = (lTrV*P-rTlV-rTrV*P+rTrV)/(lTrV+rTlV);
-                                                    let e_right = (rTlV*P-lTrV-lTlV*P+lTlV)/(rTlV+lTrV);
+                                                    // -- NEW EV METHODS --
+                                                    let l_balance = (lTrV/(lTrV + rTlV));
+
+                                                    // Scale right first, before l_balance is updated
+                                                    //let r_balance = l_balance < 0.5 ? (0.5 * (1-l_balance)/l_balance) : (0.5 * l_balance/(l_balance-1));
+                                                    l_balance = l_balance < 0.5 ? (0.5 * l_balance/(1-l_balance)) : (1 - 0.5 * (1-l_balance)/l_balance);
+                                                    let r_balance = 1-l_balance
+
+                                                    let e_left  = rightTotal / leftTotal * l_balance - r_balance;
+                                                    let e_right = leftTotal / rightTotal * r_balance - l_balance;
+                                                    // -- END NEW EV METHODS --
                                                     
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let res = (selectedOption ? e_right : e_left);
