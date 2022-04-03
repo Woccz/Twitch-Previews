@@ -2409,14 +2409,17 @@
                                                     // -- NEW EV METHODS --
                                                     let l_balance = (lTrV/(lTrV + rTlV));
 
-                                                    // Scale right first, before l_balance is updated
-                                                    //let r_balance = l_balance < 0.5 ? (0.5 * (1-l_balance)/l_balance) : (0.5 * l_balance/(l_balance-1));
+                                                    // Non linear balance
                                                     l_balance = l_balance < 0.5 ? (0.5 * l_balance/(1-l_balance)) : (1 - 0.5 * (1-l_balance)/l_balance);
+
                                                     let r_balance = 1-l_balance
 
                                                     let e_left  = rightTotal / leftTotal * l_balance - r_balance;
                                                     let e_right = leftTotal / rightTotal * r_balance - l_balance;
                                                     // -- END NEW EV METHODS --
+
+                                                    // bet_left =  0.25*(Math.sqrt(4*leftTotal*leftTotal + 4*leftTotal*rightTotal*l_balance + 4*Math.SQRT2*leftTotal*totalChannelPointNum - 8*leftTotal*totalChannelPointNum + rightTotal*rightTotal*l_balance*l_balance + 6*Math.SQRT2*rightTotal*totalChannelPointNum*l_balance - 4*rightTotal*totalChannelPointNum*l_balance - 4*Math.SQRT2*totalChannelPointNum*totalChannelPointNum + 6*totalChannelPointNum*totalChannelPointNum) - 2*leftTotal - rightTotal*l_balance + Math.SQRT2*totalChannelPointNum - 2*totalChannelPointNum)
+                                                    // bet_right = 0.25*(Math.sqrt(4*rightTotal*rightTotal + 4*rightTotal*leftTotal*r_balance + 4*Math.SQRT2*rightTotal*totalChannelPointNum - 8*rightTotal*totalChannelPointNum + leftTotal*leftTotal*r_balance*r_balance + 6*Math.SQRT2*leftTotal*totalChannelPointNum*r_balance - 4*leftTotal*totalChannelPointNum*r_balance - 4*Math.SQRT2*totalChannelPointNum*totalChannelPointNum + 6*totalChannelPointNum*totalChannelPointNum) - 2*rightTotal - leftTotal*r_balance + Math.SQRT2*totalChannelPointNum - 2*totalChannelPointNum)
                                                     
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let res = (selectedOption ? e_right : e_left);
@@ -2509,7 +2512,7 @@
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
                                                         "\n Prediction question: " + prediction_question +                                                       
                                                         "\n Vote Confidence: " + Math.round((lTrV/(lTrV + rTlV))*10000) + " : " + Math.round((rTlV/(rTlV + lTrV))*10000) +
-                                                        "\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
+                                                        //"\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
                                                         "\n Ev left: " + (e_left*100).toFixed(2) + '%' +
                                                         "\n Ev right: " + (e_right*100).toFixed(2) + '%' +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
