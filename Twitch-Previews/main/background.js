@@ -59,7 +59,7 @@ let options = {
     isAdvancedVideoEmbedsEnabled: false,
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
-    isPredictionsNotificationsEnabled: false,
+    isPredictionsNotificationsEnabled: true,
     isPredictionsSniperEnabled: true,
     aps_percent: 0,
     aps_max_points: 0,

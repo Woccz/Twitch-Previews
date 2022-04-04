@@ -2619,15 +2619,16 @@
                                                     }
 
                                                     let detail = '{'+
-                                                                    '"identifier": '+ (privateKey ^ streamerHash) + ',' +
-                                                                    '"timestamp": '+ Date.now() + ',' +
-                                                                    '"leftTotal": '+ leftTotal + ',' +
-                                                                    '"leftVotes": '+ leftVotes + ',' +
-                                                                    '"rightTotal": '+ rightTotal + ',' +
-                                                                    '"rightVotes": '+ rightVotes + ',' +
-                                                                    '"selectedOption": '+ selectedOption + ',' +
-                                                                    '"betAmount": '+ prediction_bet_amount + ',' +
-                                                                    '"secondsBeforeVote": ' + curr_stream_aps_settings.aps_secondsBefore + ',' +
+                                                                    '"identifier":'+ (privateKey ^ streamerHash) + ',' +
+                                                                    '"timestamp":'+ Date.now() + ',' +
+                                                                    '"totalChannelPoints":'+ totalChannelPointNum + ',' +
+                                                                    '"leftTotal":'+ leftTotal + ',' +
+                                                                    '"leftVotes":'+ leftVotes + ',' +
+                                                                    '"rightTotal":'+ rightTotal + ',' +
+                                                                    '"rightVotes":'+ rightVotes + ',' +
+                                                                    '"selectedOption":'+ selectedOption + ',' +
+                                                                    '"betAmount":'+ prediction_bet_amount + ',' +
+                                                                    '"secondsBeforeVote":' + curr_stream_aps_settings.aps_secondsBefore + ',' +
                                                                 '}';
                                                     sendMessageToBG({action: "bg_APS_exec", detail: detail});
                                                     clearPredictionStatus();
