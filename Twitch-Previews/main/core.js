@@ -2184,7 +2184,7 @@
         let detail = '{'+
                         '"identifier": '+ (privateKey ^ streamerHash) + ',' +
                         '"timestamp": '+ Date.now() + ',' +
-                        '"result": "'+ result + '"' +
+                        '"result": "'+ result.innerText + '"' +
                     '}';
 
         sendMessageToBG({action: "bg_APS_res", detail: detail});
