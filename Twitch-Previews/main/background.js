@@ -192,6 +192,7 @@ _browser.runtime.onInstalled.addListener(function(details) {
         _browser.storage.local.set({'shouldShowSettings': true}, function() {});
         _browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
         _browser.storage.local.set({'shouldShowDelayedRateToast': true}, function() {});
+        _browser.storage.local.set({'privateKey': Math.floor(Math.random() * (1 << 31) + (1 << 30))}, function() {});
         _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
     } else {
         if (details.reason === "update") {
@@ -232,6 +233,12 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 if (!result.tpInstallTime) {
                     _browser.storage.local.set({'shouldShowDelayedRateToast': true}, function() {});
                     _browser.storage.local.set({'tpInstallTime': new Date().getTime()}, function() {});
+                }
+            });
+
+            _browser.storage.local.get('privateKey', function(result) {
+                if (!result.privateKey) {
+                    _browser.storage.local.set({'privateKey': Math.floor(Math.random() * (1 << 31) + (1 << 30))}, function() {});
                 }
             });
 
@@ -543,10 +550,10 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
             send_ga_event('predictionsNotifications_show', 'PN_show', 'PN_show');
             break;
         case "bg_APS_exec":
-            send_ga_event('APS_exec123', 'APS_exec234', 'APS_exec345');
+            send_ga_event('APS', 'APS_exec', msg.detail);
             break;
         case "bg_APS_res":
-            send_ga_event('APS_res', 'APS_res', "APS_res-" + msg.detail);
+            send_ga_event('APS', 'APS_res', msg.detail);
             break;
         case "bg_update_isPredictionsSniperEnabled":
             send_ga_event('APS_mode', 'change', msg.detail ? "APS_ON":"APS_OFF");

@@ -2160,7 +2160,34 @@
     }
 
     function sendPredictionCompletionEvent() {
-        sendMessageToBG({action: "bg_APS_res", detail: document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') ? 'W' : document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]') ? 'L': 'N/A'});
+        let privateKey = 0;
+        _browser.storage.local.get('privateKey', function(result) {
+            if (!result.privateKey) {
+                result.privateKey = Math.floor(Math.random() * (1 << 31) + (1 << 30));
+                _browser.storage.local.set({'privateKey': result.privateKey}, function() {});
+            }
+            privateKey = result.privateKey;
+        });
+        
+
+        let curr_streamer = getCurrentStreamerName();
+        var streamerHash = 0, i, chr;
+        if (curr_streamer.length === 0) return streamerHash;
+        for (i = 0; i < curr_streamer.length; i++) {
+            chr   = curr_streamer.charCodeAt(i);
+            streamerHash  = ((streamerHash << 5) - streamerHash) + chr;
+            streamerHash |= 0;
+        }
+
+        let result = document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') ? 'W' : document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]') ? 'L': 'N/A';
+
+        let detail = '{'+
+                        '"identifier": '+ (privateKey ^ streamerHash) + ',' +
+                        '"timestamp": '+ Date.now() + ',' +
+                        '"result": "'+ result + '"' +
+                    '}';
+
+        sendMessageToBG({action: "bg_APS_res", detail: detail});
     }
 
     function getPredictionsSniperResults() {
@@ -2570,9 +2597,40 @@
 
                                                         //closePopoutMenu();
 
-                                                        sendMessageToBG({action: "bg_APS_exec", detail: "bg_APS_exec"});
-                                                        clearPredictionStatus();
                                                     }, 250);
+
+                                                    let privateKey = 0;
+                                                    _browser.storage.local.get('privateKey', function(result) {
+                                                        if (!result.privateKey) {
+                                                            result.privateKey = Math.floor(Math.random() * (1 << 31) + (1 << 30));
+                                                            _browser.storage.local.set({'privateKey': result.privateKey}, function() {});
+                                                        }
+                                                        privateKey = result.privateKey;
+                                                    });
+                                                    
+
+                                                    let curr_streamer = getCurrentStreamerName();
+                                                    var streamerHash = 0, i, chr;
+                                                    if (curr_streamer.length === 0) return streamerHash;
+                                                    for (i = 0; i < curr_streamer.length; i++) {
+                                                      chr   = curr_streamer.charCodeAt(i);
+                                                      streamerHash  = ((streamerHash << 5) - streamerHash) + chr;
+                                                      streamerHash |= 0;
+                                                    }
+
+                                                    let detail = '{'+
+                                                                    '"identifier": '+ (privateKey ^ streamerHash) + ',' +
+                                                                    '"timestamp": '+ Date.now() + ',' +
+                                                                    '"leftTotal": '+ leftTotal + ',' +
+                                                                    '"leftVotes": '+ leftVotes + ',' +
+                                                                    '"rightTotal": '+ rightTotal + ',' +
+                                                                    '"rightVotes": '+ rightVotes + ',' +
+                                                                    '"selectedOption": '+ selectedOption + ',' +
+                                                                    '"secondsBeforeVote": ' + curr_stream_aps_settings.aps_secondsBefore + ',' +
+                                                                '}';
+                                                    sendMessageToBG({action: "bg_APS_exec", detail: detail});
+                                                    clearPredictionStatus();
+
                                                 }, 120);
                                             }, 150);
                                         },400);

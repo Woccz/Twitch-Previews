@@ -2425,7 +2425,7 @@ export const i18n = {
         'en': 'None)',
     },
     aps_settings_min_vote_margin: {
-        'en': 'Download log:',
+        'en': 'None:',
     },
     aps_settings_seconds_before_closing: {
         'en': 'seconds or less before voting closes',
