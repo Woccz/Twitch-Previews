@@ -50,7 +50,7 @@ let options = {
     isScreenshotEnabled: false,
     isRecordEnabled: false,
     isFlashBangDefenderEnabled: false,
-    isFastForwardEnabled: false,
+    isFastForwardEnabled: true,
     isSeekEnabled: false,
     isCastEnabled: false,
     isClearChatEnabled: false,
@@ -60,11 +60,11 @@ let options = {
     isSelfPreviewEnabled: false,
     selfPreviewStreamName: '',
     isPredictionsNotificationsEnabled: false,
-    isPredictionsSniperEnabled: false,
-    aps_percent: 0.1,
-    aps_max_points: 10000,
-    aps_secondsBefore: 10,
-    aps_min_vote_margin_percent: 15
+    isPredictionsSniperEnabled: true,
+    aps_percent: 0,
+    aps_max_points: 0,
+    aps_secondsBefore: 5,
+    aps_min_vote_margin_percent: 0
 };
 
 function sendMessageToTabs(action) {
