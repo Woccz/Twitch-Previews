@@ -2178,16 +2178,18 @@
             streamerHash  = ((streamerHash << 5) - streamerHash) + chr;
             streamerHash |= 0;
         }
-
         let result = document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') || document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]');
 
-        let detail = '{'+
-                        '"identifier": '+ (privateKey ^ streamerHash) + ',' +
-                        '"timestamp": '+ Date.now() + ',' +
-                        '"result": "'+ result.innerText + '"' +
-                    '}';
+        getChannelPointsNum().then(function (totalChannelPointNum) {
+            let detail = '{'+
+                            '"identifier":'+ (privateKey ^ streamerHash) + ',' +
+                            '"totalChannelPoints":'+ totalChannelPointNum + ',' +
+                            '"timestamp":'+ Date.now() + ',' +
+                            '"result":"'+ result.innerText + '"' +
+                        '}';
 
-        sendMessageToBG({action: "bg_APS_res", detail: detail});
+            sendMessageToBG({action: "bg_APS_res", detail: detail});
+        });
     }
 
     function getPredictionsSniperResults() {
@@ -2352,7 +2354,7 @@
                                         if(!totalChannelPointNum) {
                                             clearPredictionStatus();
                                             console.log(new Date().toLocaleString() + "\nAPS: No points.");
-                                            showNotification("Aborting Vote.", "No points.", curr_streamer_img_url, true);
+                                            showNotification("Aborting Vote.", "No points.", "", true);
                                             return;
                                         }
 
