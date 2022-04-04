@@ -2179,7 +2179,7 @@
             streamerHash |= 0;
         }
 
-        let result = document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') ? 'W' : document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]') ? 'L': 'N/A';
+        let result = document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') || document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]');
 
         let detail = '{'+
                         '"identifier": '+ (privateKey ^ streamerHash) + ',' +
