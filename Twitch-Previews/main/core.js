@@ -2182,10 +2182,10 @@
 
         getChannelPointsNum().then(function (totalChannelPointNum) {
             let detail = '{'+
-                            '"identifier":'+ (privateKey ^ streamerHash) + ',' +
-                            '"totalChannelPoints":'+ totalChannelPointNum + ',' +
-                            '"timestamp":'+ Date.now() + ',' +
-                            '"result":"'+ result.innerText + '"' +
+                            '"timestamp":' + Date.now() + ',' +
+                            '"identifier":' + (privateKey ^ streamerHash) + ',' +
+                            '"totalChannelPoints":' + totalChannelPointNum + ',' +
+                            '"result":"' + result.innerText + '"' +
                         '}';
 
             sendMessageToBG({action: "bg_APS_res", detail: detail});
@@ -2621,8 +2621,8 @@
                                                     }
 
                                                     let detail = '{'+
-                                                                    '"identifier":'+ (privateKey ^ streamerHash) + ',' +
                                                                     '"timestamp":'+ Date.now() + ',' +
+                                                                    '"identifier":'+ (privateKey ^ streamerHash) + ',' +
                                                                     '"totalChannelPoints":'+ totalChannelPointNum + ',' +
                                                                     '"leftTotal":'+ leftTotal + ',' +
                                                                     '"leftVotes":'+ leftVotes + ',' +
