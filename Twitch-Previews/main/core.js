@@ -2438,7 +2438,8 @@
                                                     let l_balance = (lTrV/(lTrV + rTlV));
                                                     
                                                     // Non linear balance
-                                                    l_balance = l_balance < 0.5 ? (0.5 * l_balance/(1-l_balance)) : (1 - 0.5 * (1-l_balance)/l_balance);
+                                                    //l_balance = l_balance < 0.5 ? (0.5 * l_balance/(1-l_balance)) : (1 - 0.5 * (1-l_balance)/l_balance);
+                                                    l_balance = l_balance < 0.5 ?  2*l_balance/(2*l_balance+1): -1/(2*l_balance-3);
                                                     
                                                     let r_balance = 1-l_balance
                                                     
