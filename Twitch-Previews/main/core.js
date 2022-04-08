@@ -2143,11 +2143,20 @@
             else if(!fractional && c == '.') {
                 fractional = true;
             }
-            else if(c == 'K') {
+            else if (c == '百') {
+                m *= 100;
+            }
+            else if(c == 'K' || c == '千') {
                 m *= 1000;
+            }
+            else if(c == '万') {
+                m *= 10000;
             }
             else if(c == 'M') {
                 m *= 1000000;
+            }
+            else if(c == '億') {
+                m *= 100000000;
             }
             else if(c == 'B') {
                 m *= 1000000000;
