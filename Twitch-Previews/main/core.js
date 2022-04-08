@@ -2560,6 +2560,7 @@
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
                                                         "\n Vote Confidence Ratio: " + Math.round(leftTotal/leftVotes) + " : " + Math.round(rightTotal/rightVotes) +
                                                         //"\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
+                                                        "\n Left Estimated Win: " + (l_balance*100).toFixed(2) + '%' +
                                                         "\n Ev left: " + (e_left*100).toFixed(2) + '%' +
                                                         "\n Ev right: " + (e_right*100).toFixed(2) + '%' +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
