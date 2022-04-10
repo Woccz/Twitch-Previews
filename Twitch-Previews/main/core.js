@@ -3594,17 +3594,17 @@
         }
     }
 
-    function aps_settings_initNumInputValue(settingsContainer, streamName, curr_stream_settings, featureName, inputID, minimum) {
+    function aps_settings_initNumInputValue(settingsContainer, streamName, curr_stream_settings, featureName, inputID) {
 
         let input = settingsContainer.querySelector('#' + inputID);
         input.value = curr_stream_settings ? curr_stream_settings[featureName] : options[featureName];
 
         input.addEventListener('change', (event) => {
             let newVal = parseFloat(event.target.value);
-            if (newVal < minimum) {
-                newVal = minimum;
-                input.value = minimum;
-            }
+            // if (newVal < minimum) {
+            //     newVal = minimum;
+            //     input.value = minimum;
+            // }
 
             _browser.storage.local.get('aps_streams_settings_obj', function(res) {
                 if (!res.aps_streams_settings_obj) {
@@ -3750,10 +3750,10 @@
                 if (res.aps_streams_settings_obj && res.aps_streams_settings_obj[curr_stream_name]) {
                     aps_curr_stream_settings = res.aps_streams_settings_obj[curr_stream_name];
                 }
-                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_percent', 'tp_APS_settings_percent_input', 0);
-                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_max_points', 'tp_APS_settings_max_points_input', 0);
-                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_min_vote_margin_percent', 'tp_APS_settings_min_vote_margin_percent_input', 0);
-                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_secondsBefore', 'tp_APS_settings_secondsBefore_input', 2);
+                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_percent', 'tp_APS_settings_percent_input');
+                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_max_points', 'tp_APS_settings_max_points_input');
+                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_min_vote_margin_percent', 'tp_APS_settings_min_vote_margin_percent_input');
+                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_secondsBefore', 'tp_APS_settings_secondsBefore_input');
             });
 
             initDragForAPSSettings(settingsContainer);
