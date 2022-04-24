@@ -2430,61 +2430,66 @@
                                                         return;
                                                     }
                                                     
+
                                                     // --------------------- Choose Prediction Ammount ---------------------
-                                                    
+
+                                                    let lTrV = leftTotal * leftVotes;
+                                                    let rTlV = rightTotal * rightVotes;
+
                                                     let l_balance = (lTrV/(lTrV + rTlV));
                                                     let r_balance = 1-l_balance;
-                                                    
+
                                                     var e_right, e_left;
                                                     var l_p_size, r_p_size
                                                     var l_prediction_bet_amount, r_prediction_bet_amount;
-                                                    
+
                                                     // Left
                                                     let l_win_probability = l_balance;
-                                                    if (totalChannelPointNum < 250000/win_probability) {
+                                                    if (totalChannelPointNum < 250000/l_win_probability) {
                                                         // Guess an initial bet size of 5%
                                                         l_prediction_bet_amount = totalChannelPointNum * 0.05;
-                                                    
+
                                                         for(let i = 0; i < 10; i++) {
-                                                    
+
                                                             e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance
-                                                    
+
                                                             l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
                                                             l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum);
-                                                    
+
                                                         }
-                                                    
+
                                                     }
                                                     else {
                                                         l_prediction_bet_amount = 250000; // In this case predictions size should always be >=250,000, so set it to 250,000
                                                     }
-                                                    
+
                                                     // Right
                                                     let r_win_probability = r_balance;
                                                     if (totalChannelPointNum < 250000/r_win_probability) {
                                                         // Guess an initial bet size of 5%
                                                         r_prediction_bet_amount = totalChannelPointNum * 0.05;
-                                                    
+
                                                         for(let i = 0; i < 10; i++) {
-                                                    
+
                                                             e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance
-                                                    
+
                                                             r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
                                                             r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum);
-                                                    
+
                                                         }
-                                                    
+
                                                     }
                                                     else {
                                                         r_prediction_bet_amount = 250000; // In this case predictions size should always be >=250,000, so set it to 250,000
                                                     }
-                                                    
+
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let win_probability = selectedOption ? r_win_probability : l_win_probability;
                                                     let p_size = selectedOption ? r_p_size : l_p_size;
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
+                                                    
 
                                                     // Maximum bet size
                                                     // let maxBetSize = Math.floor(totalChannelPointNum * curr_stream_aps_settings.aps_max_points / 100);
