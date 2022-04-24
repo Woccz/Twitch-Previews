@@ -2442,6 +2442,8 @@
                                                     var e_right, e_left;
                                                     var l_p_size, r_p_size
                                                     var l_prediction_bet_amount, r_prediction_bet_amount;
+                                                    var l_progression = [];
+                                                    var r_progression = [];
 
                                                     // Left
                                                     let l_win_probability = l_balance;
@@ -2455,6 +2457,8 @@
 
                                                             l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
                                                             l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum);
+
+                                                            l_progression.push(l_prediction_bet_amount);
 
                                                         }
 
@@ -2476,6 +2480,8 @@
                                                             r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
                                                             r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum);
 
+                                                            r_progression.push(r_prediction_bet_amount);
+
                                                         }
 
                                                     }
@@ -2487,6 +2493,7 @@
                                                     let win_probability = selectedOption ? r_win_probability : l_win_probability;
                                                     let p_size = selectedOption ? r_p_size : l_p_size;
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
+                                                    let progression = selectedOption ? r_progression : l_progression;
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
                                                     
@@ -2552,6 +2559,7 @@
                                                         "\n Win probability: " + (win_probability*100).toFixed(2) + '%' +
                                                         "\n EV: " + (ev*100).toFixed(2) + '%' +
                                                         "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
+                                                        "\n Progression: " + progression +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points"
                                                     );
                                                     
