@@ -2544,15 +2544,16 @@
                                                         "\n Prediction question: " + prediction_question +                                                  
                                                         "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
+                                                        "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText +
                                                         "\n Vote Confidence Ratio: " + Math.round(leftTotal/leftVotes) + " : " + Math.round(rightTotal/rightVotes) +
                                                         //"\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
-                                                        "\n Ev left: " + (e_left*100).toFixed(2) + '%' +
-                                                        "\n Ev right: " + (e_right*100).toFixed(2) + '%' +
+                                                        //"\n Ev left: " + (e_left*100).toFixed(2) + '%' +
+                                                        //"\n Ev right: " + (e_right*100).toFixed(2) + '%' +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
                                                         "\n Win probability: " + (win_probability*100).toFixed(2) + '%' +
+                                                        "\n EV: " + (ev*100).toFixed(2) + '%' +
                                                         "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
-                                                        "\n Bet Amount: " + prediction_bet_amount + " points" +
-                                                        "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
+                                                        "\n Bet Amount: " + prediction_bet_amount + " points"
                                                     );
                                                     
                                                     // --------------------- END Console Log Prediction --------------------
