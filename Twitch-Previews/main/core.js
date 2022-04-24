@@ -2447,21 +2447,29 @@
 
                                                     // Left
                                                     let l_win_probability = l_balance;
-                                                    //if (totalChannelPointNum < 250000/l_win_probability) {
-                                                    if (true) { // Linear bet model does not respect the ev yet                                                        
+
+                                                    //if (totalChannelPointNum < 250000/r_win_probability) {
+                                                    if (true) { // Linear bet model does not respect the ev yet
                                                         // Guess an initial bet size of 5%
                                                         l_prediction_bet_amount = totalChannelPointNum * 0.05;
 
-                                                        for(let i = 0; i < 10; i++) {
+                                                        for(let i = 0; i < 100; i++) {
 
                                                             e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance
-
+                                                        
                                                             l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
-                                                            if(l_prediction_bet_amount == (l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum))) break;
-
+                                                            
+                                                            l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum)
+                                                            
+                                                            if(l_progression.length > 0 && l_prediction_bet_amount == l_progression[l_progression.length - 1]) break;
+                                                            
+                                                            if(l_prediction_bet_amount < 0) l_prediction_bet_amount = 0;
+                                                            
                                                             l_progression.push(l_prediction_bet_amount);
-
+                                                            
+                                                            l_prediction_bet_amount = Math.round(l_progression.reduce((a, b) => a + b, 0)/(l_progression.length));
                                                         }
+                                                        l_prediction_bet_amount = l_progression[l_progression.length - 1];
 
                                                     }
                                                     else {
@@ -2470,22 +2478,29 @@
 
                                                     // Right
                                                     let r_win_probability = r_balance;
+
                                                     //if (totalChannelPointNum < 250000/r_win_probability) {
                                                     if (true) { // Linear bet model does not respect the ev yet
                                                         // Guess an initial bet size of 5%
                                                         r_prediction_bet_amount = totalChannelPointNum * 0.05;
 
-                                                        for(let i = 0; i < 10; i++) {
+                                                        for(let i = 0; i < 100; i++) {
 
                                                             e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance
-
+                                                        
                                                             r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
                                                             
-                                                            if(r_prediction_bet_amount == (r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum))) break;
-
+                                                            r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum)
+                                                            
+                                                            if(r_progression.length > 0 && r_prediction_bet_amount == r_progression[r_progression.length - 1]) break;
+                                                            
+                                                            if(r_prediction_bet_amount < 0) r_prediction_bet_amount = 0;
+                                                            
                                                             r_progression.push(r_prediction_bet_amount);
-
+                                                            
+                                                            r_prediction_bet_amount = Math.round(r_progression.reduce((a, b) => a + b, 0)/(r_progression.length));
                                                         }
+                                                        r_prediction_bet_amount = r_progression[r_progression.length - 1];
 
                                                     }
                                                     else {
@@ -2494,7 +2509,6 @@
 
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let win_probability = selectedOption ? r_win_probability : l_win_probability;
-                                                    let ev = selectedOption ? e_right : e_left;
                                                     let p_size = selectedOption ? r_p_size : l_p_size;
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
                                                     let progression = selectedOption ? r_progression : l_progression;
