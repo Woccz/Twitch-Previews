@@ -2465,6 +2465,7 @@
                                                     // bet_right = 0.25*(Math.sqrt(4*rightTotal*rightTotal + 4*rightTotal*leftTotal*r_balance + 4*Math.SQRT2*rightTotal*totalChannelPointNum - 8*rightTotal*totalChannelPointNum + leftTotal*leftTotal*r_balance*r_balance + 6*Math.SQRT2*leftTotal*totalChannelPointNum*r_balance - 4*leftTotal*totalChannelPointNum*r_balance - 4*Math.SQRT2*totalChannelPointNum*totalChannelPointNum + 6*totalChannelPointNum*totalChannelPointNum) - 2*rightTotal - leftTotal*r_balance + Math.SQRT2*totalChannelPointNum - 2*totalChannelPointNum)
                                                     
                                                     let selectedOption = e_left < e_right ? 1 : 0;
+                                                    let win_probability = selectedOption ? r_balance : l_balance;
                                                     let res = (selectedOption ? e_right : e_left);
 
                                                     // if (res <= 0) {
@@ -2494,7 +2495,10 @@
 
                                                     let prediction_bet_amount = 0;
                                                     let p_size = 0;
-                                                    if (totalChannelPointNum < 250000/(Math.SQRT2-1)) {
+
+                                                    //if (totalChannelPointNum < 250000/(Math.SQRT2-1)) {
+
+                                                    if (totalChannelPointNum < 250000/win_probability)
                                                         // Exponetial bet model
                                                         p_size = (Math.SQRT2 * (res + 1))/Math.sqrt((res + 1)*(res + 2)) - 1;
                                                         prediction_bet_amount = Math.round(p_size * totalChannelPointNum);
@@ -2560,10 +2564,10 @@
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
                                                         "\n Vote Confidence Ratio: " + Math.round(leftTotal/leftVotes) + " : " + Math.round(rightTotal/rightVotes) +
                                                         //"\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
-                                                        "\n Left Estimated Win: " + (l_balance*100).toFixed(2) + '%' +
                                                         "\n Ev left: " + (e_left*100).toFixed(2) + '%' +
                                                         "\n Ev right: " + (e_right*100).toFixed(2) + '%' +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
+                                                        "\n Win probability: " + (win_probability*100).toFixed(2) + '%' +
                                                         "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" +
                                                         "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText
