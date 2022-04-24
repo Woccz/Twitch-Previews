@@ -2456,7 +2456,7 @@
                                                             e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance
 
                                                             l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
-                                                            l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum);
+                                                            if(l_prediction_bet_amount == (l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum))) break;
 
                                                             l_progression.push(l_prediction_bet_amount);
 
@@ -2478,7 +2478,8 @@
                                                             e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance
 
                                                             r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
-                                                            r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum);
+                                                            
+                                                            if(r_prediction_bet_amount == (r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum))) break;
 
                                                             r_progression.push(r_prediction_bet_amount);
 
