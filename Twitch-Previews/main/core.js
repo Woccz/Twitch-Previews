@@ -2447,7 +2447,8 @@
 
                                                     // Left
                                                     let l_win_probability = l_balance;
-                                                    if (totalChannelPointNum < 250000/l_win_probability) {
+                                                    //if (totalChannelPointNum < 250000/l_win_probability) {
+                                                    if (true) { // Linear bet model does not respect the ev yet                                                        
                                                         // Guess an initial bet size of 5%
                                                         l_prediction_bet_amount = totalChannelPointNum * 0.05;
 
@@ -2469,7 +2470,8 @@
 
                                                     // Right
                                                     let r_win_probability = r_balance;
-                                                    if (totalChannelPointNum < 250000/r_win_probability) {
+                                                    //if (totalChannelPointNum < 250000/r_win_probability) {
+                                                    if (true) { // Linear bet model does not respect the ev yet
                                                         // Guess an initial bet size of 5%
                                                         r_prediction_bet_amount = totalChannelPointNum * 0.05;
 
