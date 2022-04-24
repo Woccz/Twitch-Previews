@@ -2498,7 +2498,7 @@
 
                                                     //if (totalChannelPointNum < 250000/(Math.SQRT2-1)) {
 
-                                                    if (totalChannelPointNum < 250000/win_probability)
+                                                    if (totalChannelPointNum < 250000/win_probability) {
                                                         // Exponetial bet model
                                                         p_size = (Math.SQRT2 * (res + 1))/Math.sqrt((res + 1)*(res + 2)) - 1;
                                                         prediction_bet_amount = Math.round(p_size * totalChannelPointNum);
