@@ -2467,7 +2467,8 @@
                                                             
                                                             l_progression.push(l_prediction_bet_amount);
                                                             
-                                                            l_prediction_bet_amount = Math.round(l_progression.slice(-4).reduce((a, b) => a + b, 0)/4);
+                                                            let s = l_progression.slice(-4)
+                                                            l_prediction_bet_amount = Math.round(s.reduce((a, b) => a + b, 0)/s.length);
                                                         }
                                                         l_prediction_bet_amount = l_progression[l_progression.length - 1];
 
@@ -2498,7 +2499,8 @@
                                                             
                                                             r_progression.push(r_prediction_bet_amount);
                                                             
-                                                            r_prediction_bet_amount = Math.round(l_progression.slice(-4).reduce((a, b) => a + b, 0)/4);
+                                                            let s = r_progression.slice(-4)
+                                                            r_prediction_bet_amount = Math.round(s.slice(-4).reduce((a, b) => a + b, 0)/s.length);
                                                         }
                                                         r_prediction_bet_amount = r_progression[r_progression.length - 1];
 
