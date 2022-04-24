@@ -2440,7 +2440,7 @@
                                                     let r_balance = 1-l_balance;
 
                                                     var e_right, e_left;
-                                                    var l_p_size, r_p_size
+                                                    var l_p_size, r_p_size;
                                                     var l_prediction_bet_amount, r_prediction_bet_amount;
                                                     var l_progression = [];
                                                     var r_progression = [];
@@ -2455,11 +2455,11 @@
 
                                                         for(let i = 0; i < 100; i++) {
 
-                                                            e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance
+                                                            e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance;
                                                         
                                                             l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
                                                             
-                                                            l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum)
+                                                            l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum);
                                                             
                                                             if(l_progression.length > 0 && l_prediction_bet_amount == l_progression[l_progression.length - 1]) break;
                                                             
@@ -2467,7 +2467,7 @@
                                                             
                                                             l_progression.push(l_prediction_bet_amount);
                                                             
-                                                            l_prediction_bet_amount = Math.round(l_progression.reduce((a, b) => a + b, 0)/(l_progression.length));
+                                                            l_prediction_bet_amount = Math.round(l_progression.slice(-4).reduce((a, b) => a + b, 0)/4);
                                                         }
                                                         l_prediction_bet_amount = l_progression[l_progression.length - 1];
 
@@ -2486,11 +2486,11 @@
 
                                                         for(let i = 0; i < 100; i++) {
 
-                                                            e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance
+                                                            e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance;
                                                         
                                                             r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
                                                             
-                                                            r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum)
+                                                            r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum);
                                                             
                                                             if(r_progression.length > 0 && r_prediction_bet_amount == r_progression[r_progression.length - 1]) break;
                                                             
@@ -2498,7 +2498,7 @@
                                                             
                                                             r_progression.push(r_prediction_bet_amount);
                                                             
-                                                            r_prediction_bet_amount = Math.round(r_progression.reduce((a, b) => a + b, 0)/(r_progression.length));
+                                                            r_prediction_bet_amount = Math.round(l_progression.slice(-4).reduce((a, b) => a + b, 0)/4);
                                                         }
                                                         r_prediction_bet_amount = r_progression[r_progression.length - 1];
 
@@ -2509,6 +2509,7 @@
 
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let win_probability = selectedOption ? r_win_probability : l_win_probability;
+                                                    let ev = selectedOption ? e_right : e_left;
                                                     let p_size = selectedOption ? r_p_size : l_p_size;
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
                                                     let progression = selectedOption ? r_progression : l_progression;
