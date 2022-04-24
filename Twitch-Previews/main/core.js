@@ -2492,6 +2492,7 @@
 
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let win_probability = selectedOption ? r_win_probability : l_win_probability;
+                                                    let ev = selectedOption ? e_right : e_left;
                                                     let p_size = selectedOption ? r_p_size : l_p_size;
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
                                                     let progression = selectedOption ? r_progression : l_progression;
