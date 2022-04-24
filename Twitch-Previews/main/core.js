@@ -2448,8 +2448,8 @@
                                                     if(selected_option) {
                                                         // Right
                                                         win_probability = r_balance;
-                                                        // Guess an initial bet size
                                                         if (totalChannelPointNum < 250000/win_probability) {
+                                                            // Guess an initial bet size
                                                             prediction_bet_amount = totalChannelPointNum * 0.05;
                                                     
                                                             for(let i = 0; i < 10; i++) {
@@ -2470,8 +2470,8 @@
                                                     else {
                                                         // Left
                                                         win_probability = l_balance;
-                                                        // Guess an initial bet size
                                                         if (totalChannelPointNum < 250000/win_probability) {
+                                                            // Guess an initial bet size
                                                             prediction_bet_amount = totalChannelPointNum * 0.05;
                                                     
                                                             for(let i = 0; i < 10; i++) {
