@@ -2454,7 +2454,7 @@
                                                     //l_balance = l_balance < 0.5 ?  2*l_balance/(2*l_balance+1): -1/(2*l_balance-3);
                                                     // ^ DISABLED FOR NOW
                                                     
-                                                    let r_balance = 1-l_balance
+                                                    let r_balance = 1-l_balance;
                                                     
                                                     // -- NEW EV METHODS --
                                                     let e_left  = rightTotal / leftTotal * l_balance - r_balance;
@@ -2504,7 +2504,7 @@
                                                         prediction_bet_amount = Math.round(p_size * totalChannelPointNum);
                                                     } else {
                                                         // Linear bet model
-                                                        p_size = Math.SQRT2-1;
+                                                        p_size = 250000/totalChannelPointNum;
                                                         prediction_bet_amount = 250000; // In this case predictions size should always be >=250,000, so set it to 250,000
                                                     }
 
