@@ -2429,83 +2429,65 @@
                                                         clearPredictionStatus();
                                                         return;
                                                     }
-                                                    
-                                                    // -- OLD EV METHODS --
-                                                    let lTrV = leftTotal * rightVotes;
-                                                    let rTlV = rightTotal * leftVotes;
-                                                    // let rTrV = rightTotal * rightVotes;
-                                                    // let lTlV = leftTotal * leftVotes;
 
-                                                    // // let P = Math.abs(2*(leftTotal/(leftTotal+rightTotal))-1);
-                                                    // let x = Math.SQRT2*(leftTotal/(leftTotal+rightTotal)-0.5);
-                                                    // let P = 4*x*x - 4*x*x*x*x;
-                                                    
-                                                    // let e_left  = (lTrV*P-rTlV-rTrV*P+rTrV)/(lTrV+rTlV);
-                                                    // let e_right = (rTlV*P-lTrV-lTlV*P+lTlV)/(rTlV+lTrV);
-                                                    // -- END OLD EV METHODS --
-
-                                                    let l_balance = (lTrV/(lTrV + rTlV));
-                                                    
-                                                    // Non linear balance
-                                                    // Method A
-                                                    //l_balance = l_balance < 0.5 ? (0.5 * l_balance/(1-l_balance)) : (1 - 0.5 * (1-l_balance)/l_balance);
-
-                                                    // Method B
-                                                    //l_balance = l_balance < 0.5 ?  2*l_balance/(2*l_balance+1): -1/(2*l_balance-3);
-                                                    // ^ DISABLED FOR NOW
-                                                    
-                                                    let r_balance = 1-l_balance;
-                                                    
-                                                    // -- NEW EV METHODS --
-                                                    let e_left  = rightTotal / leftTotal * l_balance - r_balance;
-                                                    let e_right = leftTotal / rightTotal * r_balance - l_balance;
-                                                    // -- END NEW EV METHODS --
-
-                                                    // bet_left =  0.25*(Math.sqrt(4*leftTotal*leftTotal + 4*leftTotal*rightTotal*l_balance + 4*Math.SQRT2*leftTotal*totalChannelPointNum - 8*leftTotal*totalChannelPointNum + rightTotal*rightTotal*l_balance*l_balance + 6*Math.SQRT2*rightTotal*totalChannelPointNum*l_balance - 4*rightTotal*totalChannelPointNum*l_balance - 4*Math.SQRT2*totalChannelPointNum*totalChannelPointNum + 6*totalChannelPointNum*totalChannelPointNum) - 2*leftTotal - rightTotal*l_balance + Math.SQRT2*totalChannelPointNum - 2*totalChannelPointNum)
-                                                    // bet_right = 0.25*(Math.sqrt(4*rightTotal*rightTotal + 4*rightTotal*leftTotal*r_balance + 4*Math.SQRT2*rightTotal*totalChannelPointNum - 8*rightTotal*totalChannelPointNum + leftTotal*leftTotal*r_balance*r_balance + 6*Math.SQRT2*leftTotal*totalChannelPointNum*r_balance - 4*leftTotal*totalChannelPointNum*r_balance - 4*Math.SQRT2*totalChannelPointNum*totalChannelPointNum + 6*totalChannelPointNum*totalChannelPointNum) - 2*rightTotal - leftTotal*r_balance + Math.SQRT2*totalChannelPointNum - 2*totalChannelPointNum)
-                                                    
-                                                    let selectedOption = e_left < e_right ? 1 : 0;
-                                                    let win_probability = selectedOption ? r_balance : l_balance;
-                                                    let res = (selectedOption ? e_right : e_left);
-
-                                                    // if (res <= 0) {
-                                                    //     console.log(new Date().toLocaleString() + "\nAPS: EV is too low. Aborting.");
-                                                    //     showNotification("Aborting Vote.", "EV is too low.", "", true);
-                                                    //     closePopoutMenu();
-                                                    //     clearPredictionStatus();
-                                                    //     return;
-                                                    // }
-
-                                                    //let balance = selectedOption ? (rTlV/(rTlV + lTrV)) : (lTrV/(lTrV + rTlV));
-                                                    
-                                                    //let selectedOption = left_vote_count > right_vote_count ? 0 : 1;
-                                                    
-                                                    // --------------------- END Choose Prediction Option ---------------------
                                                     // --------------------- Choose Prediction Ammount ---------------------
-
-                                                    //let ev = selectedOption ? 2*(1-balance) + leftTotal/rightTotal/2 - 1.5 : 2*balance + rightTotal/leftTotal/2 - 1.5;   // Selected ? Right : Left
-
-                                                    // input number to predict with % of total points
-                                                    // let prediction_bet_amount = Math.floor((ev * curr_stream_aps_settings.aps_percent / 100) * totalChannelPointNum);
-                                                    // let prediction_bet_amount = Math.floor(balance * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
-
                                                     
-                                                    // TODO: Run mutliple passes over this with rightTotal / (leftTotal + leftBetSize) or leftTotal / (rightTotal + rightBetSize)
-                                                    // ,dependant on selectedOption, as new res
-
-                                                    let prediction_bet_amount = 0;
-                                                    let p_size = 0;
-
-                                                    //if (totalChannelPointNum < 250000/(Math.SQRT2-1)) {
-
-                                                    if (totalChannelPointNum < 250000/win_probability) {
-                                                        // Exponetial bet model
-                                                        p_size = (Math.SQRT2 * (res + 1))/Math.sqrt((res + 1)*(res + 2)) - 1;
-                                                        prediction_bet_amount = Math.round(p_size * totalChannelPointNum);
-                                                    } else {
-                                                        // Linear bet model
-                                                        p_size = 250000/totalChannelPointNum;
-                                                        prediction_bet_amount = 250000; // In this case predictions size should always be >=250,000, so set it to 250,000
+                                                    let lTlV = leftTotal * leftVotes;
+                                                    let rTrV = rightTotal * rightVotes;
+                                                    
+                                                    let selected_option = leftVotes < rightVotes ? 0 : 1;
+                                                    
+                                                    let l_balance = (lTrV/(lTrV + rTlV));
+                                                    let r_balance = 1-l_balance;
+                                                    var win_probability;
+                                                    var ev;
+                                                    var p_size;
+                                                    
+                                                    var prediction_bet_amount;
+                                                    
+                                                    if(selected_option) {
+                                                        // Right
+                                                        win_probability = r_balance;
+                                                        // Guess an initial bet size
+                                                        if (totalChannelPointNum < 250000/win_probability) {
+                                                            prediction_bet_amount = totalChannelPointNum * 0.05;
+                                                    
+                                                            for(let i = 0; i < 10; i++) {
+                                                            
+                                                                ev = leftTotal / (rightTotal + prediction_bet_amount) * r_balance - l_balance
+                                                    
+                                                                p_size = (Math.SQRT2 * (ev + 1))/Math.sqrt((ev + 1)*(ev + 2)) - 1;
+                                                                prediction_bet_amount = Math.round(p_size * totalChannelPointNum);
+                                                    
+                                                            }
+                                                    
+                                                        }
+                                                        else {
+                                                            prediction_bet_amount = 250000; // In this case predictions size should always be >=250,000, so set it to 250,000
+                                                        }
+                                                    
+                                                    }
+                                                    else {
+                                                        // Left
+                                                        win_probability = l_balance;
+                                                        // Guess an initial bet size
+                                                        if (totalChannelPointNum < 250000/win_probability) {
+                                                            prediction_bet_amount = totalChannelPointNum * 0.05;
+                                                    
+                                                            for(let i = 0; i < 10; i++) {
+                                                            
+                                                                ev = rightTotal / (leftTotal + prediction_bet_amount) * l_balance - r_balance
+                                                    
+                                                                p_size = (Math.SQRT2 * (ev + 1))/Math.sqrt((ev + 1)*(ev + 2)) - 1;
+                                                                prediction_bet_amount = Math.round(p_size * totalChannelPointNum);
+                                                    
+                                                            }
+                                                    
+                                                        }
+                                                        else {
+                                                            prediction_bet_amount = 250000; // In this case predictions size should always be >=250,000, so set it to 250,000
+                                                        }
+                                                        
                                                     }
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
