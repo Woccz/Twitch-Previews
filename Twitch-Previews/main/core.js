@@ -2528,16 +2528,12 @@
                                                         prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
                                                     }
                                                     // End checks
-                                                    
+
 
                                                     // --------------------- Prediction Name checks --------------------- 
                                                     let prediction_question = '';
                                                     try {
                                                         prediction_question = document.querySelector('.prediction-checkout-details-header').firstChild.innerText
-                                                    } 
-                                                    catch (e) {}
-
-                                                    else {
                                                         prediction_question = prediction_question.toLowerCase();
                                                         
                                                         // --------------------- Charity Check ---------------------
@@ -2559,7 +2555,8 @@
                                                         //     // END Coinflip
                                                         // }
                                                         // --------------------- ENDCoinflip Check  ---------------------
-                                                    }
+                                                    } 
+                                                    catch (e) {}
                                                     // --------------------- END Prediction Name checks --------------------- 
 
                                                    
