@@ -2467,7 +2467,7 @@
                                                         
                                                         l_progression.push(l_prediction_bet_amount);
                                                         
-                                                        let s = l_progression.slice(-4)
+                                                        let s = l_progression.slice(-4);
                                                         l_prediction_bet_amount = Math.round(s.reduce((a, b) => a + b, 0)/s.length);
                                                     }
                                                     l_prediction_bet_amount = l_progression[l_progression.length - 1];
@@ -2493,7 +2493,7 @@
                                                         
                                                         r_progression.push(r_prediction_bet_amount);
                                                         
-                                                        let s = r_progression.slice(-4)
+                                                        let s = r_progression.slice(-4);
                                                         r_prediction_bet_amount = Math.round(s.slice(-4).reduce((a, b) => a + b, 0)/s.length);
                                                     }
                                                     r_prediction_bet_amount = r_progression[r_progression.length - 1];
@@ -2513,7 +2513,7 @@
                                                     }
                                                     // Largest check
                                                     else if (prediction_bet_amount > extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)) {
-                                                        let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1)
+                                                        let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1);
                                                         prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
                                                     }
                                                     // End checks
