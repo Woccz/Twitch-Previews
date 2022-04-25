@@ -2588,8 +2588,7 @@
                                                         "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
                                                         "\n Progression: " + progression +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" + 
-                                                        "\n Process Time: " + process_time + " ms" +
-
+                                                        "\n Process Time: " + process_time + " ms"
                                                     );
                                                     
                                                     // --------------------- END Console Log Prediction --------------------
