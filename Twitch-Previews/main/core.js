@@ -2435,8 +2435,8 @@
 
                                                     // --------------------- Choose Prediction Ammount ---------------------
 
-                                                    let lTrV = leftTotal * leftVotes;
-                                                    let rTlV = rightTotal * rightVotes;
+                                                    let lTrV = leftTotal * rightVotes;
+                                                    let rTlV = rightTotal * leftVotes;
 
                                                     let l_balance = (lTrV/(lTrV + rTlV));
                                                     let r_balance = 1-l_balance;
