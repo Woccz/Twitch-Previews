@@ -2532,6 +2532,13 @@
                                                         prediction_bet_amount = curr_stream_aps_settings.aps_max_points;
                                                     }
                                                     */
+
+                                                    // Largest check
+                                                    if (prediction_bet_amount > extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)) {
+                                                        let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1)
+                                                        prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
+                                                    }
+                                                    // End Largest check
                                                    
 
                                                     // --------------------- Prediction Name checks --------------------- 
@@ -2571,7 +2578,7 @@
                                                         "\n Prediction question: " + prediction_question +                                                  
                                                         "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
-                                                        "\n Winnings Ratio: " + stat_fields[selectedOption ? 5:1].children[1].innerText +
+                                                        "\n Winnings Ratio: " + stat_fields[selectedOption * 4 + 1].children[1].innerText +
                                                         "\n Vote Confidence Ratio: " + Math.round(leftTotal/leftVotes) + " : " + Math.round(rightTotal/rightVotes) +
                                                         //"\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
                                                         //"\n Ev left: " + (e_left*100).toFixed(2) + '%' +
