@@ -2506,7 +2506,6 @@
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
                                                     let progression = selectedOption ? r_progression : l_progression;
 
-                                                    // --------------------- END Choose Prediction Ammount ---------------------
                                                     
                                                     // Max check
                                                     if (prediction_bet_amount > 250000) {
@@ -2519,6 +2518,9 @@
                                                     }
                                                     // End checks
 
+                                                    let process_time = new Date().getTime() - start_time;
+                                                    
+                                                    // --------------------- END Choose Prediction Ammount ---------------------
 
                                                     // --------------------- Prediction Name checks --------------------- 
                                                     let prediction_question = '';
@@ -2585,7 +2587,9 @@
                                                         "\n EV: " + (ev*100).toFixed(2) + '%' +
                                                         "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
                                                         "\n Progression: " + progression +
-                                                        "\n Bet Amount: " + prediction_bet_amount + " points"
+                                                        "\n Bet Amount: " + prediction_bet_amount + " points" + 
+                                                        "\n Process Time: " + process_time + " ms" +
+
                                                     );
                                                     
                                                     // --------------------- END Console Log Prediction --------------------
