@@ -2533,8 +2533,7 @@
                                                     // --------------------- Prediction Name checks --------------------- 
                                                     let prediction_question = '';
                                                     try {
-                                                        prediction_question = document.querySelector('.prediction-checkout-details-header').firstChild.innerText
-                                                        prediction_question = prediction_question.toLowerCase();
+                                                        prediction_question = document.querySelector('.prediction-checkout-details-header').firstChild.innerText.toLowerCase();
                                                         
                                                         // --------------------- Charity Check ---------------------
                                                         if (prediction_question.includes("charity")){
@@ -6353,7 +6352,7 @@
             initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
             initNumInputValue(settingsContainer, 'aps_max_points', 'TP_popup_aps_max_points_input', 0);
             initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
-            initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 2);
+            initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 0);
 
             initSettingsImportExportFuncs(settingsContainer);
 
