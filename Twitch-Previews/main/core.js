@@ -2518,28 +2518,16 @@
 
                                                     // --------------------- END Choose Prediction Ammount ---------------------
                                                     
-
-                                                    // Maximum bet size
-                                                    // let maxBetSize = Math.floor(totalChannelPointNum * curr_stream_aps_settings.aps_max_points / 100);
-                                                    // if (prediction_bet_amount > maxBetSize) {
-                                                    //     prediction_bet_amount = maxBetSize;
-                                                    // }
+                                                    // Max check
                                                     if (prediction_bet_amount > 250000) {
                                                         prediction_bet_amount = 250000;
                                                     }
-                                                    /*
-                                                    if (prediction_bet_amount > curr_stream_aps_settings.aps_max_points) {
-                                                        prediction_bet_amount = curr_stream_aps_settings.aps_max_points;
-                                                    }
-                                                    */
-
                                                     // Largest check
-                                                    if (prediction_bet_amount > extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)) {
+                                                    else if (prediction_bet_amount > extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)) {
                                                         let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1)
                                                         prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
                                                     }
-                                                    // End Largest check
-                                                   
+                                                    // End checks
 
                                                     // --------------------- Prediction Name checks --------------------- 
                                                     let prediction_question = '';
