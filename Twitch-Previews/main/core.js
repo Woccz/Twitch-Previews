@@ -2528,6 +2528,7 @@
                                                         prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
                                                     }
                                                     // End checks
+                                                    
 
                                                     // --------------------- Prediction Name checks --------------------- 
                                                     let prediction_question = '';
@@ -2536,28 +2537,31 @@
                                                     } 
                                                     catch (e) {}
 
-                                                    prediction_question = prediction_question.toLowerCase();
-                                                    
-                                                    // --------------------- Charity Check ---------------------
-                                                    if (prediction_question.includes("charity")){
-                                                        console.log(new Date().toLocaleString() + "\nAPS: Charity prediction. Aborting.");
-                                                        showNotification("Aborting Vote.", "Charity prediction.", "", true);
-                                                        closePopoutMenu();
-                                                        clearPredictionStatus();
-                                                        return;
+                                                    else {
+                                                        prediction_question = prediction_question.toLowerCase();
+                                                        
+                                                        // --------------------- Charity Check ---------------------
+                                                        if (prediction_question.includes("charity")){
+                                                            console.log(new Date().toLocaleString() + "\nAPS: Charity prediction. Aborting.");
+                                                            showNotification("Aborting Vote.", "Charity prediction.", "", true);
+                                                            closePopoutMenu();
+                                                            clearPredictionStatus();
+                                                            return;
+                                                        }
+                                                        // --------------------- END Charity Check ---------------------
+                                                        // --------------------- Coinflip Check  ---------------------
+                                                        // if (prediction_question.includes("coin")){
+                                                        //     console.log(new Date().toLocaleString() + "\nAPS: Coinflip. Adapting Strategy...");
+                                                        //     showNotification("Adapting Strategy", "Coinflip.", curr_streamer_img_url, true);
+                                                        //     // Coinflip
+                                                        //     selectedOption = leftTotal < rightTotal ? 0 : 1;  // 0 if leftTotal<rightTotal else 1
+                                                        //     prediction_bet_amount = Math.floor(Math.abs(2*leftTotal/(leftTotal+rightTotal)-1) * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
+                                                        //     // END Coinflip
+                                                        // }
+                                                        // --------------------- ENDCoinflip Check  ---------------------
                                                     }
-                                                    // --------------------- END Charity Check ---------------------
-                                                    // --------------------- Coinflip Check  ---------------------
-                                                    // if (prediction_question.includes("coin")){
-                                                    //     console.log(new Date().toLocaleString() + "\nAPS: Coinflip. Adapting Strategy...");
-                                                    //     showNotification("Adapting Strategy", "Coinflip.", curr_streamer_img_url, true);
-                                                    //     // Coinflip
-                                                    //     selectedOption = leftTotal < rightTotal ? 0 : 1;  // 0 if leftTotal<rightTotal else 1
-                                                    //     prediction_bet_amount = Math.floor(Math.abs(2*leftTotal/(leftTotal+rightTotal)-1) * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
-                                                    //     // END Coinflip
-                                                    // }
-                                                    // --------------------- ENDCoinflip Check  ---------------------
                                                     // --------------------- END Prediction Name checks --------------------- 
+
                                                    
                                                     // --------------------- Console Log Prediction --------------------
                                                     console.log(new Date().toLocaleString() +
