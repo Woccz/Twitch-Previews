@@ -2413,6 +2413,8 @@
                                                     let stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
                                                     
                                                     // --------------------- Choose Prediction Option ---------------------
+
+                                                    let start_time = new Date().getTime();
                                                     
                                                     // Left Side
                                                     let leftTotal = extractNumberValueFromString(stat_fields[0].children[1].innerText);
@@ -2448,66 +2450,54 @@
                                                     // Left
                                                     let l_win_probability = l_balance;
 
-                                                    //if (totalChannelPointNum < 250000/r_win_probability) {
-                                                    if (true) { // Linear bet model does not respect the ev yet
-                                                        // Guess an initial bet size of 5%
-                                                        l_prediction_bet_amount = totalChannelPointNum * 0.05;
+                                                    // Guess an initial bet size of 5%
+                                                    l_prediction_bet_amount = totalChannelPointNum * 0.05;
 
-                                                        for(let i = 0; i < 100; i++) {
+                                                    for(let i = 0; i < 100; i++) {
 
-                                                            e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance;
+                                                        e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance;
+                                                    
+                                                        l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
                                                         
-                                                            l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
-                                                            
-                                                            l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum);
-                                                            
-                                                            if(l_progression.length > 0 && l_prediction_bet_amount == l_progression[l_progression.length - 1]) break;
-                                                            
-                                                            if(l_prediction_bet_amount < 0) l_prediction_bet_amount = 0;
-                                                            
-                                                            l_progression.push(l_prediction_bet_amount);
-                                                            
-                                                            let s = l_progression.slice(-4)
-                                                            l_prediction_bet_amount = Math.round(s.reduce((a, b) => a + b, 0)/s.length);
-                                                        }
-                                                        l_prediction_bet_amount = l_progression[l_progression.length - 1];
+                                                        l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum);
+                                                        
+                                                        if(l_progression.length > 0 && l_prediction_bet_amount == l_progression[l_progression.length - 1]) break;
+                                                        
+                                                        if(l_prediction_bet_amount < 0) l_prediction_bet_amount = 0;
+                                                        
+                                                        l_progression.push(l_prediction_bet_amount);
+                                                        
+                                                        let s = l_progression.slice(-4)
+                                                        l_prediction_bet_amount = Math.round(s.reduce((a, b) => a + b, 0)/s.length);
+                                                    }
+                                                    l_prediction_bet_amount = l_progression[l_progression.length - 1];
 
-                                                    }
-                                                    else {
-                                                        l_prediction_bet_amount = 250000; // In this case predictions size should always be >=250,000, so set it to 250,000
-                                                    }
 
                                                     // Right
                                                     let r_win_probability = r_balance;
 
-                                                    //if (totalChannelPointNum < 250000/r_win_probability) {
-                                                    if (true) { // Linear bet model does not respect the ev yet
-                                                        // Guess an initial bet size of 5%
-                                                        r_prediction_bet_amount = totalChannelPointNum * 0.05;
+                                                    // Guess an initial bet size of 5%
+                                                    r_prediction_bet_amount = totalChannelPointNum * 0.05;
 
-                                                        for(let i = 0; i < 100; i++) {
+                                                    for(let i = 0; i < 100; i++) {
 
-                                                            e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance;
+                                                        e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance;
+                                                    
+                                                        r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
                                                         
-                                                            r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
-                                                            
-                                                            r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum);
-                                                            
-                                                            if(r_progression.length > 0 && r_prediction_bet_amount == r_progression[r_progression.length - 1]) break;
-                                                            
-                                                            if(r_prediction_bet_amount < 0) r_prediction_bet_amount = 0;
-                                                            
-                                                            r_progression.push(r_prediction_bet_amount);
-                                                            
-                                                            let s = r_progression.slice(-4)
-                                                            r_prediction_bet_amount = Math.round(s.slice(-4).reduce((a, b) => a + b, 0)/s.length);
-                                                        }
-                                                        r_prediction_bet_amount = r_progression[r_progression.length - 1];
+                                                        r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum);
+                                                        
+                                                        if(r_progression.length > 0 && r_prediction_bet_amount == r_progression[r_progression.length - 1]) break;
+                                                        
+                                                        if(r_prediction_bet_amount < 0) r_prediction_bet_amount = 0;
+                                                        
+                                                        r_progression.push(r_prediction_bet_amount);
+                                                        
+                                                        let s = r_progression.slice(-4)
+                                                        r_prediction_bet_amount = Math.round(s.slice(-4).reduce((a, b) => a + b, 0)/s.length);
+                                                    }
+                                                    r_prediction_bet_amount = r_progression[r_progression.length - 1];
 
-                                                    }
-                                                    else {
-                                                        r_prediction_bet_amount = 250000; // In this case predictions size should always be >=250,000, so set it to 250,000
-                                                    }
 
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let win_probability = selectedOption ? r_win_probability : l_win_probability;
@@ -2559,6 +2549,25 @@
                                                     // --------------------- END Prediction Name checks --------------------- 
 
                                                    
+                                                    // --------------------- Not Large enough bet check ---------------------
+                                                    if (prediction_bet_amount < 1) {
+                                                        console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
+                                                        showNotification("Aborting Vote.", "Not large enough bet size.", "", true);
+                                                        closePopoutMenu();
+                                                        clearPredictionStatus();
+                                                        return;
+                                                    }
+                                                    // --------------------- END Not Large enough bet check ---------------------
+                                                    
+                                                    
+                                                    if (isFirefox) {
+                                                        window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
+                                                    } else {
+                                                        setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], prediction_bet_amount);
+                                                        // click vote
+                                                        document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
+                                                    }
+
                                                     // --------------------- Console Log Prediction --------------------
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
@@ -2580,24 +2589,6 @@
                                                     );
                                                     
                                                     // --------------------- END Console Log Prediction --------------------
-                                                    // --------------------- Not Large enough bet check ---------------------
-                                                    if (prediction_bet_amount < 1) {
-                                                        console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
-                                                        showNotification("Aborting Vote.", "Not large enough bet size.", "", true);
-                                                        closePopoutMenu();
-                                                        clearPredictionStatus();
-                                                        return;
-                                                    }
-                                                    // --------------------- END Not Large enough bet check ---------------------
-
-
-                                                    if (isFirefox) {
-                                                        window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
-                                                    } else {
-                                                        setTextAreaValue(document.getElementsByClassName('custom-prediction-button')[selectedOption].getElementsByTagName('input')[0], prediction_bet_amount);
-                                                        // click vote
-                                                        document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
-                                                    }
 
                                                     setTimeout(function (){
                                                         if(options.isPredictionsNotificationsEnabled) {
