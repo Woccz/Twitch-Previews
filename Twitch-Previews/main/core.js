@@ -2453,11 +2453,11 @@
 
                                                     // Guess an initial bet size of 5%
 
-                                                    // Augment, assuming the average prediction duration is 15 mins, 15*5.3 = 80, 80/2 = 40
-                                                    totalChannelPointNum += 40;
+                                                    // Augment, assuming the average prediction duration is 15 mins, 15*5.3 = 80
+                                                    augtotalChannelPointNum += 80;
 
 
-                                                    l_prediction_bet_amount = totalChannelPointNum * 0.05;
+                                                    l_prediction_bet_amount = augtotalChannelPointNum * 0.05;
 
                                                     for(let i = 0; i < 100; i++) {
 
@@ -2465,7 +2465,7 @@
                                                     
                                                         l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
                                                         
-                                                        l_prediction_bet_amount = Math.round(l_p_size * totalChannelPointNum);
+                                                        l_prediction_bet_amount = Math.round(l_p_size * augtotalChannelPointNum);
                                                         
                                                         if(l_progression.length > 0 && l_prediction_bet_amount == l_progression[l_progression.length - 1]) break;
                                                         
@@ -2483,7 +2483,7 @@
                                                     let r_win_probability = r_balance;
 
                                                     // Guess an initial bet size of 5%
-                                                    r_prediction_bet_amount = totalChannelPointNum * 0.05;
+                                                    r_prediction_bet_amount = augtotalChannelPointNum * 0.05;
 
                                                     for(let i = 0; i < 100; i++) {
 
@@ -2491,7 +2491,7 @@
                                                     
                                                         r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
                                                         
-                                                        r_prediction_bet_amount = Math.round(r_p_size * totalChannelPointNum);
+                                                        r_prediction_bet_amount = Math.round(r_p_size * augtotalChannelPointNum);
                                                         
                                                         if(r_progression.length > 0 && r_prediction_bet_amount == r_progression[r_progression.length - 1]) break;
                                                         
@@ -2504,9 +2504,6 @@
                                                     }
                                                     r_prediction_bet_amount = r_progression[r_progression.length - 1];
 
-                                                    // Clear augmentation
-                                                    totalChannelPointNum -= 40;
-
 
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let win_probability = selectedOption ? r_win_probability : l_win_probability;
@@ -2515,7 +2512,7 @@
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
                                                     let progression = selectedOption ? r_progression : l_progression;
 
-                                                    progression.unshift(totalChannelPointNum * 0.05)
+                                                    progression.unshift(augtotalChannelPointNum * 0.05)
 
                                                     
                                                     // Max check
