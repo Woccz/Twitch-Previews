@@ -2386,6 +2386,7 @@
                                                 predictions_list_item_body.click();
 
                                                 setTimeout(function () {
+                                                    let start_time = new Date().getTime();
 
                                                     // check if already entered
                                                     try {
@@ -2412,9 +2413,9 @@
                                                     // twitch has a bug with switched classnames in the options elements, get numbers by render order.
                                                     let stat_fields = document.querySelectorAll('div[data-test-selector="prediction-summary-stat__content"]');
                                                     
-                                                    // --------------------- Choose Prediction Option ---------------------
-
-                                                    let start_time = new Date().getTime();
+                                                    
+                                                    // --------------------- Fetch values ---------------------
+                                                    totalChannelPointNum = parseInt(totalChannelPointNum)
                                                     
                                                     // Left Side
                                                     let leftTotal = extractNumberValueFromString(stat_fields[0].children[1].innerText);
@@ -2434,7 +2435,6 @@
                                                     
 
                                                     // --------------------- Choose Prediction Ammount ---------------------
-
                                                     let lTrV = leftTotal * rightVotes;
                                                     let rTlV = rightTotal * leftVotes;
 
@@ -2443,7 +2443,6 @@
 
                                                     var e_right, e_left;
                                                     var l_p_size, r_p_size;
-                                                    var l_prediction_bet_amount, r_prediction_bet_amount;
                                                     var l_progression = [];
                                                     var r_progression = [];
 
@@ -2454,10 +2453,11 @@
                                                     // Guess an initial bet size of 5%
 
                                                     // Augment, assuming the average prediction duration is 15 mins, 15*5.3 = 80
-                                                    let augtotalChannelPointNum = totalChannelPointNum + 80;
+                                                    const augtotalChannelPointNum = totalChannelPointNum + 80;
+                                                    
 
-
-                                                    l_prediction_bet_amount = augtotalChannelPointNum * 0.05;
+                                                    // --------------------- Calculate prediction ammount ---------------------
+                                                    let l_prediction_bet_amount = augtotalChannelPointNum * 0.05;
 
                                                     for(let i = 0; i < 100; i++) {
 
@@ -2483,7 +2483,7 @@
                                                     let r_win_probability = r_balance;
 
                                                     // Guess an initial bet size of 5%
-                                                    r_prediction_bet_amount = augtotalChannelPointNum * 0.05;
+                                                    let r_prediction_bet_amount = augtotalChannelPointNum * 0.05;
 
                                                     for(let i = 0; i < 100; i++) {
 
@@ -2504,36 +2504,31 @@
                                                     }
                                                     r_prediction_bet_amount = r_progression[r_progression.length - 1];
 
-
-                                                    let selectedOption = e_left < e_right ? 1 : 0;
-                                                    let win_probability = selectedOption ? r_win_probability : l_win_probability;
-                                                    let ev = selectedOption ? e_right : e_left;
-                                                    let p_size = selectedOption ? r_p_size : l_p_size;
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
-                                                    let progression = selectedOption ? r_progression : l_progression;
-
-                                                    progression.unshift(augtotalChannelPointNum * 0.05)
-
                                                     
-                                                    // Max check
-                                                    if (prediction_bet_amount > 250000) {
-                                                        prediction_bet_amount = 250000;
+                                                    
+                                                    // --------------------- Choose Prediction Option ---------------------
+                                                    let selectedOption = e_left < e_right ? 1 : 0;
+
+
+                                                    // --------------------- Calculate Prediction Amount ---------------------
+                                                    if(augtotalChannelPointNum*(Math.SQRT2-1) < prediction_bet_amount) {
+                                                        // Something went wrong, abort
+                                                        console.log(new Date().toLocaleString() + "\nAPS: Prediction bet size is too large. Aborting.");
+                                                        showNotification("Aborting Vote.", "Prediction bet size is erronous. Aborting.", "", true);
+                                                        closePopoutMenu();
+                                                        clearPredictionStatus();
+                                                        return;
+                                                    }       
+                                                    
+                                                    // Largest check
+                                                    if (prediction_bet_amount > extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)) {
+                                                        let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1);
+                                                        prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
                                                     }
-                                                    else {
-                                                        if(totalChannelPointNum < prediction_bet_amount) {
-                                                            prediction_bet_amount = totalChannelPointNum;
-                                                        }                                                        
-                                                        // Largest check
-                                                        if (prediction_bet_amount > extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)) {
-                                                            let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1);
-                                                            prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
-                                                        }
-                                                    }
-                                                    // End checks
+                                                    // End check
 
                                                     let process_time = new Date().getTime() - start_time;
-                                                    
-                                                    // --------------------- END Choose Prediction Ammount ---------------------
 
                                                     // --------------------- Prediction Name checks --------------------- 
                                                     let prediction_question = '';
@@ -2548,20 +2543,8 @@
                                                             clearPredictionStatus();
                                                             return;
                                                         }
-                                                        // --------------------- END Charity Check ---------------------
-                                                        // --------------------- Coinflip Check  ---------------------
-                                                        // if (prediction_question.includes("coin")){
-                                                        //     console.log(new Date().toLocaleString() + "\nAPS: Coinflip. Adapting Strategy...");
-                                                        //     showNotification("Adapting Strategy", "Coinflip.", curr_streamer_img_url, true);
-                                                        //     // Coinflip
-                                                        //     selectedOption = leftTotal < rightTotal ? 0 : 1;  // 0 if leftTotal<rightTotal else 1
-                                                        //     prediction_bet_amount = Math.floor(Math.abs(2*leftTotal/(leftTotal+rightTotal)-1) * curr_stream_aps_settings.aps_percent / 100 * totalChannelPointNum);
-                                                        //     // END Coinflip
-                                                        // }
-                                                        // --------------------- ENDCoinflip Check  ---------------------
                                                     } 
                                                     catch (e) {}
-                                                    // --------------------- END Prediction Name checks --------------------- 
 
                                                    
                                                     // --------------------- Not Large enough bet check ---------------------
@@ -2572,9 +2555,9 @@
                                                         clearPredictionStatus();
                                                         return;
                                                     }
-                                                    // --------------------- END Not Large enough bet check ---------------------
+
                                                     
-                                                    
+                                                    // --------------------- Execute Prediction ---------------------
                                                     if (isFirefox) {
                                                         window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
                                                     } else {
@@ -2583,7 +2566,14 @@
                                                         document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
                                                     }
 
+
                                                     // --------------------- Console Log Prediction --------------------
+                                                    let win_probability = selectedOption ? r_win_probability : l_win_probability;
+                                                    let ev = selectedOption ? e_right : e_left;
+                                                    let p_size = selectedOption ? r_p_size : l_p_size;
+                                                    let progression = selectedOption ? r_progression : l_progression;
+                                                    progression.unshift(augtotalChannelPointNum * 0.05)
+
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
                                                         "\n Total Channel Points: " + totalChannelPointNum +
@@ -2592,9 +2582,6 @@
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
                                                         "\n Winnings Ratio: " + stat_fields[selectedOption * 4 + 1].children[1].innerText +
                                                         "\n Vote Confidence Ratio: " + Math.round(leftTotal/leftVotes) + " : " + Math.round(rightTotal/rightVotes) +
-                                                        //"\n Percieved Vote Polarisation: " + (P*100).toFixed(1) + '%' + 
-                                                        //"\n Ev left: " + (e_left*100).toFixed(2) + '%' +
-                                                        //"\n Ev right: " + (e_right*100).toFixed(2) + '%' +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
                                                         "\n Win probability: " + (win_probability*100).toFixed(2) + '%' +
                                                         "\n EV: " + (ev*100).toFixed(2) + '%' +
@@ -2603,8 +2590,8 @@
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" + 
                                                         "\n Process Time: " + process_time + " ms"
                                                     );
-                                                    
-                                                    // --------------------- END Console Log Prediction --------------------
+                                                    // --------------------- --------------------- --------------------
+
 
                                                     setTimeout(function (){
                                                         if(options.isPredictionsNotificationsEnabled) {
