@@ -2454,7 +2454,7 @@
                                                     // Guess an initial bet size of 5%
 
                                                     // Augment, assuming the average prediction duration is 15 mins, 15*5.3 = 80
-                                                    augtotalChannelPointNum += 80;
+                                                    let augtotalChannelPointNum = totalChannelPointNum + 80;
 
 
                                                     l_prediction_bet_amount = augtotalChannelPointNum * 0.05;
