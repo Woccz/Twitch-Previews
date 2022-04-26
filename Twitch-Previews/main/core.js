@@ -2569,7 +2569,7 @@
                                                     let ev = selectedOption ? e_right : e_left;
                                                     let p_size = selectedOption ? r_p_size : l_p_size;
                                                     let progression = selectedOption ? r_progression : l_progression;
-                                                    progression.unshift(augtotalChannelPointNum * 0.05)
+                                                    progression.unshift(Math.round(augtotalChannelPointNum * 0.05));
 
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
