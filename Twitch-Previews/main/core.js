@@ -2506,7 +2506,7 @@
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
                                                     let progression = selectedOption ? r_progression : l_progression;
 
-                                                    progression.prepend(totalChannelPointNum * 0.05)
+                                                    progression.unshift(totalChannelPointNum * 0.05)
 
                                                     
                                                     // Max check
