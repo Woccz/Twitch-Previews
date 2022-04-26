@@ -2504,12 +2504,9 @@
                                                     }
                                                     r_prediction_bet_amount = r_progression[r_progression.length - 1];
 
-                                                    let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
-                                                    
-                                                    
-                                                    // --------------------- Choose Prediction Option ---------------------
+                                                    // Choose Prediction Option
                                                     let selectedOption = e_left < e_right ? 1 : 0;
-
+                                                    let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
 
                                                     // --------------------- Calculate Prediction Amount ---------------------
                                                     if(augtotalChannelPointNum*(Math.SQRT2-1) < prediction_bet_amount) {
