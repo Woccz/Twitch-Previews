@@ -2447,10 +2447,16 @@
                                                     var l_progression = [];
                                                     var r_progression = [];
 
+
                                                     // Left
                                                     let l_win_probability = l_balance;
 
                                                     // Guess an initial bet size of 5%
+
+                                                    // Augment, assuming the average prediction duration is 15 mins, 15*5.3 = 80, 80/2 = 40
+                                                    totalChannelPointNum += 40;
+
+
                                                     l_prediction_bet_amount = totalChannelPointNum * 0.05;
 
                                                     for(let i = 0; i < 100; i++) {
@@ -2498,6 +2504,9 @@
                                                     }
                                                     r_prediction_bet_amount = r_progression[r_progression.length - 1];
 
+                                                    // Clear augmentation
+                                                    totalChannelPointNum -= 40;
+
 
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let win_probability = selectedOption ? r_win_probability : l_win_probability;
@@ -2513,10 +2522,15 @@
                                                     if (prediction_bet_amount > 250000) {
                                                         prediction_bet_amount = 250000;
                                                     }
-                                                    // Largest check
-                                                    else if (prediction_bet_amount > extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)) {
-                                                        let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1);
-                                                        prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
+                                                    else {
+                                                        if(totalChannelPointNum < prediction_bet_amount) {
+                                                            prediction_bet_amount = totalChannelPointNum;
+                                                        }                                                        
+                                                        // Largest check
+                                                        if (prediction_bet_amount > extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)) {
+                                                            let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1);
+                                                            prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
+                                                        }
                                                     }
                                                     // End checks
 
