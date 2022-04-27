@@ -2522,9 +2522,12 @@
                                                     }       
                                                     
                                                     // Largest check
-                                                    if (prediction_bet_amount > extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)) {
+                                                    let b = extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)
+                                                    if (prediction_bet_amount > b) {
                                                         let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1);
                                                         prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
+
+                                                        if (prediction_bet_amount < b) prediction_bet_amount = b - 100;
                                                     }
                                                     // End check
 
@@ -6349,8 +6352,7 @@
             initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
             initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
 
-            initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 0);
-            
+            initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 0);           
             initCheckbox(settingsContainer, 'aps_isClosePopupEnabled', 'TP_close_popup_menu', false);
 
 
