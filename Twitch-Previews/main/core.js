@@ -2550,13 +2550,13 @@
 
                                                    
                                                     // --------------------- Not Large enough bet check ---------------------
-                                                    if (prediction_bet_amount < 1) {
-                                                        console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
-                                                        showNotification("Aborting Vote.", "Not large enough bet size.", "", true);
-                                                        closePopoutMenu();
-                                                        clearPredictionStatus();
-                                                        return;
-                                                    }
+                                                    // if (prediction_bet_amount < 1) {
+                                                    //     console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
+                                                    //     showNotification("Aborting Vote.", "Not large enough bet size.", "", true);
+                                                    //     closePopoutMenu();
+                                                    //     clearPredictionStatus();
+                                                    //     return;
+                                                    // }
 
                                                     
                                                     // --------------------- Execute Prediction ---------------------
@@ -2576,7 +2576,7 @@
                                                     const progression = selectedOption ? r_progression : l_progression;
                                                     progression.unshift(Math.round(augtotalChannelPointNum * 0.05));
 
-                                                    const expectedWinRat = selectedOption ? leftTotal / (rightTotal + prediction_bet_amount) : rightTotal / (leftTotal + prediction_bet_amount);
+                                                    const expectedWinRat = 1 + selectedOption ? leftTotal / (rightTotal + prediction_bet_amount) : rightTotal / (leftTotal + prediction_bet_amount);
 
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
@@ -2593,7 +2593,7 @@
                                                         "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
                                                         "\n Progression: " + progression +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" + 
-                                                        "\n Expected Winnings Ratio: " + "1:" + (1+expectedWinRat.toFixed(2)) +
+                                                        "\n Expected Winnings Ratio: " + "1:" + expectedWinRat.toFixed(2) +
                                                         "\n Process Time: " + process_time + " ms"
                                                     );
                                                     // --------------------- --------------------- --------------------
