@@ -3764,7 +3764,6 @@
                 //aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_max_points', 'tp_APS_settings_max_points_input');
                 //aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_min_vote_margin_percent', 'tp_APS_settings_min_vote_margin_percent_input');
                 aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_secondsBefore', 'tp_APS_settings_secondsBefore_input');
-                //aps_settings_initCheckbox(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_isClosePopupEnabled', 'tp_APS_settings_closePopup');
             });
 
             initDragForAPSSettings(settingsContainer);
@@ -5718,6 +5717,20 @@
     function initCheckbox(settingsContainer, featureName, checkboxID, invertBool) {
         let checkbox = settingsContainer.querySelector('#' + checkboxID);
         checkbox.checked = invertBool ? !options[featureName] : options[featureName];
+
+        if (featureName === 'aps_isClosePopupEnabled') {
+            checkbox.checked = !options[featureName];
+
+            checkbox.addEventListener('change', (event) => {
+                let newVal = !event.target.checked;
+
+                changeFeatureMode(featureName, newVal);
+            })
+            return;
+        }
+
+
+
         checkbox.addEventListener('change', (event) => {
             if (event.target.checked) {
                 if (featureName === "isPredictionsNotificationsEnabled") {
@@ -5770,10 +5783,10 @@
 
         input.addEventListener('change', (event) => {
             let newVal = parseFloat(event.target.value);
-            if (newVal < minimum) {
-                newVal = minimum;
-                input.value = minimum;
-            }
+            // if (newVal < minimum) {
+            //     newVal = minimum;
+            //     input.value = minimum;
+            // }
 
             changeFeatureMode(featureName, newVal);
         })
@@ -6350,9 +6363,7 @@
             initCheckbox(settingsContainer, 'isAdvancedVideoEmbedsEnabled', 'TP_popup_AdvancedVideoEmbeds_checkbox', false);
             initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
             initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
-            //initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
-            //initNumInputValue(settingsContainer, 'aps_max_points', 'TP_popup_aps_max_points_input', 0);
-            //initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
+
             initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 0);
             
             initCheckbox(settingsContainer, 'aps_isClosePopupEnabled', 'TP_close_popup_menu', true);
