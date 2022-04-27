@@ -2264,7 +2264,10 @@
 
                             }
 
-                            //closePopoutMenu();
+                            if(curr_stream_aps_settings.aps_isClosePopupEnabled) {
+                                closePopoutMenu();
+                            }
+
                             resolve(return_obj);
                         }, 120);
                     }, 200);
@@ -2613,7 +2616,11 @@
                                                             //showNotification(curr_streamer + ": " + "Sniper voted!\n", prediction_question + " " + prediction_options_str + '\nSniper voted "' + sniper_selection_str + '" with ' + prediction_bet_amount + " points!", curr_streamer_img_url, true);
                                                         }
 
-                                                        //closePopoutMenu();
+
+                                                    if(curr_stream_aps_settings.aps_isClosePopupEnabled) {
+                                                        closePopoutMenu();
+                                                    }            
+
 
                                                     }, 250);
 
@@ -3611,10 +3618,11 @@
                 if (!res.aps_streams_settings_obj) {
                     let aps_streams_settings_obj = {
                         [streamName] : {
-                            aps_percent: options.aps_percent,
-                            aps_max_points: options.aps_max_points,
+                            //aps_percent: options.aps_percent,
+                            //aps_max_points: options.aps_max_points,
                             aps_secondsBefore: options.aps_secondsBefore,
-                            aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
+                            aps_isClosePopupEnabled: options.aps_isClosePopupEnabled
+                            //aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
                         }
                     };
                     aps_streams_settings_obj[streamName][featureName] = newVal;
@@ -3629,10 +3637,11 @@
                         });
                     } else {
                         res.aps_streams_settings_obj[streamName] = {
-                            aps_percent: options.aps_percent,
-                            aps_max_points: options.aps_max_points,
+                            //aps_percent: options.aps_percent,
+                            //aps_max_points: options.aps_max_points,
                             aps_secondsBefore: options.aps_secondsBefore,
-                            aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
+                            aps_isClosePopupEnabled: options.aps_isClosePopupEnabled
+                            //aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
                         }
                         res.aps_streams_settings_obj[streamName][featureName] = newVal;
                         _browser.storage.local.set({'aps_streams_settings_obj': res.aps_streams_settings_obj}, function() {
@@ -3751,10 +3760,11 @@
                 if (res.aps_streams_settings_obj && res.aps_streams_settings_obj[curr_stream_name]) {
                     aps_curr_stream_settings = res.aps_streams_settings_obj[curr_stream_name];
                 }
-                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_percent', 'tp_APS_settings_percent_input');
-                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_max_points', 'tp_APS_settings_max_points_input');
-                aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_min_vote_margin_percent', 'tp_APS_settings_min_vote_margin_percent_input');
+                //aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_percent', 'tp_APS_settings_percent_input');
+                //aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_max_points', 'tp_APS_settings_max_points_input');
+                //aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_min_vote_margin_percent', 'tp_APS_settings_min_vote_margin_percent_input');
                 aps_settings_initNumInputValue(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_secondsBefore', 'tp_APS_settings_secondsBefore_input');
+                //aps_settings_initCheckbox(settingsContainer, curr_stream_name, aps_curr_stream_settings,'aps_isClosePopupEnabled', 'tp_APS_settings_closePopup');
             });
 
             initDragForAPSSettings(settingsContainer);
@@ -6340,10 +6350,13 @@
             initCheckbox(settingsContainer, 'isAdvancedVideoEmbedsEnabled', 'TP_popup_AdvancedVideoEmbeds_checkbox', false);
             initCheckbox(settingsContainer, 'isPredictionsNotificationsEnabled', 'TP_popup_predictions_notifications_checkbox', false);
             initCheckbox(settingsContainer, 'isPredictionsSniperEnabled', 'TP_popup_predictions_sniper_checkbox', false);
-            initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
-            initNumInputValue(settingsContainer, 'aps_max_points', 'TP_popup_aps_max_points_input', 0);
-            initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
+            //initNumInputValue(settingsContainer, 'aps_percent', 'TP_popup_aps_percent_input', 0);
+            //initNumInputValue(settingsContainer, 'aps_max_points', 'TP_popup_aps_max_points_input', 0);
+            //initNumInputValue(settingsContainer, 'aps_min_vote_margin_percent', 'TP_popup_aps_min_vote_margin_percent_input', 0);
             initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 0);
+            
+            initCheckbox(settingsContainer, 'aps_isClosePopupEnabled', 'TP_close_popup_menu', true);
+
 
             initSettingsImportExportFuncs(settingsContainer);
 

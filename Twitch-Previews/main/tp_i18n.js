@@ -2409,24 +2409,6 @@ export const i18n = {
         'ko': '* "이번 투표 취소"를 클릭한 후 방송을 변경한 후 다시 돌아온 경우, 투표를 취소하려면 "이번 투표 취소"를 다시 클릭해야해요.',
         'ru':'* Если вы измените потоки после нажатия «Отменить предстоящее голосование», а затем вернетесь обратно, вам нужно будет щелкнуть его еще раз, чтобы отменить предстоящее голосование.'
     },
-    aps_settings_bet_percent_pt1: {
-        'en': 'None:',
-        'es': 'Apuesta:',
-        'de': 'Wette:',
-        'fr': 'Pariez:',
-        'pt_BR': 'Aposta:',
-        'ko': '배팅:',
-        'ru':'Ставка:'
-    },
-    aps_settings_bet_percent_pt2: {
-        'en': 'None',
-    },
-    aps_settings_bet_percent_pt3: {
-        'en': 'None)',
-    },
-    aps_settings_min_vote_margin: {
-        'en': 'None:',
-    },
     aps_settings_seconds_before_closing: {
         'en': 'seconds or less before voting closes',
         'es': 'segundos o menos antes del cierre de la votación',
@@ -2435,6 +2417,9 @@ export const i18n = {
         'pt_BR': 'segundos ou menos antes do encerramento da votação',
         'ko': '투표 마감 전 시간',
         'ru':'секунд или меньше до закрытия голосования'
+    },
+    aps_to_close_popup: {
+        'en': 'Close prediction popup',
     },
     multistream_title_close_btn_title: {
         'en': 'Close',
