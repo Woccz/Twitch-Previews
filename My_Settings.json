@@ -15,6 +15,7 @@
         "aps_max_points": 0,
         "aps_min_vote_margin_percent": 0,
 
+        "selected_lang": "en",
         "isAdvancedVideoEmbedsEnabled": false,
         "isCastEnabled": false,
         "isChannelPointsClickerEnabled": false,
@@ -38,7 +39,6 @@
         "isSidebarSearchEnabled": false,
         "isYTsidebarEnabled": false,
         "isfScrnWithChatEnabled": false,
-        "selected_lang": "en",
         "selfPreviewStreamName": "",
         "sidebarFavorites_hide_originals": false
     },
