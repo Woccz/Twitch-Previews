@@ -2510,8 +2510,17 @@
                                                     // Choose Prediction Option
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
+                                                    
+                                                    // Largest check
+                                                    let b = extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)
+                                                    if (prediction_bet_amount > b) {
+                                                        let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1);
+                                                        prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
+                                                        
+                                                        if (prediction_bet_amount < b) prediction_bet_amount = b - 100;
+                                                    }
+                                                    // End check
 
-                                                    // --------------------- Calculate Prediction Amount ---------------------
                                                     if(augtotalChannelPointNum*(Math.SQRT2-1) < prediction_bet_amount) {
                                                         // Something went wrong, abort
                                                         console.log(new Date().toLocaleString() + "\nAPS: Prediction bet size ["+prediction_bet_amount+"] is too large. Aborting.");
@@ -2520,16 +2529,6 @@
                                                         clearPredictionStatus();
                                                         return;
                                                     }       
-                                                    
-                                                    // Largest check
-                                                    let b = extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)
-                                                    if (prediction_bet_amount > b) {
-                                                        let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1);
-                                                        prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
-
-                                                        if (prediction_bet_amount < b) prediction_bet_amount = b - 100;
-                                                    }
-                                                    // End check
 
                                                     let process_time = new Date().getTime() - start_time;
 
