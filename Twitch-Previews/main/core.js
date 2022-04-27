@@ -5716,19 +5716,6 @@
         let checkbox = settingsContainer.querySelector('#' + checkboxID);
         checkbox.checked = invertBool ? !options[featureName] : options[featureName];
 
-        if (featureName === 'aps_isClosePopupEnabled') {
-            checkbox.checked = !options[featureName];
-
-            checkbox.addEventListener('change', (event) => {
-                let newVal = !event.target.checked;
-
-                changeFeatureMode(featureName, newVal);
-            })
-            return;
-        }
-
-
-
         checkbox.addEventListener('change', (event) => {
             if (event.target.checked) {
                 if (featureName === "isPredictionsNotificationsEnabled") {
@@ -5760,7 +5747,7 @@
             }
         });
 
-        if (featureName !== "isSidebarPreviewsEnabled" && featureName !== "isImagePreviewMode") {
+        if (featureName !== "isSidebarPreviewsEnabled" && featureName !== "isImagePreviewMode" && featureName !== "aps_isClosePopupEnabled") {
             initSettingsInfoBtn(settingsContainer, checkboxID);
             initTranslateInfoDivBtn(settingsContainer, checkboxID);
         }
@@ -6364,7 +6351,7 @@
 
             initNumInputValue(settingsContainer, 'aps_secondsBefore', 'TP_popup_aps_secondsBefore_input', 0);
             
-            initCheckbox(settingsContainer, 'aps_isClosePopupEnabled', 'TP_close_popup_menu', true);
+            initCheckbox(settingsContainer, 'aps_isClosePopupEnabled', 'TP_close_popup_menu', false);
 
 
             initSettingsImportExportFuncs(settingsContainer);
