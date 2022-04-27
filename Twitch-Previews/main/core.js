@@ -2264,7 +2264,7 @@
 
                             }
 
-                            if(curr_stream_aps_settings.aps_isClosePopupEnabled) {
+                            if(options.aps_isClosePopupEnabled) {
                                 closePopoutMenu();
                             }
 
@@ -2617,7 +2617,7 @@
                                                         }
 
 
-                                                    if(curr_stream_aps_settings.aps_isClosePopupEnabled) {
+                                                    if(options.aps_isClosePopupEnabled) {
                                                         closePopoutMenu();
                                                     }            
 
@@ -3620,8 +3620,7 @@
                         [streamName] : {
                             //aps_percent: options.aps_percent,
                             //aps_max_points: options.aps_max_points,
-                            aps_secondsBefore: options.aps_secondsBefore,
-                            aps_isClosePopupEnabled: options.aps_isClosePopupEnabled
+                            aps_secondsBefore: options.aps_secondsBefore
                             //aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
                         }
                     };
@@ -3639,8 +3638,7 @@
                         res.aps_streams_settings_obj[streamName] = {
                             //aps_percent: options.aps_percent,
                             //aps_max_points: options.aps_max_points,
-                            aps_secondsBefore: options.aps_secondsBefore,
-                            aps_isClosePopupEnabled: options.aps_isClosePopupEnabled
+                            aps_secondsBefore: options.aps_secondsBefore
                             //aps_min_vote_margin_percent: options.aps_min_vote_margin_percent
                         }
                         res.aps_streams_settings_obj[streamName][featureName] = newVal;
