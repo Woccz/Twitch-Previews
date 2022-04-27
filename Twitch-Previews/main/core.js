@@ -2512,7 +2512,7 @@
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
                                                     
                                                     // Largest check
-                                                    let b = extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)
+                                                    const b = extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)
                                                     if (prediction_bet_amount > b) {
                                                         let scale = 10**(Math.floor(Math.log10(prediction_bet_amount)) - 1);
                                                         prediction_bet_amount = Math.round(prediction_bet_amount/scale) * scale;
@@ -2576,6 +2576,8 @@
                                                     let progression = selectedOption ? r_progression : l_progression;
                                                     progression.unshift(Math.round(augtotalChannelPointNum * 0.05));
 
+                                                    let expectedWinRat = selectedOption ? leftTotal / (rightTotal + prediction_bet_amount) : rightTotal / (leftTotal + prediction_bet_amount);
+
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
                                                         "\n Total Channel Points: " + totalChannelPointNum +
@@ -2584,12 +2586,14 @@
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
                                                         "\n Winnings Ratio: " + stat_fields[selectedOption * 4 + 1].children[1].innerText +
                                                         "\n Vote Confidence Ratio: " + Math.round(leftTotal/leftVotes) + " : " + Math.round(rightTotal/rightVotes) +
+                                                        "\n Adjusted Channel Points: " + augtotalChannelPointNum +
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
                                                         "\n Win probability: " + (win_probability*100).toFixed(2) + '%' +
                                                         "\n EV: " + (ev*100).toFixed(2) + '%' +
                                                         "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
                                                         "\n Progression: " + progression +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" + 
+                                                        "\n Expected Winnings Ratio: " + "1:" + expectedWinRat.toFixed(2) +
                                                         "\n Process Time: " + process_time + " ms"
                                                     );
                                                     // --------------------- --------------------- --------------------
