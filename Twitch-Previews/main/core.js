@@ -2570,13 +2570,13 @@
 
 
                                                     // --------------------- Console Log Prediction --------------------
-                                                    let win_probability = selectedOption ? r_win_probability : l_win_probability;
-                                                    let ev = selectedOption ? e_right : e_left;
-                                                    let p_size = selectedOption ? r_p_size : l_p_size;
-                                                    let progression = selectedOption ? r_progression : l_progression;
+                                                    const win_probability = selectedOption ? r_win_probability : l_win_probability;
+                                                    const ev = selectedOption ? e_right : e_left;
+                                                    const p_size = selectedOption ? r_p_size : l_p_size;
+                                                    const progression = selectedOption ? r_progression : l_progression;
                                                     progression.unshift(Math.round(augtotalChannelPointNum * 0.05));
 
-                                                    let expectedWinRat = selectedOption ? leftTotal / (rightTotal + prediction_bet_amount) : rightTotal / (leftTotal + prediction_bet_amount);
+                                                    const expectedWinRat = selectedOption ? leftTotal / (rightTotal + prediction_bet_amount) : rightTotal / (leftTotal + prediction_bet_amount);
 
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
@@ -2593,7 +2593,7 @@
                                                         "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
                                                         "\n Progression: " + progression +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" + 
-                                                        "\n Expected Winnings Ratio: " + "1:" + expectedWinRat.toFixed(2) +
+                                                        "\n Expected Winnings Ratio: " + "1:" + (1+expectedWinRat.toFixed(2)) +
                                                         "\n Process Time: " + process_time + " ms"
                                                     );
                                                     // --------------------- --------------------- --------------------
