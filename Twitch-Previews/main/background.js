@@ -27,20 +27,18 @@ let cached_fb_live_streams_arr = [];
 let optionsDisabledForFirefox = ['isPipEnabled','isCastEnabled', 'isRecordEnabled'];
 
 let options = {
+    aps_secondsBefore: 1,
+    aps_isClosePopupEnabled: true,
+    isPredictionsSniperEnabled: true,
+
     PREVIEWDIV_HEIGHT: 248,
     PREVIEWDIV_WIDTH: 440,
-    isSidebarPreviewsEnabled: true,
-    isDirpEnabled: true,
-    isFastForwardEnabled: true,
-    isImagePreviewMode: true,
-    isPredictionsNotificationsEnabled: true,
-    isPredictionsSniperEnabled: true,
-    aps_secondsBefore: 1,
+    isSidebarPreviewsEnabled: false,
+    isDirpEnabled: false,
+    isFastForwardEnabled: false,
+    isImagePreviewMode: false,
+    isPredictionsNotificationsEnabled: false,
 
-    aps_percent: 0,
-    aps_max_points: 0,
-    aps_min_vote_margin_percent: 0,
-    
     selected_lang: "en",
     isAdvancedVideoEmbedsEnabled: false,
     isCastEnabled: false,
