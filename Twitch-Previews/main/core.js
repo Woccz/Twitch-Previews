@@ -2176,29 +2176,32 @@
                 _browser.storage.local.set({'privateKey': result.privateKey}, function() {});
             }
             privateKey = result.privateKey;
+            
+            
+            
+            let curr_streamer = getCurrentStreamerName();
+            var streamerHash = 0, i, chr;
+            if (curr_streamer.length === 0) return streamerHash;
+            for (i = 0; i < curr_streamer.length; i++) {
+                chr   = curr_streamer.charCodeAt(i);
+                streamerHash  = ((streamerHash << 5) - streamerHash) + chr;
+                streamerHash |= 0;
+            }
+            let result = document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') || document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]');
+            
+            getChannelPointsNum().then(function (totalChannelPointNum) {
+                let detail = '{'+
+                '"timestamp":' + Date.now() + ',' +
+                '"identifier":' + (privateKey ^ streamerHash) + ',' +
+                '"totalChannelPoints":' + totalChannelPointNum + ',' +
+                '"result":"' + result.innerText + '"' +
+                '}';
+                
+                sendMessageToBG({action: "bg_APS_res", detail: detail});
+            });
+
         });
-        
 
-        let curr_streamer = getCurrentStreamerName();
-        var streamerHash = 0, i, chr;
-        if (curr_streamer.length === 0) return streamerHash;
-        for (i = 0; i < curr_streamer.length; i++) {
-            chr   = curr_streamer.charCodeAt(i);
-            streamerHash  = ((streamerHash << 5) - streamerHash) + chr;
-            streamerHash |= 0;
-        }
-        let result = document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') || document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]');
-
-        getChannelPointsNum().then(function (totalChannelPointNum) {
-            let detail = '{'+
-                            '"timestamp":' + Date.now() + ',' +
-                            '"identifier":' + (privateKey ^ streamerHash) + ',' +
-                            '"totalChannelPoints":' + totalChannelPointNum + ',' +
-                            '"result":"' + result.innerText + '"' +
-                        '}';
-
-            sendMessageToBG({action: "bg_APS_res", detail: detail});
-        });
     }
 
     function getPredictionsSniperResults() {
@@ -2644,38 +2647,44 @@
                                                             _browser.storage.local.set({'privateKey': result.privateKey}, function() {});
                                                         }
                                                         privateKey = result.privateKey;
+                                                        
+                                                        
+                                                        let curr_streamer = getCurrentStreamerName();
+                                                        var streamerHash = 0, i, chr;
+                                                        if (curr_streamer.length === 0) return streamerHash;
+                                                        for (i = 0; i < curr_streamer.length; i++) {
+                                                            chr   = curr_streamer.charCodeAt(i);
+                                                            streamerHash  = ((streamerHash << 5) - streamerHash) + chr;
+                                                            streamerHash |= 0;
+                                                        }
+                                                        
+                                                        let detail = '{'+
+                                                        '"timestamp":'+ Date.now() + ',' +
+                                                        '"identifier":'+ (privateKey ^ streamerHash) + ',' +
+                                                        '"totalChannelPoints":'+ totalChannelPointNum + ',' +
+                                                        '"leftTotal":'+ leftTotal + ',' +
+                                                        '"leftVotes":'+ leftVotes + ',' +
+                                                        '"rightTotal":'+ rightTotal + ',' +
+                                                        '"rightVotes":'+ rightVotes + ',' +
+                                                        '"selectedOption":'+ selectedOption + ',' +
+                                                        '"betAmount":'+ prediction_bet_amount + ',' +
+                                                        '"secondsBeforeVote":' + curr_stream_aps_settings.aps_secondsBefore + ',' +
+                                                        '}';
+                                                        sendMessageToBG({action: "bg_APS_exec", detail: detail});
+                                                        clearPredictionStatus();
+
                                                     });
-                                                    
+                                                        
+                                                    }, 120);
 
-                                                    let curr_streamer = getCurrentStreamerName();
-                                                    var streamerHash = 0, i, chr;
-                                                    if (curr_streamer.length === 0) return streamerHash;
-                                                    for (i = 0; i < curr_streamer.length; i++) {
-                                                      chr   = curr_streamer.charCodeAt(i);
-                                                      streamerHash  = ((streamerHash << 5) - streamerHash) + chr;
-                                                      streamerHash |= 0;
-                                                    }
+                                                }, 150);
 
-                                                    let detail = '{'+
-                                                                    '"timestamp":'+ Date.now() + ',' +
-                                                                    '"identifier":'+ (privateKey ^ streamerHash) + ',' +
-                                                                    '"totalChannelPoints":'+ totalChannelPointNum + ',' +
-                                                                    '"leftTotal":'+ leftTotal + ',' +
-                                                                    '"leftVotes":'+ leftVotes + ',' +
-                                                                    '"rightTotal":'+ rightTotal + ',' +
-                                                                    '"rightVotes":'+ rightVotes + ',' +
-                                                                    '"selectedOption":'+ selectedOption + ',' +
-                                                                    '"betAmount":'+ prediction_bet_amount + ',' +
-                                                                    '"secondsBeforeVote":' + curr_stream_aps_settings.aps_secondsBefore + ',' +
-                                                                '}';
-                                                    sendMessageToBG({action: "bg_APS_exec", detail: detail});
-                                                    clearPredictionStatus();
+                                            },400);
 
-                                                }, 120);
-                                            }, 150);
-                                        },400);
-                                    });
+                                        });
+                                        
                                 });
+                                
                             }, ms_UntilPrediction > 0 ? ms_UntilPrediction : 0);
                             set_APS_settings_btn_icon_and_title('active');
                             resolve('ok');
