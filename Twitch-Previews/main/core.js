@@ -2172,10 +2172,12 @@
         _browser.storage.local.get('privateKey', function(result) {
             var privateKey;
             if (!result.privateKey) {
-                result.privateKey = Math.floor(Math.random() * (1 << 31) + (1 << 30));
-                _browser.storage.local.set({'privateKey': result.privateKey}, function() {});
+                privateKey = Math.floor(Math.random() * (1 << 31) + (1 << 30));
+                _browser.storage.local.set({'privateKey': privateKey}, function() {});
             }
-            privateKey = result.privateKey;
+            else {
+                privateKey = result.privateKey;
+            }
             
             
             
@@ -2187,14 +2189,14 @@
                 streamerHash  = ((streamerHash << 5) - streamerHash) + chr;
                 streamerHash |= 0;
             }
-            let result = document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') || document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]');
+            let res = document.querySelector('div[data-test-selector="prediction-checkout-completion-step__winnings-string"]') || document.querySelector('p[data-test-selector="prediction-checkout-completion-step__luck-string"]');
             
             getChannelPointsNum().then(function (totalChannelPointNum) {
                 let detail = '{'+
                 '"timestamp":' + Date.now() + ',' +
                 '"identifier":' + (privateKey ^ streamerHash) + ',' +
                 '"totalChannelPoints":' + totalChannelPointNum + ',' +
-                '"result":"' + result.innerText + '"' +
+                '"result":"' + res.innerText + '"' +
                 '}';
                 
                 sendMessageToBG({action: "bg_APS_res", detail: detail});
@@ -2643,10 +2645,12 @@
                                                     _browser.storage.local.get('privateKey', function(result) {
                                                         var privateKey;
                                                         if (!result.privateKey) {
-                                                            result.privateKey = Math.floor(Math.random() * (1 << 31) + (1 << 30));
-                                                            _browser.storage.local.set({'privateKey': result.privateKey}, function() {});
+                                                            privateKey = Math.floor(Math.random() * (1 << 31) + (1 << 30));
+                                                            _browser.storage.local.set({'privateKey': privateKey}, function() {});
                                                         }
-                                                        privateKey = result.privateKey;
+                                                        else {
+                                                            privateKey = result.privateKey;
+                                                        }
                                                         
                                                         
                                                         let curr_streamer = getCurrentStreamerName();
