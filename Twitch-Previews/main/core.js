@@ -2518,10 +2518,24 @@
                                                         r_prediction_bet_amount = Math.round(s.slice(-4).reduce((a, b) => a + b, 0)/s.length);
                                                     }
                                                     r_prediction_bet_amount = r_progression[r_progression.length - 1];
-
+                                                    
                                                     // Choose Prediction Option
                                                     let selectedOption = e_left < e_right ? 1 : 0;
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
+
+                                                    
+                                                    // --------------------- Not Large enough bet check ---------------------
+                                                    if (prediction_bet_amount < 1) {
+                                                    //     console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
+                                                    //     showNotification("Aborting Vote.", "Not large enough bet size.", "", true);
+                                                    //     closePopoutMenu();
+                                                    //     clearPredictionStatus();
+                                                    //     return;
+
+                                                        selectedOption = l_balance < r_balance ? 1 : 0;
+                                                        prediction_bet_amount = 1;
+                                                    }
+
                                                     
                                                     // Largest check
                                                     const b = extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)
@@ -2543,6 +2557,7 @@
                                                     }       
 
                                                     let process_time = new Date().getTime() - start_time;
+                                                    
 
                                                     // --------------------- Prediction Name checks --------------------- 
                                                     let prediction_question = '';
@@ -2561,16 +2576,6 @@
                                                     catch (e) {}
 
                                                    
-                                                    // --------------------- Not Large enough bet check ---------------------
-                                                    // if (prediction_bet_amount < 1) {
-                                                    //     console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
-                                                    //     showNotification("Aborting Vote.", "Not large enough bet size.", "", true);
-                                                    //     closePopoutMenu();
-                                                    //     clearPredictionStatus();
-                                                    //     return;
-                                                    // }
-
-                                                    
                                                     // --------------------- Execute Prediction ---------------------
                                                     if (isFirefox) {
                                                         window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
