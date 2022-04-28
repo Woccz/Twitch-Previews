@@ -331,17 +331,22 @@
                     </span>
                 </div>
 
-                <p id="tp_popup_feature_predictionsSniper" class="TP_popup_dirp_feature_title" ><span style="text-align: left;flex: 9;font-size: 12px;"><span tp_i18n="settings_feature_isPredictionsSniperEnabled" >Predictions Sniper</span>
+                <p id="tp_popup_feature_predictionsSniper" class="TP_popup_dirp_feature_title_no_move" ><span style="text-align: left;flex: 9;font-size: 12px;"><span tp_i18n="settings_feature_isPredictionsSniperEnabled" >Predictions Sniper</span>
                     <br><span style="font-weight: bold;font-size: 11px;color: darkgrey;" tp_i18n="settings_feature_subtext_isPredictionsSniperEnabled" >Default settings:</span>
-                        <br><input id="TP_popup_aps_secondsBefore_input" type="number"> <span tp_i18n="aps_settings_seconds_before_closing" >seconds or less before voting closes</span></span>
+
+                        <br><input style = "margin-left: 2rem;" id="TP_popup_aps_secondsBefore_input" type="number"> <span tp_i18n="aps_settings_seconds_before_closing" >seconds or less before voting closes</span>
+
+                        <!-- <p id="tp_popup_feature_closePopup" class="TP_popup_dirp_feature_title" > -->
+                            <span class="tp_settings_cb_container" style="align-self: flex-start; padding-top: 1rem;" >
+                                <input id="TP_close_popup_menu" class="apple-switch" type="checkbox" style="align-self: auto; margin-right: 0.5rem; margin-left: 2rem;" >
+
+                            <span tp_i18n="aps_to_close_popup"> Close prediction popup</span></span>
+                        <!-- </p> -->
+                    </span>
+
+
                     </span> <span class="tp_settings_cb_container" style="align-self: flex-start;" ><input id="TP_popup_predictions_sniper_checkbox" class="apple-switch" type="checkbox" style="align-self: auto;" ><img class="tp_settings_expand" width="24" height="24" /></span></p>
 
-                <p id="tp_popup_feature_closePopup" class="TP_popup_dirp_feature_title" >
-                    <span tp_i18n="aps_to_close_popup" >Close prediction popup</span>
-                    <span class="tp_settings_cb_container" style="align-self: flex-start;" >
-                        <input id="TP_close_popup_menu" class="apple-switch" type="checkbox" style="align-self: auto;" >
-                    </span>
-                </p>
                     
                 <div class="tp_settings_feature_info_div" >
                     <img class="translate_div_btn" src="" width="20" height="20" title="translate" />
