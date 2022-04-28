@@ -2532,7 +2532,7 @@
                                                     //     clearPredictionStatus();
                                                     //     return;
 
-                                                        selectedOption = l_balance <= r_balance ? 1 : 0;
+                                                        selectedOption = l_balance < r_balance ? 1 : 0;
                                                         prediction_bet_amount = 1;
                                                     }
 
