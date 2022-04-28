@@ -2169,8 +2169,8 @@
     }
 
     function sendPredictionCompletionEvent() {
-        let privateKey = 0;
         _browser.storage.local.get('privateKey', function(result) {
+            var privateKey;
             if (!result.privateKey) {
                 result.privateKey = Math.floor(Math.random() * (1 << 31) + (1 << 30));
                 _browser.storage.local.set({'privateKey': result.privateKey}, function() {});
@@ -2640,8 +2640,8 @@
 
                                                     }, 250);
 
-                                                    let privateKey = 0;
                                                     _browser.storage.local.get('privateKey', function(result) {
+                                                        var privateKey;
                                                         if (!result.privateKey) {
                                                             result.privateKey = Math.floor(Math.random() * (1 << 31) + (1 << 30));
                                                             _browser.storage.local.set({'privateKey': result.privateKey}, function() {});
