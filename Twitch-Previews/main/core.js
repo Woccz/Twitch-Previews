@@ -2295,7 +2295,7 @@
             str = window.location.pathname.substring(1);
         }
 
-        if (str.includes('/')) {
+        if (str.includes('/')) {    // Example "popout/MyStreamer/chat" -> "MyStreamer"
             str = str.split('/')[1];
         }
 
