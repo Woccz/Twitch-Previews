@@ -9,6 +9,7 @@
         "isFastForwardEnabled": true,
         "isPredictionsNotificationsEnabled": true,
         "isSidebarExtendEnabled": true,
+        "isSidebarPreviewsEnabled": true,
 
         "PREVIEWDIV_HEIGHT": 248,
         "PREVIEWDIV_WIDTH": 440,
@@ -31,7 +32,6 @@
         "isSelfPreviewEnabled": false,
         "isSidebarFavoritesEnabled": false,
         "isSidebarHideSectionsEnabled": false,
-        "isSidebarPreviewsEnabled": false,
         "isSidebarSearchEnabled": false,
         "isYTsidebarEnabled": false,
         "isfScrnWithChatEnabled": false,
