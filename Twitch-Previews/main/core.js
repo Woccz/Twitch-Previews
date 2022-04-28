@@ -2288,11 +2288,18 @@
 
     function getCurrentStreamerName() {
         // consider multilang - display name might be different than url.
+        var str;
         try {
-            return document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
+            str = document.getElementsByClassName('channel-info-content')[0].getElementsByTagName('a')[1].innerText;
         } catch (e) {
-            return window.location.pathname.substring(1);
+            str = window.location.pathname.substring(1);
         }
+
+        if (str.includes('/')) {
+            str = str.split('/')[1];
+        }
+
+        return str;
     }
 
     function initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now) {
