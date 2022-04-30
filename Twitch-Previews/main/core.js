@@ -2593,7 +2593,7 @@
                                                     const progression = selectedOption ? r_progression : l_progression;
                                                     progression.unshift(Math.round(augtotalChannelPointNum * 0.05));
 
-                                                    const expectedWinRat = 1 + selectedOption ? leftTotal / (rightTotal + prediction_bet_amount) : rightTotal / (leftTotal + prediction_bet_amount);
+                                                    const expectedWinRat = 1 + (selectedOption ? leftTotal / (rightTotal + prediction_bet_amount) : rightTotal / (leftTotal + prediction_bet_amount));
 
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
