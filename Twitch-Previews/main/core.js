@@ -2600,9 +2600,8 @@
                                                         "\n"+
                                                         "\n Total Channel Points: " + totalChannelPointNum +
                                                         "\n Prediction question: " + prediction_question +                                                  
-                                                        "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
-                                                        "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
-                                                        "\n Winnings Ratio: " + stat_fields[selectedOption * 4 + 1].children[1].innerText +
+                                                        "\n Left:\n  " + leftTotal + " points\n  " + leftVotes + " votes\n  ratio: " + stat_fields[1].children[1].innerText +
+                                                        "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes\n  ratio: " + stat_fields[4].children[1].innerText +
                                                         "\n"+
                                                         "\n Vote Confidence Ratio: " + Math.round(leftTotal/leftVotes) + " : " + Math.round(rightTotal/rightVotes) +
                                                         "\n Adjusted Channel Points: " + augtotalChannelPointNum +
