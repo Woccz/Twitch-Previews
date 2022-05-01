@@ -2597,21 +2597,29 @@
 
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
+                                                        "\n"+
                                                         "\n Total Channel Points: " + totalChannelPointNum +
                                                         "\n Prediction question: " + prediction_question +                                                  
                                                         "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
                                                         "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
                                                         "\n Winnings Ratio: " + stat_fields[selectedOption * 4 + 1].children[1].innerText +
+                                                        "\n"+
                                                         "\n Vote Confidence Ratio: " + Math.round(leftTotal/leftVotes) + " : " + Math.round(rightTotal/rightVotes) +
                                                         "\n Adjusted Channel Points: " + augtotalChannelPointNum +
+                                                        "\n"+
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
                                                         "\n Win probability: " + (win_probability*100).toFixed(2) + '%' +
-                                                        "\n EV: " + (ev*100).toFixed(2) + '%' +
+                                                        "\n EV return: " + (ev*100).toFixed(2) + '%' +
+                                                        "\n"+
                                                         "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
                                                         "\n Progression: " + progression +
-                                                        "\n Bet Amount: " + prediction_bet_amount + " points" + 
-                                                        "\n Expected Winnings Ratio: " + "1:" + expectedWinRat.toFixed(2) +
-                                                        "\n Process Time: " + process_time + " ms"
+                                                        "\n Bet Amount: " + prediction_bet_amount + " points" +
+                                                        "\n EV: +" + Math.round(ev*prediction_bet_amount) + " points" +
+                                                        "\n"+
+                                                        "\n Case win:" + 
+                                                        "\n  Expected Win: +" + Math.round(prediction_bet_amount * expectedWinRat) + " points (1:" + expectedWinRat.toFixed(2) + ")" +
+                                                        "\n"+
+                                                        "\nProcess Time: " + process_time + " ms"
                                                     );
                                                     // --------------------- --------------------- --------------------
 
