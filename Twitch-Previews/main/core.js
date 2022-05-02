@@ -2460,25 +2460,24 @@
 
 
                                                     // Left
-                                                    let l_win_probability = l_balance;
+                                                    //let l_win_probability = l_balance;
 
-                                                    // Guess an initial bet size of 5%
-
+                                                    
                                                     // Augment, assuming the average prediction duration is 15 mins, 15*5.3 = 80
                                                     const augtotalChannelPointNum = totalChannelPointNum + 80;
-
+                                                    
                                                     
                                                     const SQRT3 = Math.sqrt(3);
                                                     
+                                                    // Guess an initial bet size of 35%
                                                     // --------------------- Calculate prediction ammount ---------------------
-                                                    let l_prediction_bet_amount = augtotalChannelPointNum * 0.05;
+                                                    let l_prediction_bet_amount = augtotalChannelPointNum * 0.35;
 
                                                     for(let i = 0; i < 100; i++) {
 
                                                         e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance;
                                                     
-                                                        //l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
-                                                        l_p_size = Math.sqrt(e_left / (e_left + 1)) / SQRT3;
+                                                        l_p_size = (0.48007*e_left + 0.28007) / (e_left+1)
 
                                                         if (isNaN(l_p_size)) l_p_size = 0;
                                                         
@@ -2497,17 +2496,16 @@
 
 
                                                     // Right
-                                                    let r_win_probability = r_balance;
+                                                    //let r_win_probability = r_balance;
 
-                                                    // Guess an initial bet size of 5%
-                                                    let r_prediction_bet_amount = augtotalChannelPointNum * 0.05;
+                                                    // Guess an initial bet size of 35%
+                                                    let r_prediction_bet_amount = augtotalChannelPointNum * 0.35;
 
                                                     for(let i = 0; i < 100; i++) {
 
                                                         e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance;
                                                     
-                                                        //r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
-                                                        r_p_size = Math.sqrt(e_right / (e_right + 1)) / SQRT3;
+                                                        r_p_size = (0.48007*e_right + 0.28007) / (e_right+1)
 
                                                         if (isNaN(r_p_size)) r_p_size = 0;
                                                         
@@ -2525,7 +2523,7 @@
                                                     r_prediction_bet_amount = r_progression[r_progression.length - 1];
                                                     
                                                     // Choose Prediction Option
-                                                    let selectedOption = e_left < e_right ? 1 : 0;
+                                                    let selectedOption = e_left < e_right ? 1 : 0;  // Choose the one with highest EV (Usually one is positive and one is negative)
                                                     let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
 
                                                     
@@ -2594,7 +2592,7 @@
                                                     const execute_time = new Date().getTime() - start_execute_time - process_time;
 
                                                     // --------------------- Console Log Prediction --------------------
-                                                    const win_probability = selectedOption ? r_win_probability : l_win_probability;
+                                                    const win_probability = selectedOption ? r_balance : l_balance;
                                                     const ev = selectedOption ? e_right : e_left;
                                                     const p_size = selectedOption ? r_p_size : l_p_size;
                                                     const progression = selectedOption ? r_progression : l_progression;
