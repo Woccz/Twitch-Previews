@@ -2480,7 +2480,7 @@
                                                         //l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
                                                         l_p_size = Math.sqrt(e_left / (e_left + 1)) / SQRT3;
 
-                                                        if (isNan(l_p_size)) l_p_size = 0;
+                                                        if (isNaN(l_p_size)) l_p_size = 0;
                                                         
                                                         l_prediction_bet_amount = Math.round(l_p_size * augtotalChannelPointNum);
                                                         
@@ -2509,7 +2509,7 @@
                                                         //r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
                                                         r_p_size = Math.sqrt(e_right / (e_right + 1)) / SQRT3;
 
-                                                        if (isNan(r_p_size)) r_p_size = 0;
+                                                        if (isNaN(r_p_size)) r_p_size = 0;
                                                         
                                                         r_prediction_bet_amount = Math.round(r_p_size * augtotalChannelPointNum);
                                                         
