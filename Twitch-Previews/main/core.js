@@ -2480,7 +2480,8 @@
 
                                                         e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance;
                                                     
-                                                        l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
+                                                        //l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
+                                                        l_p_size = Math.sqrt(e_left / (e_left + 1)) / Math.sqrt(3);
                                                         
                                                         l_prediction_bet_amount = Math.round(l_p_size * augtotalChannelPointNum);
                                                         
@@ -2506,7 +2507,8 @@
 
                                                         e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance;
                                                     
-                                                        r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
+                                                        //r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
+                                                        r_p_size = Math.sqrt(e_right / (e_right + 1)) / Math.sqrt(3);
                                                         
                                                         r_prediction_bet_amount = Math.round(r_p_size * augtotalChannelPointNum);
                                                         
@@ -2549,7 +2551,8 @@
                                                     }
                                                     // End check
 
-                                                    if(augtotalChannelPointNum*(Math.SQRT2-1) < prediction_bet_amount) {
+                                                    //if(augtotalChannelPointNum*(Math.SQRT2-1) < prediction_bet_amount) {
+                                                    if (augtotalChannelPointNum * sqrt(3)/3 < prediction_bet_amount) {
                                                         // Something went wrong, abort
                                                         console.log(new Date().toLocaleString() + "\nAPS: Prediction bet size ["+prediction_bet_amount+"] is too large. Aborting.");
                                                         showNotification("Aborting Vote.", "Prediction bet size is erronous. Aborting.", "", true);
