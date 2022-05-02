@@ -2349,12 +2349,13 @@
                             if (predictionSniperTimeout) {
                                 clearPredictionStatus();
                             }
-
+                            
                             APS_awaiting_to_place_bet_streamName = getCurrentStreamerName();
                             // wait amount of seconds to predict
                             predictionSniperTimeout = setTimeout(function () {
                                 // execute prediction sniper
-
+                                const start_execute_time = new Date().getTime();
+                                
                                 _browser.storage.local.get('aps_streams_settings_obj', function(res) {
                                     let curr_stream_aps_settings = null;
                                     let curr_stream_name = getCurrentStreamerName();
@@ -2384,12 +2385,12 @@
 
                                         // close the popout menu if it's opened.
                                         closePopoutMenu();
-
+                                        
                                         setTimeout(function (){
-
+                                            
                                             // click channel points button
                                             clickChannelPointsButton();
-
+                                            
                                             setTimeout(function () {
                                                 // click predictions title body button at the top of channel points view to open predictions view
                                                 let predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
@@ -2399,9 +2400,8 @@
                                                     return;
                                                 }
                                                 predictions_list_item_body.click();
-
+                                                
                                                 setTimeout(function () {
-                                                    let start_time = new Date().getTime();
 
                                                     // check if already entered
                                                     try {
@@ -2450,6 +2450,8 @@
                                                     
 
                                                     // --------------------- Choose Prediction Ammount ---------------------
+                                                    const start_process_time = new Date().getTime();
+
                                                     let lTrV = leftTotal * rightVotes;
                                                     let rTlV = rightTotal * leftVotes;
 
@@ -2556,7 +2558,7 @@
                                                         return;
                                                     }       
 
-                                                    let process_time = new Date().getTime() - start_time;
+                                                    const process_time = new Date().getTime() - start_process_time;
                                                     
 
                                                     // --------------------- Prediction Name checks --------------------- 
@@ -2585,6 +2587,7 @@
                                                         document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
                                                     }
 
+                                                    const execute_time = new Date().getTime() - start_execute_time - process_time;
 
                                                     // --------------------- Console Log Prediction --------------------
                                                     const win_probability = selectedOption ? r_win_probability : l_win_probability;
@@ -2619,7 +2622,8 @@
                                                         "\n Case win:" + 
                                                         "\n  Expected Win: +" + Math.round(prediction_bet_amount * expectedWinRat) + " points (1:" + expectedWinRat.toFixed(2) + ")" +
                                                         "\n"+
-                                                        "\nProcess Time: " + process_time + " ms"
+                                                        "\nProcess Time: " + process_time + " ms" +
+                                                        "\nExecute Time: " + execute_time + " ms"
                                                     );
                                                     // --------------------- --------------------- --------------------
 
