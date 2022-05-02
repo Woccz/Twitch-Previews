@@ -2107,7 +2107,7 @@
     }
 
     function closePopoutMenu() {
-        let closePopoutBtn = document.getElementsByClassName('tw-popover-header__icon-slot--right')[0];
+        let closePopoutBtn = document.getElementsByClassName('tw-popover-header__icon-slot--right')[1];
         if (closePopoutBtn && closePopoutBtn.firstChild) {
             closePopoutBtn.firstChild.click();
         }
@@ -2617,6 +2617,11 @@
 
 
                                                     setTimeout(function (){
+                                                        let t_btn = document.querySelector('button[data-test-selector="prediction-terms-step__accept-button"]');
+                                                        if (t_btn) {
+                                                            t_btn.click();
+                                                        }
+
                                                         if(options.isPredictionsNotificationsEnabled) {
                                                             let curr_streamer = '';
                                                             let curr_streamer_img_url = '';
