@@ -2467,7 +2467,6 @@
                                                     const augtotalChannelPointNum = totalChannelPointNum + 80;
                                                     
                                                     
-                                                    const SQRT3 = Math.sqrt(3);
                                                     
                                                     // Guess an initial bet size of 35%
                                                     // --------------------- Calculate prediction ammount ---------------------
@@ -2551,7 +2550,7 @@
                                                     // End check
 
                                                     //if(augtotalChannelPointNum*(Math.SQRT2-1) < prediction_bet_amount) {
-                                                    if (augtotalChannelPointNum * SQRT3/3 < prediction_bet_amount) {
+                                                    if (augtotalChannelPointNum * 0.5 < prediction_bet_amount) {
                                                         // Something went wrong, abort
                                                         console.log(new Date().toLocaleString() + "\nAPS: Prediction bet size ["+prediction_bet_amount+"] is too large. Aborting.");
                                                         showNotification("Aborting Vote.", "Prediction bet size is erronous. Aborting.", "", true);
