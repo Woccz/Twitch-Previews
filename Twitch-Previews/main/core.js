@@ -2349,12 +2349,13 @@
                             if (predictionSniperTimeout) {
                                 clearPredictionStatus();
                             }
-
+                            
                             APS_awaiting_to_place_bet_streamName = getCurrentStreamerName();
                             // wait amount of seconds to predict
                             predictionSniperTimeout = setTimeout(function () {
                                 // execute prediction sniper
-
+                                const start_execute_time = new Date().getTime();
+                                
                                 _browser.storage.local.get('aps_streams_settings_obj', function(res) {
                                     let curr_stream_aps_settings = null;
                                     let curr_stream_name = getCurrentStreamerName();
@@ -2384,12 +2385,12 @@
 
                                         // close the popout menu if it's opened.
                                         closePopoutMenu();
-
+                                        
                                         setTimeout(function (){
-
+                                            
                                             // click channel points button
                                             clickChannelPointsButton();
-
+                                            
                                             setTimeout(function () {
                                                 // click predictions title body button at the top of channel points view to open predictions view
                                                 let predictions_list_item_body = document.getElementsByClassName("predictions-list-item__body")[0];
@@ -2399,9 +2400,8 @@
                                                     return;
                                                 }
                                                 predictions_list_item_body.click();
-
+                                                
                                                 setTimeout(function () {
-                                                    let start_time = new Date().getTime();
 
                                                     // check if already entered
                                                     try {
@@ -2450,6 +2450,8 @@
                                                     
 
                                                     // --------------------- Choose Prediction Ammount ---------------------
+                                                    const start_process_time = new Date().getTime();
+
                                                     let lTrV = leftTotal * rightVotes;
                                                     let rTlV = rightTotal * leftVotes;
 
@@ -2556,7 +2558,7 @@
                                                         return;
                                                     }       
 
-                                                    let process_time = new Date().getTime() - start_time;
+                                                    const process_time = new Date().getTime() - start_process_time;
                                                     
 
                                                     // --------------------- Prediction Name checks --------------------- 
@@ -2585,6 +2587,7 @@
                                                         document.getElementsByClassName('custom-prediction-button__interactive')[selectedOption].click();
                                                     }
 
+                                                    const execute_time = new Date().getTime() - start_execute_time - process_time;
 
                                                     // --------------------- Console Log Prediction --------------------
                                                     const win_probability = selectedOption ? r_win_probability : l_win_probability;
@@ -2597,21 +2600,30 @@
 
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
+                                                        "\n"+
                                                         "\n Total Channel Points: " + totalChannelPointNum +
-                                                        "\n Prediction question: " + prediction_question +                                                  
-                                                        "\n Left:\n  " + leftTotal +" points\n  "+ leftVotes + " votes" +
-                                                        "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes" + 
-                                                        "\n Winnings Ratio: " + stat_fields[selectedOption * 4 + 1].children[1].innerText +
+                                                        "\n Prediction question: " + prediction_question +
+                                                        "\n"+                                                  
+                                                        "\n Left:\n  " + leftTotal + " points\n  " + leftVotes + " votes\n  ratio: " + stat_fields[1].children[1].innerText +
+                                                        "\n Right:\n  " + rightTotal +" points\n  "+ rightVotes + " votes\n  ratio: " + stat_fields[5].children[1].innerText +
+                                                        "\n"+
                                                         "\n Vote Confidence Ratio: " + Math.round(leftTotal/leftVotes) + " : " + Math.round(rightTotal/rightVotes) +
                                                         "\n Adjusted Channel Points: " + augtotalChannelPointNum +
+                                                        "\n"+
                                                         "\n Selected_option: " + (selectedOption ? "right" : "left") +
                                                         "\n Win probability: " + (win_probability*100).toFixed(2) + '%' +
-                                                        "\n EV: " + (ev*100).toFixed(2) + '%' +
+                                                        "\n EV return: " + (ev*100).toFixed(2) + '%' +
+                                                        "\n"+
                                                         "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
                                                         "\n Progression: " + progression +
-                                                        "\n Bet Amount: " + prediction_bet_amount + " points" + 
-                                                        "\n Expected Winnings Ratio: " + "1:" + expectedWinRat.toFixed(2) +
-                                                        "\n Process Time: " + process_time + " ms"
+                                                        "\n Bet Amount: " + prediction_bet_amount + " points" +
+                                                        "\n EV: +" + Math.round(ev*prediction_bet_amount) + " points" +
+                                                        "\n"+
+                                                        "\n Case win:" + 
+                                                        "\n  Expected Win: +" + Math.round(prediction_bet_amount * expectedWinRat) + " points (1:" + expectedWinRat.toFixed(2) + ")" +
+                                                        "\n"+
+                                                        "\nProcess Time: " + process_time + " ms" +
+                                                        "\nExecute Time: " + execute_time + " ms"
                                                     );
                                                     // --------------------- --------------------- --------------------
 
@@ -2682,7 +2694,7 @@
                                                         '"rightVotes":'+ rightVotes + ',' +
                                                         '"selectedOption":'+ selectedOption + ',' +
                                                         '"betAmount":'+ prediction_bet_amount + ',' +
-                                                        '"secondsBeforeVote":' + curr_stream_aps_settings.aps_secondsBefore + ',' +
+                                                        '"secondsBeforeVote":' + curr_stream_aps_settings.aps_secondsBefore +
                                                         '}';
                                                         sendMessageToBG({action: "bg_APS_exec", detail: detail});
                                                         clearPredictionStatus();
