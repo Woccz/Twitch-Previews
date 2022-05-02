@@ -2685,7 +2685,7 @@
                                                         '"rightVotes":'+ rightVotes + ',' +
                                                         '"selectedOption":'+ selectedOption + ',' +
                                                         '"betAmount":'+ prediction_bet_amount + ',' +
-                                                        '"secondsBeforeVote":' + curr_stream_aps_settings.aps_secondsBefore + ',' +
+                                                        '"secondsBeforeVote":' + curr_stream_aps_settings.aps_secondsBefore +
                                                         '}';
                                                         sendMessageToBG({action: "bg_APS_exec", detail: detail});
                                                         clearPredictionStatus();
