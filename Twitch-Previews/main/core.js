@@ -2552,7 +2552,7 @@
                                                     // End check
 
                                                     //if(augtotalChannelPointNum*(Math.SQRT2-1) < prediction_bet_amount) {
-                                                    if (augtotalChannelPointNum * sqrt(3)/3 < prediction_bet_amount) {
+                                                    if (augtotalChannelPointNum * Math.sqrt(3)/3 < prediction_bet_amount) {
                                                         // Something went wrong, abort
                                                         console.log(new Date().toLocaleString() + "\nAPS: Prediction bet size ["+prediction_bet_amount+"] is too large. Aborting.");
                                                         showNotification("Aborting Vote.", "Prediction bet size is erronous. Aborting.", "", true);
