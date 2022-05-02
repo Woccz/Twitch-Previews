@@ -2433,12 +2433,12 @@
                                                     totalChannelPointNum = parseInt(totalChannelPointNum)
                                                     
                                                     // Left Side
-                                                    let leftTotal = extractNumberValueFromString(stat_fields[0].children[1].innerText);
-                                                    let leftVotes = extractNumberValueFromString(stat_fields[2].children[1].innerText);
+                                                    const leftTotal = extractNumberValueFromString(stat_fields[0].children[1].innerText);
+                                                    const leftVotes = extractNumberValueFromString(stat_fields[2].children[1].innerText);
                                                     
                                                     // Right Side
-                                                    let rightTotal = extractNumberValueFromString(stat_fields[4].children[1].innerText);
-                                                    let rightVotes = extractNumberValueFromString(stat_fields[6].children[1].innerText);
+                                                    const rightTotal = extractNumberValueFromString(stat_fields[4].children[1].innerText);
+                                                    const rightVotes = extractNumberValueFromString(stat_fields[6].children[1].innerText);
                                                     
                                                     if(leftVotes == 0 || rightVotes == 0) {
                                                         console.log(new Date().toLocaleString() + "\nAPS: no votes for " + ((leftVotes < rightVotes) ? "Left" : "Right") + ". Aborting.");
@@ -2452,11 +2452,11 @@
                                                     // --------------------- Choose Prediction Ammount ---------------------
                                                     const start_process_time = new Date().getTime();
 
-                                                    let lTrV = leftTotal * rightVotes;
-                                                    let rTlV = rightTotal * leftVotes;
+                                                    const lTrV = leftTotal * rightVotes;
+                                                    const rTlV = rightTotal * leftVotes;
 
-                                                    let l_balance = (lTrV/(lTrV + rTlV));
-                                                    let r_balance = 1-l_balance;
+                                                    const l_balance = (lTrV/(lTrV + rTlV));
+                                                    const r_balance = 1-l_balance;
 
                                                     var e_right, e_left;
                                                     var l_p_size, r_p_size;
@@ -2471,8 +2471,10 @@
 
                                                     // Augment, assuming the average prediction duration is 15 mins, 15*5.3 = 80
                                                     const augtotalChannelPointNum = totalChannelPointNum + 80;
-                                                    
 
+                                                    
+                                                    const SQRT3 = Math.sqrt(3);
+                                                    
                                                     // --------------------- Calculate prediction ammount ---------------------
                                                     let l_prediction_bet_amount = augtotalChannelPointNum * 0.05;
 
@@ -2481,7 +2483,9 @@
                                                         e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance;
                                                     
                                                         //l_p_size = (Math.SQRT2 * (e_left + 1))/Math.sqrt((e_left + 1)*(e_left + 2)) - 1;
-                                                        l_p_size = Math.sqrt(e_left / (e_left + 1)) / Math.sqrt(3);
+                                                        l_p_size = Math.sqrt(e_left / (e_left + 1)) / SQRT3;
+
+                                                        if (l_p_size == NaN) l_p_size = 0;
                                                         
                                                         l_prediction_bet_amount = Math.round(l_p_size * augtotalChannelPointNum);
                                                         
@@ -2508,7 +2512,9 @@
                                                         e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance;
                                                     
                                                         //r_p_size = (Math.SQRT2 * (e_right + 1))/Math.sqrt((e_right + 1)*(e_right + 2)) - 1;
-                                                        r_p_size = Math.sqrt(e_right / (e_right + 1)) / Math.sqrt(3);
+                                                        r_p_size = Math.sqrt(e_right / (e_right + 1)) / SQRT3;
+
+                                                        if (r_p_size == NaN) r_p_size = 0;
                                                         
                                                         r_prediction_bet_amount = Math.round(r_p_size * augtotalChannelPointNum);
                                                         
@@ -2552,7 +2558,7 @@
                                                     // End check
 
                                                     //if(augtotalChannelPointNum*(Math.SQRT2-1) < prediction_bet_amount) {
-                                                    if (augtotalChannelPointNum * Math.sqrt(3)/3 < prediction_bet_amount) {
+                                                    if (augtotalChannelPointNum * SQRT3/3 < prediction_bet_amount) {
                                                         // Something went wrong, abort
                                                         console.log(new Date().toLocaleString() + "\nAPS: Prediction bet size ["+prediction_bet_amount+"] is too large. Aborting.");
                                                         showNotification("Aborting Vote.", "Prediction bet size is erronous. Aborting.", "", true);
