@@ -2720,7 +2720,7 @@
                             clearPredictionStatus();
                             reject(e);
                         }
-                    }, 150);
+                    }, 1000);
                 }, 400);
             } catch (e) {
                 console.log(new Date().toLocaleString() + "\nAPS:\n" + e);
