@@ -1980,6 +1980,7 @@
                             
                             if (options.isPredictionsNotificationsEnabled) {
                                 if (res === 'prediction_closed_or_ended') {
+                                    console.log(new Date().toLocaleString() + "\nAPS: Prediction closed before the sniper could vote.");
                                     showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", prediction_text + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
                                 } else {
                                     initAutoPredictionsSniper(curr_stream_aps_settings, should_bet_now).then(function (res) {
@@ -1991,6 +1992,7 @@
                                         }
                                     }, function (res){
                                         if (res === 'prediction_closed_or_ended') {
+                                            console.log(new Date().toLocaleString() + "\nAPS: Prediction closed before the sniper could vote.");
                                             showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", prediction_text + "\n" + _i18n('aps_prediction_closed_before_exec_notif_text'), curr_streamer_img_url);
                                         } else {
                                             showNotification(curr_streamer + ": " + _i18n('aps_prediction_closed_or_ended_notif_text') + "\n", "Predictions sniper failed to monitor / join prediction, try refreshing the page if prediction still active", curr_streamer_img_url);
@@ -2017,6 +2019,7 @@
 
                             let extraText = '';
                             if (APS_awaiting_to_place_bet_streamName === curr_streamer) {
+                                console.log(new Date().toLocaleString() + "\nAPS: Prediction closed before the sniper could vote.");
                                 extraText = '\n' + _i18n('aps_prediction_closed_before_exec_notif_text');
                                 APS_awaiting_to_place_bet_streamName = null;
                             }
@@ -2168,6 +2171,23 @@
 
         return parseInt(num) * m;
 
+    }
+
+    function optimal(total_points, win_probability, total_pot, option_pot, steps = 1024) {
+        let max_proportion = 0;
+        let max_value = 0;
+
+        for (let p = 0; p < steps; p++) {
+            let proportion = p / steps;
+            let value = ((total_pot/(option_pot + total_points*p/steps)-1) * p/steps + 1) * (1 - p/steps)**(1/win_probability - 1);
+
+            if (value > max_value) {
+                max_value = value;
+                max_proportion = proportion;
+            }
+        }
+
+        return [Math.round(max_proportion * total_points), max_value];
     }
 
     function sendPredictionCompletionEvent() {
@@ -2452,82 +2472,29 @@
                                                     const lTrV = leftTotal * rightVotes;
                                                     const rTlV = rightTotal * leftVotes;
 
-                                                    const l_balance = (lTrV/(lTrV + rTlV));
-                                                    const r_balance = 1-l_balance;
-
-                                                    var e_right, e_left;
-                                                    var l_p_size, r_p_size;
-                                                    var l_progression = [];
-                                                    var r_progression = [];
-
-
-                                                    // Left
-                                                    //let l_win_probability = l_balance;
+                                                    const l_win_probability = (lTrV/(lTrV + rTlV));
+                                                    const r_win_probability = 1-l_win_probability;
 
                                                     
-                                                    // Augment, assuming the average prediction duration is 15 mins, 15*5.3 = 80
+                                                    // // Augment, assuming the average prediction duration is 15 mins, 15*5.3 = 80
                                                     const augtotalChannelPointNum = totalChannelPointNum + 80;
                                                     
-                                                    
-                                                    
-                                                    // Guess an initial bet size of 35%
-                                                    // --------------------- Calculate prediction ammount ---------------------
-                                                    let l_prediction_bet_amount = augtotalChannelPointNum * 0.35;
 
-                                                    for(let i = 0; i < 100; i++) {
+                                                    // --Ver 3--
+                                                    const pot_total = leftTotal + rightTotal;
 
-                                                        e_left = rightTotal / (leftTotal + l_prediction_bet_amount) * l_balance - r_balance;
-                                                    
-                                                        l_p_size = (0.48007*e_left + 0.28007) / (e_left+1)
+                                                    const left_optimal = optimal(augtotalChannelPointNum, l_win_probability, pot_total, leftTotal, steps = 4096);
+                                                    const right_optimal = optimal(augtotalChannelPointNum, r_win_probability, pot_total, rightTotal, steps = 4096);
 
-                                                        if (isNaN(l_p_size)) l_p_size = 0;
-                                                        
-                                                        l_prediction_bet_amount = Math.round(l_p_size * augtotalChannelPointNum);
-                                                        
-                                                        if(l_progression.length > 0 && l_prediction_bet_amount == l_progression[l_progression.length - 1]) break;
-                                                        
-                                                        if(l_prediction_bet_amount < 0) l_prediction_bet_amount = 0;
-                                                        
-                                                        l_progression.push(l_prediction_bet_amount);
-                                                        
-                                                        let s = l_progression.slice(-4);
-                                                        l_prediction_bet_amount = Math.round(s.reduce((a, b) => a + b, 0)/s.length);
-                                                    }
-                                                    l_prediction_bet_amount = l_progression[l_progression.length - 1];
+                                                    let selectedOption = left_optimal[1] < right_optimal[1] ? 1 : 0;
+                                                    let prediction_bet_amount = selectedOption ? right_optimal[0] : left_optimal[0];
+                                                    // ---------
+
+                                                    // -- TEMP - Safety margin-- 
+                                                    prediction_bet_amount *= 0.75;  // 75% of proposed optimal bet amount
+                                                    // -------------------------
 
 
-                                                    // Right
-                                                    //let r_win_probability = r_balance;
-
-                                                    // Guess an initial bet size of 35%
-                                                    let r_prediction_bet_amount = augtotalChannelPointNum * 0.35;
-
-                                                    for(let i = 0; i < 100; i++) {
-
-                                                        e_right = leftTotal / (rightTotal + r_prediction_bet_amount) * r_balance - l_balance;
-                                                    
-                                                        r_p_size = (0.48007*e_right + 0.28007) / (e_right+1)
-
-                                                        if (isNaN(r_p_size)) r_p_size = 0;
-                                                        
-                                                        r_prediction_bet_amount = Math.round(r_p_size * augtotalChannelPointNum);
-                                                        
-                                                        if(r_progression.length > 0 && r_prediction_bet_amount == r_progression[r_progression.length - 1]) break;
-                                                        
-                                                        if(r_prediction_bet_amount < 0) r_prediction_bet_amount = 0;
-                                                        
-                                                        r_progression.push(r_prediction_bet_amount);
-                                                        
-                                                        let s = r_progression.slice(-4);
-                                                        r_prediction_bet_amount = Math.round(s.slice(-4).reduce((a, b) => a + b, 0)/s.length);
-                                                    }
-                                                    r_prediction_bet_amount = r_progression[r_progression.length - 1];
-                                                    
-                                                    // Choose Prediction Option
-                                                    let selectedOption = e_left < e_right ? 1 : 0;  // Choose the one with highest EV (Usually one is positive and one is negative)
-                                                    let prediction_bet_amount = selectedOption ? r_prediction_bet_amount : l_prediction_bet_amount;
-
-                                                    
                                                     // --------------------- Not Large enough bet check ---------------------
                                                     if (prediction_bet_amount < 1) {
                                                     //     console.log(new Date().toLocaleString() + "\nAPS: Not large enough bet. Aborting.");
@@ -2536,10 +2503,10 @@
                                                     //     clearPredictionStatus();
                                                     //     return;
 
-                                                        selectedOption = l_balance < r_balance ? 1 : 0;
+                                                        selectedOption = l_win_probability < r_win_probability ? 1 : 0;
                                                         prediction_bet_amount = 1;
                                                     }
-
+                                                    const process_time = new Date().getTime() - start_process_time;
                                                     
                                                     // Largest check
                                                     const b = extractNumberValueFromString(stat_fields[selectedOption * 4 + 3].children[1].innerText)
@@ -2552,16 +2519,15 @@
                                                     // End check
 
                                                     //if(augtotalChannelPointNum*(Math.SQRT2-1) < prediction_bet_amount) {
-                                                    if (augtotalChannelPointNum * 0.5 < prediction_bet_amount) {
-                                                        // Something went wrong, abort
-                                                        console.log(new Date().toLocaleString() + "\nAPS: Prediction bet size ["+prediction_bet_amount+"] is too large. Aborting.");
-                                                        showNotification("Aborting Vote.", "Prediction bet size is erronous. Aborting.", "", true);
-                                                        closePopoutMenu();
-                                                        clearPredictionStatus();
-                                                        return;
-                                                    }       
+                                                    // if (augtotalChannelPointNum * 0.5 < prediction_bet_amount) {
+                                                    //     // Something went wrong, abort
+                                                    //     console.log(new Date().toLocaleString() + "\nAPS: Prediction bet size ["+prediction_bet_amount+"] is too large. Aborting.");
+                                                    //     showNotification("Aborting Vote.", "Prediction bet size is erronous. Aborting.", "", true);
+                                                    //     closePopoutMenu();
+                                                    //     clearPredictionStatus();
+                                                    //     return;
+                                                    // }       
 
-                                                    const process_time = new Date().getTime() - start_process_time;
                                                     
 
                                                     // --------------------- Prediction Name checks --------------------- 
@@ -2580,7 +2546,7 @@
                                                     } 
                                                     catch (e) {}
 
-                                                   
+
                                                     // --------------------- Execute Prediction ---------------------
                                                     if (isFirefox) {
                                                         window.postMessage({selectedOption:selectedOption, prediction_bet_amount:prediction_bet_amount },"https://www.twitch.tv");
@@ -2592,14 +2558,26 @@
 
                                                     const execute_time = new Date().getTime() - start_execute_time - process_time;
 
-                                                    // --------------------- Console Log Prediction --------------------
-                                                    const win_probability = selectedOption ? r_balance : l_balance;
-                                                    const ev = selectedOption ? e_right : e_left;
-                                                    const p_size = selectedOption ? r_p_size : l_p_size;
-                                                    const progression = selectedOption ? r_progression : l_progression;
-                                                    progression.unshift(Math.round(augtotalChannelPointNum * 0.05));
+                                                    // ---TEMP---
+                                                    // const leftTotal = extractNumberValueFromString(stat_fields[0].children[1].innerText);
+                                                    // const rightTotal = extractNumberValueFromString(stat_fields[4].children[1].innerText);
+                                                    // const lTrV = leftTotal * rightVotes;
+                                                    // const rTlV = rightTotal * leftVotes;
+                                                    // const l_win_probability = (lTrV/(lTrV + rTlV));
+                                                    // const r_win_probability = 1-l_win_probability;
+                                                    // ----------
 
-                                                    const expectedWinRat = 1 + (selectedOption ? leftTotal / (rightTotal + prediction_bet_amount) : rightTotal / (leftTotal + prediction_bet_amount));
+                                                    // // --------------------- Console Log Prediction --------------------
+                                                    const win_probability = selectedOption ? r_win_probability : l_win_probability;
+                                                    // const ev = selectedOption ? e_right : e_left;
+                                                    // const p_size = selectedOption ? r_p_size : l_p_size;
+                                                    // const progression = selectedOption ? r_progression : l_progression;
+                                                    // progression.unshift(Math.round(augtotalChannelPointNum * 0.05));
+
+                                                    const ev = (selectedOption ? right_optimal[1] : left_optimal[1]) - 1;
+
+                                                    const expectedReturn = selectedOption ? leftTotal / (rightTotal + prediction_bet_amount) : rightTotal / (leftTotal + prediction_bet_amount);
+                                                    const expectedWinRat = 1 + expectedReturn;
 
                                                     console.log(new Date().toLocaleString() +
                                                         "\nAPS: " +
@@ -2617,13 +2595,14 @@
                                                         "\n Win probability: " + (win_probability*100).toFixed(2) + '%' +
                                                         "\n EV return: " + (ev*100).toFixed(2) + '%' +
                                                         "\n"+
-                                                        "\n Bet percentage: " + (p_size*100).toFixed(2) + '%' +
-                                                        "\n Progression: " + progression +
+                                                        "\n Bet percentage: " + (prediction_bet_amount/augtotalChannelPointNum*100).toFixed(2) + '%' +
+                                                        // "\n Progression: " + progression +
                                                         "\n Bet Amount: " + prediction_bet_amount + " points" +
                                                         "\n EV: +" + Math.round(ev*prediction_bet_amount) + " points" +
                                                         "\n"+
-                                                        "\n Case win:" + 
-                                                        "\n  Expected Win: +" + Math.round(prediction_bet_amount * expectedWinRat) + " points (1:" + expectedWinRat.toFixed(2) + ")" +
+                                                        "\n Case win:" +
+                                                        "\n  Expected Win Ratio: 1:" + expectedWinRat.toFixed(2) +
+                                                        "\n  Expected Win: " + Math.round(prediction_bet_amount * expectedWinRat) + "(+" + Math.round(prediction_bet_amount * expectedReturn) + ") points" +
                                                         "\n"+
                                                         "\nProcess Time: " + process_time + " ms" +
                                                         "\nExecute Time: " + execute_time + " ms"
