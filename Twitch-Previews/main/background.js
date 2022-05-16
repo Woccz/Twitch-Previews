@@ -65,7 +65,7 @@ let options = {
     isfScrnWithChatEnabled: false,
     selfPreviewStreamName: "",
     sidebarFavorites_hide_originals: false
-  };
+};
 
 function sendMessageToTabs(action) {
     _browser.tabs.query({currentWindow: true}, function(tabs){
@@ -220,15 +220,6 @@ _browser.runtime.onInstalled.addListener(function(details) {
             //_browser.storage.local.set({'shouldShowNewFeatureSettingsSpan': true}, function() {});
             _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
 
-
-
-
-           /* if (navigator_lang === 'ko') {
-                _browser.storage.local.set({'shouldShowNewLangToast': true}, function() {});
-                _browser.storage.local.set({'shouldShowDelayedRateToast': false}, function() {});
-                _browser.storage.local.set({'shouldShowUpdatePopup': false}, function() {});
-            }*/
-
             _browser.storage.local.get('tpInstallTime', function(result) {
                 if (!result.tpInstallTime) {
                     _browser.storage.local.set({'shouldShowDelayedRateToast': true}, function() {});
@@ -242,10 +233,6 @@ _browser.runtime.onInstalled.addListener(function(details) {
                 }
             });
 
-           /* if (details.previousVersion === "1.5.1.6") {
-                _browser.tabs.create({url:"../popups/updatePopup.html"});
-                ga('send', 'event', 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer, 'updatePopup_show-' + appVer);
-            }*/
             send_ga_event( 'updated-' + appVer, 'updated-' + appVer, 'updated-' + appVer + ' - ' + tpga_browser);
         }
     }
@@ -295,7 +282,7 @@ function fetchFBstream(stream_name) {
                     obj.view_count_num = extractViewcountNumberFromString(obj.view_count);
                     obj.videoId = data.split("data-store=\"&#123;&quot;videoID&quot;:&quot;")[1].split('&quot;,&quot;')[0];
                     try {
-                         obj.profile_pic_url = data.split("profpic")[1].split("url(&#039;")[1].split("&#039;)")[0];
+                        obj.profile_pic_url = data.split("profpic")[1].split("url(&#039;")[1].split("&#039;)")[0];
                     } catch (e) {
                         try {
                             let img_src = obj.profile_pic_url = data.split('scaledImageFitWidth img" src="')[1].split('" ')[0];
@@ -520,6 +507,9 @@ _browser.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
         case "bg_multiStream_btn_click":
             _browser.tabs.create({url:msg.detail});
             send_ga_event('multiStream_btn_click', 'multiStream_btn_click', 'multiStream_btn_click');
+            break;
+        case "bg_multiStream_new_tab_click":
+            _browser.tabs.create({url:msg.detail});
             break;
         case "bg_incognito_chat_btn_click":
             _browser.windows.create({url:"https://www.twitch.tv/popout/" + msg.detail.stream_name + "/chat", incognito: true, top:msg.detail.top, left: msg.detail.left, height: msg.detail.height, width: msg.detail.width, type: "popup"});
