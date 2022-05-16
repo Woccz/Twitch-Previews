@@ -2477,7 +2477,11 @@
 
                                                     
                                                     // // Augment, assuming the average prediction duration is 15 mins, 15*5.3 = 80
-                                                    const augtotalChannelPointNum = totalChannelPointNum + 80;
+                                                    // const augtotalChannelPointNum = totalChannelPointNum + 80;
+
+                                                    // -- TEMP - Safety margin-- 
+                                                    const augtotalChannelPointNum = totalChannelPointNum * 5/8;  // pretend we have less points.
+                                                    // -------------------------
                                                     
 
                                                     // --Ver 3--
@@ -2489,10 +2493,6 @@
                                                     let selectedOption = left_optimal[1] < right_optimal[1] ? 1 : 0;
                                                     let prediction_bet_amount = selectedOption ? right_optimal[0] : left_optimal[0];
                                                     // ---------
-
-                                                    // -- TEMP - Safety margin-- 
-                                                    prediction_bet_amount *= 0.75;  // 75% of proposed optimal bet amount
-                                                    // -------------------------
 
 
                                                     // --------------------- Not Large enough bet check ---------------------
